@@ -1,12 +1,14 @@
 import express from "express";
 import {
   createPrivateChat,
-  sendPrivateChatMessage,
+  createGroupChat,
+  sendChatMessage,
 } from "../controller/chatController.mjs";
 
 const router = express.Router();
 
 router.post("/private", createPrivateChat);
-router.post(":chatId", sendPrivateChatMessage);
+router.post("/group", createGroupChat);
+router.post("/:chatId", sendChatMessage);
 
 export default router;
