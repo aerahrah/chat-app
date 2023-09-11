@@ -1,5 +1,15 @@
 import { Chat, Message } from "../models/Chat.mjs";
+import Users from "../models/user.mjs";
 
+export const getAllChat = async (req, res) => {
+  try {
+    const getUserId = req.user;
+    const getAllChat = Chat.find(getUserId);
+    return res.status(200).send(getAllChat);
+  } catch (error) {
+    return res.status(500).send({ error: "Error getting all chat" });
+  }
+};
 export const createPrivateChat = async (req, res) => {
   try {
     const { receiverUserId } = req.body;
@@ -48,7 +58,7 @@ export const createGroupChat = async (req, res) => {
 };
 export const sendChatMessage = async (req, res) => {
   try {
-    const chatId = req.params;
+    const { chatId } = req.params;
     const { content } = req.body;
     const getUserId = req.user;
     if (!content) {
@@ -75,5 +85,36 @@ export const sendChatMessage = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error sending private chat message" });
+  }
+};
+
+export const addNewMember = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const { username } = req.body;
+
+    const chat = await Chat.findById(chatId);
+    if (!chat) return res.status(401).send({ error: "chat not found" });
+
+    const newMember = await Users.findOne(username);
+    if (!newMember)
+      return res.status(401).send({ error: "Username not found" });
+
+    const isMember = chat.members.some((member) =>
+      member.user.equals(newMember._id)
+    );
+    if (isMember)
+      return res
+        .status(401)
+        .send({ error: "User is already in the group chat" });
+
+    chat.members.push({ user: newMember._id, displayName: newMember.username });
+    await chat.save();
+
+    return res
+      .status(200)
+      .json({ message: "User added to the group chat successfully", chat });
+  } catch (error) {
+    return res.status(500).send({ error: "Error adding user" });
   }
 };
