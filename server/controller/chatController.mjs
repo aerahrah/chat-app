@@ -10,6 +10,18 @@ export const getAllChat = async (req, res) => {
     return res.status(500).send({ error: "Error getting all chat" });
   }
 };
+export const getConversation = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const chat = await Chat.findById(chatId);
+
+    if (!chat) return res.status(404).json({ error: "Chat not found" });
+
+    return res.status(200).send(chat);
+  } catch (error) {
+    return res.status(500).send({ error: "Error getting chat conversation" });
+  }
+};
 export const createPrivateChat = async (req, res) => {
   try {
     const { receiverUserId } = req.body;
@@ -116,5 +128,26 @@ export const addNewMember = async (req, res) => {
       .json({ message: "User added to the group chat successfully", chat });
   } catch (error) {
     return res.status(500).send({ error: "Error adding user" });
+  }
+};
+
+export const leaveGroupChat = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const userId = req.user;
+
+    const chat = await Chat.findById(chatId);
+    if (!chat) return res.status(404).json({ error: "Chat not found" });
+
+    chat.members.pull(userId);
+
+    await chat.save();
+
+    return res
+      .status(200)
+      .json({ message: "User left the group successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error leaving group" });
   }
 };
