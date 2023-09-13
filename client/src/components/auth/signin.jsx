@@ -1,14 +1,14 @@
 import { useMutation } from "react-query";
 import { useState } from "react";
-import { signUp } from "../api/authAPI.js";
+import { signIn } from "../api/authAPI.js";
 
-const SignUp = () => {
-  const signUpMutation = useMutation(signUp);
+const SignIn = () => {
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });
+  const signInMutation = useMutation(signIn);
 
-  const handleSignUp = async () => {
+  const handleSignIn = async () => {
     try {
-      const data = await signUpMutation.mutateAsync(userInfo);
+      const data = await signInMutation.mutateAsync(userInfo);
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -21,13 +21,12 @@ const SignUp = () => {
         <input
           type="text"
           value={userInfo.username}
-          placeholder="Username"
+          placeholder="username"
           onChange={(e) =>
             setUserInfo((prevVal) => ({ ...prevVal, username: e.target.value }))
           }
         />
       </div>
-
       <div>
         <label htmlFor="">password</label>
         <input
@@ -39,9 +38,9 @@ const SignUp = () => {
           }
         />
       </div>
-      <button onClick={handleSignUp}>sign up</button>
+      <button onClick={handleSignIn}>Signin</button>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;
