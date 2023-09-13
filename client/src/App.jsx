@@ -1,12 +1,10 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import Signup from "./components/auth/signup";
 
 function App() {
   return (
     <>
-      <h1 className="">chat app</h1>
+      <Signup />
     </>
   );
 }
