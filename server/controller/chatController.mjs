@@ -4,7 +4,9 @@ import Users from "../models/user.mjs";
 export const getAllChat = async (req, res) => {
   try {
     const getUserId = req.user;
-    const getAllChat = Chat.find(getUserId);
+    console.log(getUserId);
+    const getAllChat = await Chat.find({ "members.user": getUserId }).exec();
+    console.log(getAllChat);
     return res.status(200).send(getAllChat);
   } catch (error) {
     return res.status(500).send({ error: "Error getting all chat" });
@@ -51,6 +53,8 @@ export const createPrivateChat = async (req, res) => {
 
 export const createGroupChat = async (req, res) => {
   try {
+    const { chatName } = req.body;
+    const getUserId = req.user;
     if (!chatName)
       return res
         .status(401)
@@ -59,10 +63,11 @@ export const createGroupChat = async (req, res) => {
     const newGroupChat = new Chat({
       name: chatName,
       type: "group",
+      members: [{ user: getUserId, displayName: "Initial User" }],
     });
 
     await newGroupChat.save();
-
+    console.log("success");
     return res.status(200).send({ message: "Group chat created successfully" });
   } catch (err) {
     return res.status(500).send({ error: "Error creating group chat" });

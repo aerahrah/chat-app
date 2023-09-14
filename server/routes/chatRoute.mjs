@@ -8,16 +8,17 @@ import {
   addNewMember,
   leaveGroupChat,
 } from "../controller/chatController.mjs";
+import authenticate from "../middleware/authenticate.mjs";
 
 const router = express.Router();
 
-router.get("/", getAllChat);
-router.get("/:chatId", getConversation);
-router.post("/private", createPrivateChat);
-router.post("/group", createGroupChat);
+router.get("/", authenticate, getAllChat);
+router.get("/:chatId", authenticate, getConversation);
+router.post("/private", authenticate, createPrivateChat);
+router.post("/group", authenticate, createGroupChat);
 
-router.post("/:chatId", sendChatMessage);
-router.post("/:chatId/add-member", addNewMember);
-router.post("/:chatId/leave", leaveGroupChat);
+router.post("/:chatId", authenticate, sendChatMessage);
+router.post("/:chatId/add-member", authenticate, addNewMember);
+router.post("/:chatId/leave", authenticate, leaveGroupChat);
 
 export default router;

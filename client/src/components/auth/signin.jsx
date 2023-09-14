@@ -9,7 +9,10 @@ const SignIn = () => {
   const handleSignIn = async () => {
     try {
       const data = await signInMutation.mutateAsync(userInfo);
-      console.log(data);
+      const { token } = data;
+      localStorage.setItem("token", token);
+      const tokenLocal = localStorage.getItem("token");
+      console.log(tokenLocal);
     } catch (error) {
       console.log(error);
     }
