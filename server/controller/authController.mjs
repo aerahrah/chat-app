@@ -41,3 +41,16 @@ export const signin = async (req, res) => {
     return res.status(500).send({ message: "Internal server error" });
   }
 };
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const { name } = req.query;
+    const regex = new RegExp(name, "i");
+
+    const users = await Users.find({ username: regex });
+
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).send({ message: "Cannot retrieve any user" });
+  }
+};
