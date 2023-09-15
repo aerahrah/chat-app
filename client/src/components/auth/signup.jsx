@@ -1,6 +1,7 @@
 import { useMutation } from "react-query";
 import { useState } from "react";
 import { signUp } from "../api/authAPI.js";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const signUpMutation = useMutation(signUp);
@@ -39,6 +40,10 @@ const SignUp = () => {
           }
         />
       </div>
+      <p>
+        Click here to
+        <Link to="/signin">Sign in</Link>
+      </p>
       <button onClick={handleSignUp}>sign up</button>
     </div>
   );

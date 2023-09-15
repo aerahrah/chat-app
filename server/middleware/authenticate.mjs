@@ -16,6 +16,7 @@ const authenticate = (req, res, next) => {
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const { id } = decodedToken;
     req.user = id;
+
     next();
   } catch (err) {
     return res.status(500).send({ message: "unauthorize" });

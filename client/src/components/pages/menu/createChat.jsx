@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useState } from "react";
 import { createMessage } from "../../api/chatAPI";
 const CreateChat = () => {
@@ -8,18 +8,15 @@ const CreateChat = () => {
   const [isAddChatOpen, setIsAddChatOpen] = useState(false);
   const [isCreateGroupChatOpen, setIsCreateGroupChatOpen] = useState(false);
   const [isCreatePrivateChatOpen, setIsCreatePrivateChatOpen] = useState(false);
-  // const handleCreatePrivateChat = () => {
-  //   try {
-  //     const data = createMessageMutation.mutateAsync(chatName);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  const handleCreateChat = (chatType) => {
+  const queryClient = useQueryClient();
+
+  const handleGroupCreateChat = () => {
     try {
-      const data = createMessageMutation.mutateAsync({ chatType, chatName });
-      console.log(data.message);
+      const data = createMessageMutation.mutateAsync(chatName).then(() => {
+        queryClient.refetchQueries("getAllChat");
+      });
+
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +55,7 @@ const CreateChat = () => {
               onChange={(e) => setChatName(e.target.value)}
             />
           </div>
-          <button onClick={() => handleCreateChat("group")}>submit</button>
+          <button onClick={handleGroupCreateChat}>submit</button>
         </div>
       )}
     </div>

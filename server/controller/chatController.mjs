@@ -67,7 +67,6 @@ export const createGroupChat = async (req, res) => {
     });
 
     await newGroupChat.save();
-    console.log("success");
     return res.status(200).send({ message: "Group chat created successfully" });
   } catch (err) {
     return res.status(500).send({ error: "Error creating group chat" });
