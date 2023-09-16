@@ -45,6 +45,10 @@ export const signin = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const { name } = req.query;
+    if (!name) {
+      return res.status(200).json([]);
+    }
+    console.log(name);
     const regex = new RegExp(name, "i");
 
     const users = await Users.find({ username: regex });

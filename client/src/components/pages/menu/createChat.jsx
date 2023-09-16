@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from "react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createMessage } from "../../api/chatAPI";
+import { getAllUsers } from "../../api/authAPI";
+import { Combobox } from "@headlessui/react";
+import SearchUser from "./searchUser";
+
 const CreateChat = () => {
   const createMessageMutation = useMutation(createMessage);
   const [chatName, setChatName] = useState("");
@@ -8,19 +12,18 @@ const CreateChat = () => {
   const [isAddChatOpen, setIsAddChatOpen] = useState(false);
   const [isCreateGroupChatOpen, setIsCreateGroupChatOpen] = useState(false);
   const [isCreatePrivateChatOpen, setIsCreatePrivateChatOpen] = useState(false);
+  const [allUsers, setAllUsers] = useState(null);
   const queryClient = useQueryClient();
 
-  const handleGroupCreateChat = () => {
+  const handleCreateGroupChat = async () => {
     try {
-      const data = createMessageMutation.mutateAsync(chatName).then(() => {
-        queryClient.refetchQueries("getAllChat");
-      });
-
-      console.log(data);
+      const data = await createMessageMutation.mutateAsync(chatName);
+      queryClient.refetchQueries("getAllChat");
     } catch (error) {
       console.log(error);
     }
   };
+  const handleCreatePrivateChat = async () => {};
 
   return (
     <div>
@@ -55,7 +58,12 @@ const CreateChat = () => {
               onChange={(e) => setChatName(e.target.value)}
             />
           </div>
-          <button onClick={handleGroupCreateChat}>submit</button>
+          <button onClick={handleCreateGroupChat}>submit</button>
+        </div>
+      )}
+      {isCreatePrivateChatOpen && (
+        <div>
+          <SearchUser />
         </div>
       )}
     </div>

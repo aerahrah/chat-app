@@ -2,7 +2,9 @@ import { useQuery } from "react-query";
 import { getAllChat } from "../../api/chatAPI";
 
 const GetAllChat = () => {
-  const { data, isLoading, error } = useQuery("getAllChat", getAllChat);
+  const { data, isLoading, error } = useQuery("getAllChat", getAllChat, {
+    staleTime: 60000,
+  });
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -14,7 +16,7 @@ const GetAllChat = () => {
   return (
     <div>
       {data.map((data) => (
-        <ul>
+        <ul key={data._id}>
           <li>{data.name}</li>
         </ul>
       ))}

@@ -28,3 +28,24 @@ export const signIn = async (userInfo) => {
   }
   return response.json();
 };
+
+export const getAllUsers = async (userName) => {
+  console.log(userName);
+  try {
+    if (!userName) {
+      return [];
+    }
+
+    const url = `${BASE_URL}?name=${encodeURIComponent(userName)}`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

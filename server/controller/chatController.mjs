@@ -4,9 +4,8 @@ import Users from "../models/user.mjs";
 export const getAllChat = async (req, res) => {
   try {
     const getUserId = req.user;
-    console.log(getUserId);
     const getAllChat = await Chat.find({ "members.user": getUserId }).exec();
-    console.log(getAllChat);
+
     return res.status(200).send(getAllChat);
   } catch (error) {
     return res.status(500).send({ error: "Error getting all chat" });
@@ -42,7 +41,7 @@ export const createPrivateChat = async (req, res) => {
       await chat.save();
     }
 
-    res
+    return res
       .status(201)
       .json({ message: "Private chat created successfully", chat });
   } catch (error) {
