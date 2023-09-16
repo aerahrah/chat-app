@@ -4,7 +4,6 @@ const memberSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
   displayName: {
     type: String,
-    required: true,
   },
 });
 

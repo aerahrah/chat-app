@@ -14,9 +14,9 @@ export const getAllChat = async () => {
     console.log(error);
   }
 };
-export const createMessage = async (chatName) => {
+export const createGroupChat = async (chatName) => {
   try {
-    if (chatName === "") {
+    if (!chatName) {
       console.log("No chat name");
       return null;
     }
@@ -28,7 +28,25 @@ export const createMessage = async (chatName) => {
       },
       body: JSON.stringify({ chatName }),
     });
-    return response;
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const createPrivateChat = async (userNameId) => {
+  try {
+    console.log(userNameId);
+    const response = await fetch(`${BASE_URL}/private`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+      },
+      body: JSON.stringify({ userNameId }),
+    });
+
+    return response.json();
   } catch (error) {
     throw new Error(error);
   }

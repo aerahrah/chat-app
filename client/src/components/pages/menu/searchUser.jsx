@@ -5,10 +5,9 @@ import debounce from "lodash/debounce";
 import { getAllUsers } from "../../api/authAPI";
 import { Combobox } from "@headlessui/react";
 
-const SearchUser = () => {
+const SearchUser = ({ setUserNameId }) => {
   const queryClient = useQueryClient();
   const [userName, setUserName] = useState("");
-  const [userNameDispaly, setUserNameDispaly] = useState("");
 
   const { data, isLoading, error, refetch } = useQuery(
     "getAllUsers",
@@ -19,8 +18,13 @@ const SearchUser = () => {
       staleTime: 60000,
     }
   );
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  console.log(data);
+  if (error) {
+    return <div>Error fetching data: {error.message}</div>;
+  }
   useEffect(() => {
     if (userName) {
       const debouncedRefetch = debounce(() => {
@@ -37,13 +41,20 @@ const SearchUser = () => {
     <div>
       <Combobox value={userName}>
         <Combobox.Input onChange={(e) => setUserName(e.target.value)} />
-        {/* {cityDetails?.length > 0 && (
+        {data?.length > 0 && (
           <Combobox.Options>
-            {cityDetails.map((city) => (
-              <CityOption key={city.id} city={city} />
+            {data.map((user) => (
+              <Combobox.Option
+                className="cursor-pointer hover:bg-blue-200 p-1 px-6 border-b-[1px] border-blue-100"
+                key={user._id}
+                value={user._id}
+                onClick={() => setUserNameId(user._id)}
+              >
+                {user.username}
+              </Combobox.Option>
             ))}
           </Combobox.Options>
-        )} */}
+        )}
       </Combobox>
     </div>
   );

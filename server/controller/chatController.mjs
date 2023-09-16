@@ -25,18 +25,30 @@ export const getConversation = async (req, res) => {
 };
 export const createPrivateChat = async (req, res) => {
   try {
-    const { receiverUserId } = req.body;
+    const { userNameId } = req.body;
     const getUserId = req.user;
+
+    const isUsernameExist = await Users.findById(userNameId);
+    if (!isUsernameExist) {
+      return res.status(401).send({ error: "User not found" });
+    }
     let chat = await Chat.findOne({
-      members: { $all: [getUserId, receiverUserId], $size: 2 },
+      members: {
+        $all: [
+          { $elemMatch: { user: getUserId } },
+          { $elemMatch: { user: userNameId } },
+        ],
+        $size: 2,
+      },
       type: "private",
     });
-
+    console.log(chat);
+    console.log(isUsernameExist);
     if (!chat) {
       chat = new Chat({
-        name: "Private Chat",
+        name: isUsernameExist.username,
         type: "private",
-        members: [{ user: getUserId }, { user: receiverUserId }],
+        members: [{ user: getUserId }, { user: userNameId }],
       });
       await chat.save();
     }
