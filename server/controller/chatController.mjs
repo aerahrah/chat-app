@@ -4,6 +4,7 @@ import Users from "../models/user.mjs";
 export const getAllChat = async (req, res) => {
   try {
     const getUserId = req.user;
+    console.log(getUserId);
     const getAllChat = await Chat.find({ "members.user": getUserId }).exec();
 
     return res.status(200).send(getAllChat);

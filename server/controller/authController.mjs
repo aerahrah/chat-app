@@ -7,14 +7,20 @@ dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 export const signup = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, username, password, firstName, lastName } = req.body;
     const userExist = await Users.findOne({ username });
 
     if (userExist) {
       return res.status(401).send({ message: "User already exists" });
     }
     const hashPassword = await bcrypt.hash(password, 10);
-    const newUser = Users({ username: username, password: hashPassword });
+    const newUser = Users({
+      email: email,
+      username: username,
+      password: hashPassword,
+      firstName: firstName,
+      lastName: lastName,
+    });
     newUser.save();
     return res.status(200).send({ message: "User registered successfully" });
   } catch (err) {

@@ -2,9 +2,14 @@ import { useQuery } from "react-query";
 import { getAllChat } from "../../api/chatAPI";
 
 const GetAllChat = () => {
-  const { data, isLoading, error } = useQuery("getAllChat", getAllChat, {
-    staleTime: 60000,
-  });
+  const { data, isLoading, error, isFetching } = useQuery(
+    "getAllChat",
+    () => getAllChat(),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -12,7 +17,12 @@ const GetAllChat = () => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
-  console.log(data);
+
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  // Now, render the chat data from the current account
   return (
     <div>
       {data.map((data) => (

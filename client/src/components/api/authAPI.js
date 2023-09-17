@@ -1,12 +1,11 @@
 const BASE_URL = "http://localhost:3500/auth";
 
 export const signUp = async (userInfo) => {
-  console.log(userInfo.username, userInfo.password);
-  const { username, password } = userInfo;
+  const { email, username, password, firstName, lastName } = userInfo;
   const response = await fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, username, password, firstName, lastName }),
   });
   if (!response.ok) {
     throw new Error("Sign-up failed");

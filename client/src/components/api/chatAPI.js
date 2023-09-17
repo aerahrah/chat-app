@@ -1,19 +1,25 @@
 const BASE_URL = "http://localhost:3500/chat";
-const TOKEN = localStorage.getItem("token");
+
+const getToken = () => {
+  return localStorage.getItem("token");
+};
+
 export const getAllChat = async () => {
   try {
     const response = await fetch(`${BASE_URL}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
     return response.json();
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
+
 export const createGroupChat = async (chatName) => {
   try {
     if (!chatName) {
@@ -24,7 +30,7 @@ export const createGroupChat = async (chatName) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify({ chatName }),
     });
@@ -41,7 +47,7 @@ export const createPrivateChat = async (userNameId) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify({ userNameId }),
     });

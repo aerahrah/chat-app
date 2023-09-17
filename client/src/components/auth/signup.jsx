@@ -5,7 +5,13 @@ import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const signUpMutation = useMutation(signUp);
-  const [userInfo, setUserInfo] = useState({ username: "", password: "" });
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+  });
 
   const handleSignUp = async () => {
     try {
@@ -18,7 +24,32 @@ const SignUp = () => {
   return (
     <div>
       <div>
-        <label htmlFor="">username</label>
+        <label htmlFor="">First Name</label>
+        <input
+          type="text"
+          value={userInfo.firstName}
+          placeholder="First Name"
+          onChange={(e) =>
+            setUserInfo((prevVal) => ({
+              ...prevVal,
+              firstName: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div>
+        <label htmlFor="">Last Name</label>
+        <input
+          type="text"
+          value={userInfo.lastName}
+          placeholder="Last Name"
+          onChange={(e) =>
+            setUserInfo((prevVal) => ({ ...prevVal, lastName: e.target.value }))
+          }
+        />
+      </div>
+      <div>
+        <label htmlFor="">Username</label>
         <input
           type="text"
           value={userInfo.username}
@@ -28,13 +59,25 @@ const SignUp = () => {
           }
         />
       </div>
+      <div>
+        <label htmlFor="">Email</label>
+        <input
+          type="text"
+          value={userInfo.email}
+          placeholder="Email"
+          onChange={(e) =>
+            setUserInfo((prevVal) => ({ ...prevVal, email: e.target.value }))
+          }
+        />
+      </div>
 
       <div>
-        <label htmlFor="">password</label>
+        <label htmlFor="">Password</label>
         <input
           type="password"
           value={userInfo.password}
-          placeholder="password"
+          placeholder="Password"
+          required
           onChange={(e) =>
             setUserInfo((prevVal) => ({ ...prevVal, password: e.target.value }))
           }

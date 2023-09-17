@@ -1,16 +1,19 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useState } from "react";
 import { signIn } from "../api/authAPI.js";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });
+  const queryClient = useQueryClient();
   const signInMutation = useMutation(signIn);
   const navigate = useNavigate();
   const handleSignIn = async () => {
     try {
       const data = await signInMutation.mutateAsync(userInfo);
+      queryClient.invalidateQueries("getAllChat");
       localStorage.setItem("token", data.token);
+
       navigate("/chat");
     } catch (error) {
       console.log(error);
