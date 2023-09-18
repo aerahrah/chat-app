@@ -8,6 +8,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 export const signup = async (req, res) => {
   try {
     const { email, username, password, firstName, lastName } = req.body;
+    console.log(email, username, password, firstName, lastName);
     const userExist = await Users.findOne({ username });
 
     if (userExist) {
@@ -30,9 +31,13 @@ export const signup = async (req, res) => {
 
 export const signin = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { identifier, password } = req.body;
+    console.log(identifier);
+    const userExist = await Users.findOne({
+      $or: [{ username: identifier }, { email: identifier }],
+    });
 
-    const userExist = await Users.findOne({ username });
+    console.log(userExist);
     if (!userExist) {
       return res.status(401).send({ message: "Invalid username or password" });
     }

@@ -2,6 +2,7 @@ const BASE_URL = "http://localhost:3500/auth";
 
 export const signUp = async (userInfo) => {
   const { email, username, password, firstName, lastName } = userInfo;
+  console.log(email, username, password, firstName, lastName);
   const response = await fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -10,17 +11,19 @@ export const signUp = async (userInfo) => {
   if (!response.ok) {
     throw new Error("Sign-up failed");
   }
+
+  console.log(response);
   return response.json();
 };
 
 export const signIn = async (userInfo) => {
-  const { username, password } = userInfo;
+  const { identifier, password } = userInfo;
   const response = await fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ identifier, password }),
   });
   if (!response.ok) {
     throw new Error("Sign-in failed");
