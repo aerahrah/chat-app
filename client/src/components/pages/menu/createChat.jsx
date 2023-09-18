@@ -1,8 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useState, useEffect } from "react";
 import { createGroupChat, createPrivateChat } from "../../api/chatAPI";
-import { getAllUsers } from "../../api/authAPI";
-import { Combobox } from "@headlessui/react";
 import SearchUser from "./searchUser";
 
 const CreateChat = () => {
