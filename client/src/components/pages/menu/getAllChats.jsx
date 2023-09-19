@@ -18,11 +18,10 @@ const GetAllChat = () => {
     return <div>Error fetching data: {error.message}</div>;
   }
 
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
+  // if (isFetching) {
+  //   return <div>Loading...</div>;
+  // }
 
-  // Now, render the chat data from the current account
   return (
     <div>
       {data.map((data) => (

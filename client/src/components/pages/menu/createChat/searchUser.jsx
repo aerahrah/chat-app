@@ -1,8 +1,7 @@
 import { useQuery, useQueryClient } from "react-query";
-
 import { useState, useEffect } from "react";
 import debounce from "lodash/debounce";
-import { getAllUsers } from "../../api/authAPI";
+import { getAllUsers } from "../../../api/authAPI";
 import { Combobox } from "@headlessui/react";
 
 const SearchUser = ({ setUserNameId }) => {
@@ -15,7 +14,6 @@ const SearchUser = ({ setUserNameId }) => {
     {
       initialData: [],
       enabled: false,
-      staleTime: 60000,
     }
   );
   if (isLoading) {
@@ -25,6 +23,11 @@ const SearchUser = ({ setUserNameId }) => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
+  const handleChangeUsername = (e) => {
+    setUserName(e.username);
+    setUserNameId(e._id);
+  };
+
   useEffect(() => {
     if (userName) {
       const debouncedRefetch = debounce(() => {
@@ -48,7 +51,7 @@ const SearchUser = ({ setUserNameId }) => {
                 className="cursor-pointer hover:bg-blue-200 p-1 px-6 border-b-[1px] border-blue-100"
                 key={user._id}
                 value={user._id}
-                onClick={() => setUserNameId(user._id)}
+                onClick={() => handleChangeUsername(user)}
               >
                 {user.username}
               </Combobox.Option>

@@ -25,7 +25,7 @@ const SignIn = () => {
         <h1 className="text-7xl font-black text-blue-950">ChatMe</h1>
         <div className="flex flex-col gap-4 bg-white shadow-lg p-6 rounded-md text-lg">
           <input
-            className="outline outline-1 outline-gray-400 rounded-sm focus:outline-blue-500 block w-full p-2"
+            className="outline outline-1 outline-gray-400 rounded-sm focus:outline-blue-500 block p-2 w-[100vw] max-w-[400px]"
             type="text"
             value={userInfo.identifier}
             placeholder="Email or username"
@@ -38,7 +38,7 @@ const SignIn = () => {
           />
 
           <input
-            className="outline outline-1 outline-gray-400 rounded-sm focus:outline-blue-500 block w-full p-2 w-[100vw] max-w-[440px]"
+            className="outline outline-1 outline-gray-400 rounded-sm focus:outline-blue-500 block p-2 w-[100vw] max-w-[400px]"
             type="password"
             value={userInfo.password}
             placeholder="Password"

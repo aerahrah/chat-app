@@ -6,24 +6,16 @@ const useChatCreationStore = create((set) => ({
   isCreatePrivateChatOpen: false,
   chatName: "",
   userNameId: "",
+  toggleChatOpen: () =>
+    set((state) => ({ isAddChatOpen: !state.isAddChatOpen })),
+  toggleCreateGroupChatOpen: () =>
+    set((state) => ({ isCreateGroupChatOpen: !state.isCreateGroupChatOpen })),
+  toggleCreatePrivateChatOpen: () =>
+    set((state) => ({
+      isCreatePrivateChatOpen: !state.isCreatePrivateChatOpen,
+    })),
+  setChatName: (chatName) => set({ chatName }),
+  setUserNameId: (userNameId) => set({ userNameId }),
 }));
 
 export default useChatCreationStore;
-
-export const useChatCreationActions = useChatCreationStore((state) => ({
-  toggleAddChatModal: () =>
-    state.set((prevState) => ({ isAddChatOpen: !prevState.isAddChatOpen })),
-  toggleCreateGroupChat: () =>
-    state.set((prevState) => ({
-      isCreateGroupChatOpen: !prevState.isCreateGroupChatOpen,
-    })),
-  toggleCreatePrivateChat: () =>
-    state.set((prevState) => ({
-      isCreatePrivateChatOpen: !prevState.isCreatePrivateChatOpen,
-    })),
-}));
-
-export const useChatCreationSetter = useChatCreationStore((state) => ({
-  setChatName: (chatName) => state.set({ chatName }),
-  setUserNameId: (userNameId) => state.set({ userNameId }),
-}));

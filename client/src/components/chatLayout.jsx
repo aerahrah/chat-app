@@ -1,4 +1,4 @@
-import CreateChat from "./pages/menu/createChat";
+import CreateChat from "./pages/menu/createChat/createChatBtn";
 import GetAllChat from "./pages/menu/getAllChats";
 const ChatLayout = () => {
   return (
