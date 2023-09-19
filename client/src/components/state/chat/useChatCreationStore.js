@@ -1,13 +1,10 @@
 import { create } from "zustand";
 
 const useChatCreationStore = create((set) => ({
-  isAddChatOpen: false,
   isCreateGroupChatOpen: false,
   isCreatePrivateChatOpen: false,
   chatName: "",
   userNameId: "",
-  toggleChatOpen: () =>
-    set((state) => ({ isAddChatOpen: !state.isAddChatOpen })),
   toggleCreateGroupChatOpen: () =>
     set((state) => ({ isCreateGroupChatOpen: !state.isCreateGroupChatOpen })),
   toggleCreatePrivateChatOpen: () =>

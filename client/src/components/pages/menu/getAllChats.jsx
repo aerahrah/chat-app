@@ -23,12 +23,14 @@ const GetAllChat = () => {
   // }
 
   return (
-    <div>
-      {data.map((data) => (
-        <ul key={data._id}>
-          <li>{data.name}</li>
-        </ul>
-      ))}
+    <div className="relative z-0 overflow-y-auto h-full">
+      <div>
+        {data.map((data) => (
+          <ul className="p-4 hover:bg-gray-300" key={data._id}>
+            <li>{data.name}</li>
+          </ul>
+        ))}
+      </div>
     </div>
   );
 };
