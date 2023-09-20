@@ -1,6 +1,6 @@
 import { Chat, Message } from "../models/Chat.mjs";
 import Users from "../models/user.mjs";
-
+import { getInitials } from "../utils/getInitials.mjs";
 export const getAllChat = async (req, res) => {
   try {
     const getUserId = req.user;
@@ -33,6 +33,8 @@ export const createPrivateChat = async (req, res) => {
     if (!isUsernameExist) {
       return res.status(401).send({ error: "User not found" });
     }
+    const imgName = `${getInitials(isUsernameExist.firstName)}`;
+
     let chat = await Chat.findOne({
       members: {
         $all: [
@@ -43,13 +45,13 @@ export const createPrivateChat = async (req, res) => {
       },
       type: "private",
     });
-    console.log(chat);
-    console.log(isUsernameExist);
     if (!chat) {
       chat = new Chat({
-        name: isUsernameExist.username,
+        name: `${isUsernameExist.firstName} ${isUsernameExist.lastName}`,
         type: "private",
         members: [{ user: getUserId }, { user: userNameId }],
+        chatImg: imgName,
+        chatImgType: "initials",
       });
       await chat.save();
     }

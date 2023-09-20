@@ -1,34 +1,40 @@
 const BASE_URL = "http://localhost:3500/auth";
 
-export const signUp = async (userInfo) => {
-  const { email, username, password, firstName, lastName } = userInfo;
-  console.log(email, username, password, firstName, lastName);
-  const response = await fetch(`${BASE_URL}/signup`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, username, password, firstName, lastName }),
-  });
-  if (!response.ok) {
-    throw new Error("Sign-up failed");
-  }
+const getToken = () => {
+  return localStorage.getItem("token");
+};
 
-  console.log(response);
-  return response.json();
+export const signUp = async (userInfo) => {
+  try {
+    const { email, username, password, firstName, lastName } = userInfo;
+    console.log(email, username, password, firstName, lastName);
+    const response = await fetch(`${BASE_URL}/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, username, password, firstName, lastName }),
+    });
+    console.log(response);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const signIn = async (userInfo) => {
-  const { identifier, password } = userInfo;
-  const response = await fetch(`${BASE_URL}/signin`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ identifier, password }),
-  });
-  if (!response.ok) {
-    throw new Error("Sign-in failed");
+  try {
+    const { identifier, password } = userInfo;
+    const response = await fetch(`${BASE_URL}/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ identifier, password }),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
   }
-  return response.json();
 };
 
 export const getAllUsers = async (userName) => {
@@ -46,6 +52,24 @@ export const getAllUsers = async (userName) => {
         "Content-Type": "application/json",
       },
     });
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserProfile = async () => {
+  try {
+    const url = `${BASE_URL}/user`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+    console.log(response);
     return response.json();
   } catch (error) {
     console.log(error);

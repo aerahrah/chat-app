@@ -35,6 +35,14 @@ const chatSchema = new mongoose.Schema(
     },
     members: [memberSchema],
     messages: [messageSchema],
+    chatImg: {
+      type: String,
+      required: true,
+    },
+    chatImgType: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

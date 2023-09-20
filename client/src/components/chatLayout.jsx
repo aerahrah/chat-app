@@ -1,9 +1,9 @@
-import CreateChat from "./pages/menu/createChat/createChatBtn";
+import SideBarPanel from "./pages/menu/sideBarPanel";
 import GetAllChat from "./pages/menu/getAllChats";
 const ChatLayout = () => {
   return (
     <div className="flex flex-col h-screen w-[340px] bg-gray-100">
-      <CreateChat />
+      <SideBarPanel />
       <GetAllChat />
     </div>
   );

@@ -25,10 +25,7 @@ const SignUp = () => {
     <div className="bg-blue-50 min-h-screen min-w-screen">
       <div className="flex justify-between items-center min-h-screen mx-auto max-w-[940px]">
         <h1 className="text-7xl font-black text-blue-950">ChatMe</h1>
-        <form
-          className="flex flex-col gap-4 bg-white shadow-lg p-6 rounded-md text-lg"
-          onSubmit={handleSignUp}
-        >
+        <div className="flex flex-col gap-4 bg-white shadow-lg p-6 rounded-md text-lg">
           <div className="flex gap-4 justify-between ">
             <input
               className="outline outline-1 outline-gray-400 rounded-sm focus:outline-blue-500 block w-full p-2"
@@ -106,12 +103,12 @@ const SignUp = () => {
           <div className="flex flex-col ">
             <button
               className="p-2 mt-4 text-green-50 transition duration-100  bg-green-500 hover:bg-green-600 min-w-48 w-[60%] mx-auto rounded-md"
-              type="submit"
+              onClick={handleSignUp}
             >
               Sign up
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
