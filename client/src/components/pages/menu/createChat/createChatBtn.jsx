@@ -13,13 +13,11 @@ const CreateChat = () => {
   } = useChatCreationStore();
 
   return (
-    <div className="h-36">
+    <div>
       <div className="relative text-gray-700 text-lg">
         <Popover className="relative">
-          <Popover.Button>
-            <i className="hover:bg-gray-200 rounded-full">
-              <BiPlus className="h-8 w-8" />
-            </i>
+          <Popover.Button className="hover:bg-gray-200 rounded-full">
+            <BiPlus className="h-8 w-8" />
           </Popover.Button>
           <Popover.Panel className="absolute z-10">
             <div className="absolute shadow-md p-6 flex flex-col gap-6 z-10 rounded-md bg-white items-start">

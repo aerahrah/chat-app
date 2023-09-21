@@ -78,6 +78,8 @@ export const createGroupChat = async (req, res) => {
       name: chatName,
       type: "group",
       members: [{ user: getUserId, displayName: "Initial User" }],
+      chatImg: chatName,
+      chatImgType: "initials",
     });
 
     await newGroupChat.save();
