@@ -17,7 +17,6 @@ const GetAllChat = () => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
-  console.log(data);
   return (
     <div className="relative z-0 overflow-y-auto h-full">
       <div>
@@ -33,7 +32,7 @@ const GetAllChat = () => {
                 className="h-12 w-12 rounded-full"
               />
             </li>
-            <li>{data.name}</li>
+            {data.name}
           </ul>
         ))}
       </div>
