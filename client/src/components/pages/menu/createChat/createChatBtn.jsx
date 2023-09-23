@@ -36,7 +36,7 @@ const CreateChat = () => {
             <Popover.Panel>
               <div className="absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap">
                 <button
-                  className="flex gap-2 items-center whitespace-nowrap py-2 px-4 hover:bg-gray-100"
+                  className="flex gap-2 items-center whitespace-nowrap capitalize py-2 px-4 hover:bg-gray-100"
                   onClick={toggleCreatePrivateChatOpen}
                 >
                   <i>
@@ -45,7 +45,7 @@ const CreateChat = () => {
                   Private Chat
                 </button>
                 <button
-                  className="flex gap-2 items-center whitespace-nowrap py-2 px-4 hover:bg-gray-100"
+                  className="flex gap-2 items-center whitespace-nowrap capitalize py-2 px-4 hover:bg-gray-100"
                   onClick={toggleCreateGroupChatOpen}
                 >
                   <i>

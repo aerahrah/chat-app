@@ -1,13 +1,11 @@
 import { useQuery } from "react-query";
 import { getAllChat } from "../../api/chatAPI";
-
+import useChatCreationStore from "../../state/chat/useChatCreationStore";
 const GetAllChat = () => {
-  const { data, isLoading, error, isFetching } = useQuery(
-    "getAllChat",
-    () => getAllChat(),
-    {
-      refetchOnWindowFocus: false,
-    }
+  const searchTermChat = useChatCreationStore((state) => state.searchTermChat);
+  const queryKey = ["getAllChat", searchTermChat];
+  const { data, isLoading, error, isFetching } = useQuery(queryKey, () =>
+    getAllChat(searchTermChat)
   );
 
   if (isLoading) {

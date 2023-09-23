@@ -4,14 +4,22 @@ import { getInitials } from "../utils/getInitials.mjs";
 export const getAllChat = async (req, res) => {
   try {
     const getUserId = req.user;
-    console.log(getUserId);
-    const getAllChat = await Chat.find({ "members.user": getUserId }).exec();
+    const { chatName } = req.query;
+    console.log(getUserId, chatName);
 
-    return res.status(200).send(getAllChat);
+    const baseQuery = { "members.user": getUserId };
+    if (chatName && chatName.trim() !== "") {
+      baseQuery.name = { $regex: chatName, $options: "i" };
+    }
+
+    const chats = await Chat.find(baseQuery).exec();
+    console.log(chats);
+    return res.status(200).json(chats);
   } catch (error) {
-    return res.status(500).send({ error: "Error getting all chat" });
+    return res.status(500).send({ error: "Error getting chats" });
   }
 };
+
 export const getConversation = async (req, res) => {
   try {
     const { chatId } = req.params;

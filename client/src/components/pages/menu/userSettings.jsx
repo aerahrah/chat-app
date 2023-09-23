@@ -27,12 +27,12 @@ const UserSettings = () => {
       >
         <Popover.Panel>
           <div className="absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap">
-            <button className="flex gap-2 items-center whitespace-nowrap py-2 px-4 hover:bg-gray-100">
+            <button className="flex gap-2 items-center whitespace-nowrap capitalize py-2 px-4 hover:bg-gray-100">
               <FaGear />
               Profile settings
             </button>
             <button
-              className="flex gap-2 items-center whitespace-nowrap py-2 px-4  hover:bg-gray-100 w-full"
+              className="flex gap-2 items-center whitespace-nowrap capitalize py-2 px-4  hover:bg-gray-100 w-full"
               onClick={handleLogout}
             >
               <i>

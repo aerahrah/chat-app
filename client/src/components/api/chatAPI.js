@@ -4,15 +4,17 @@ const getToken = () => {
   return localStorage.getItem("token");
 };
 
-export const getAllChat = async () => {
+export const getAllChat = async (searchTermChat) => {
   try {
-    const response = await fetch(`${BASE_URL}/`, {
+    console.log(searchTermChat);
+    const response = await fetch(`${BASE_URL}/?chatName=${searchTermChat}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
     });
+    console.log(response);
     return response.json();
   } catch (error) {
     console.log(error);
