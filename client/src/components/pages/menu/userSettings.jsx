@@ -1,10 +1,18 @@
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { Popover, Transition } from "@headlessui/react";
+import { FaGear, FaArrowRightFromBracket } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const UserSettings = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
-    <Popover className="relative">
-      <Popover.Button className="hover:bg-gray-200 rounded-full">
+    <Popover className="relative text-gray-700 text-lg">
+      <Popover.Button className="bg-gray-200/40 hover:bg-gray-200 rounded-full">
         <BiDotsHorizontalRounded className="h-8 w-8 " />
       </Popover.Button>
       <Transition
@@ -18,9 +26,20 @@ const UserSettings = () => {
         className="absolute z-30"
       >
         <Popover.Panel>
-          <div className="absolute shadow-md p-6 flex flex-col gap-6 z-10 rounded-md bg-white items-start whitespace-nowrap">
-            <div>Profile settings</div>
-            <div>Logout</div>
+          <div className="absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap">
+            <button className="flex gap-2 items-center whitespace-nowrap py-2 px-4 hover:bg-gray-100">
+              <FaGear />
+              Profile settings
+            </button>
+            <button
+              className="flex gap-2 items-center whitespace-nowrap py-2 px-4  hover:bg-gray-100 w-full"
+              onClick={handleLogout}
+            >
+              <i>
+                <FaArrowRightFromBracket />
+              </i>
+              Logout
+            </button>
           </div>
         </Popover.Panel>
       </Transition>

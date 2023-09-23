@@ -5,12 +5,11 @@ import { getAllUsers } from "../../../api/authAPI";
 import { Combobox } from "@headlessui/react";
 
 const SearchUser = ({ setUserNameId }) => {
-  const queryClient = useQueryClient();
-  const [userName, setUserName] = useState("");
+  const [identifier, setIdentifier] = useState("");
 
   const { data, isLoading, error, refetch } = useQuery(
     "getAllUsers",
-    () => getAllUsers(userName),
+    () => getAllUsers(identifier),
     {
       initialData: [],
       enabled: false,
@@ -24,12 +23,12 @@ const SearchUser = ({ setUserNameId }) => {
     return <div>Error fetching data: {error.message}</div>;
   }
   const handleChangeUsername = (e) => {
-    setUserName(e.username);
+    setIdentifier(`${e.firstName} ${e.lastName}`);
     setUserNameId(e._id);
   };
 
   useEffect(() => {
-    if (userName) {
+    if (identifier) {
       const debouncedRefetch = debounce(() => {
         refetch();
       }, 500);
@@ -39,25 +38,38 @@ const SearchUser = ({ setUserNameId }) => {
         debouncedRefetch.cancel();
       };
     }
-  }, [userName, refetch]);
+  }, [identifier, refetch]);
   return (
-    <div>
-      <Combobox value={userName}>
-        <Combobox.Input onChange={(e) => setUserName(e.target.value)} />
-        {data?.length > 0 && (
-          <Combobox.Options>
-            {data.map((user) => (
-              <Combobox.Option
-                className="cursor-pointer hover:bg-blue-200 p-1 px-6 border-b-[1px] border-blue-100"
-                key={user._id}
-                value={user._id}
-                onClick={() => handleChangeUsername(user)}
-              >
-                {user.username}
-              </Combobox.Option>
-            ))}
-          </Combobox.Options>
-        )}
+    <div className="mb-2">
+      <Combobox value={identifier}>
+        <Combobox.Input
+          onChange={(e) => setIdentifier(e.target.value)}
+          placeholder="Enter name or username"
+          className="outline outline-1 bg-stone-100 outline-gray-400 rounded-sm focus:outline-blue-500 block p-2 mb-2 w-[40vw] max-w-[100%] "
+        />
+        <div className="h-36 overflow-y-auto">
+          {data?.length > 0 && (
+            <Combobox.Options>
+              {data.map((user) => (
+                <Combobox.Option
+                  className="cursor-pointer hover:bg-stone-100 p-2 border-b-[1px] border-blue-100"
+                  key={user._id}
+                  value={user._id}
+                  onClick={() => handleChangeUsername(user)}
+                >
+                  <div className="flex justify-between items-center">
+                    <img
+                      src={`https://api.dicebear.com/7.x/${user.userProfileImgType}/svg?seed=${user.userProfileImg}`}
+                      alt="avatar"
+                      className="h-8 w-8 rounded-full"
+                    />
+                    <p>{`${user.firstName} ${user.lastName}`}</p>
+                  </div>
+                </Combobox.Option>
+              ))}
+            </Combobox.Options>
+          )}
+        </div>
       </Combobox>
     </div>
   );

@@ -35,28 +35,34 @@ const CreatePrivateChat = ({
           open={isCreatePrivateChatOpen}
           onClose={toggleCreatePrivateChatOpen}
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isCreatePrivateChatOpen ? 1 : 0 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/30"
-            aria-hidden="true"
-          />
+          <div className="fixed inset-0 bg-black/40" />
 
-          <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+          <div className="fixed inset-0 flex w-screen items-center justify-center">
             <Dialog.Panel
               as={motion.div}
               initial={{ scale: 0.7 }}
               animate={{ scale: isCreatePrivateChatOpen ? 1 : 0.7 }}
               exit={{ scale: 0.7 }}
-              className="mx-auto max-w-sm rounded bg-white"
+              className="mx-auto max-w-sm rounded shadow-xl bg-white p-4"
             >
-              <Dialog.Title>Create Private Chat</Dialog.Title>
+              <Dialog.Title className="text-lg pb-4">
+                Create Private Chat
+              </Dialog.Title>
               <div>
                 <SearchUser setUserNameId={setUserNameId} />
-                <div>
-                  <button onClick={toggleCreatePrivateChatOpen}>Cancel</button>
-                  <button onClick={handleCreatePrivateChat}>submit</button>
+                <div className="flex justify-between">
+                  <button
+                    className="bg-red-500 text-red-50 rounded-sm px-10 py-2 hover:bg-red-600 shadow-md  capitalize"
+                    onClick={toggleCreatePrivateChatOpen}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="bg-blue-500 text-blue-50 rounded-sm px-10 py-2 hover:bg-blue-600  shadow-md  capitalize"
+                    onClick={handleCreatePrivateChat}
+                  >
+                    Create
+                  </button>
                 </div>
               </div>
             </Dialog.Panel>

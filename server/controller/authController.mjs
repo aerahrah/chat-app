@@ -90,8 +90,10 @@ export const getAllUsers = async (req, res) => {
     console.log(name);
     const regex = new RegExp(name, "i");
 
-    const users = await Users.find({ username: regex });
-
+    const users = await Users.find({
+      $or: [{ username: regex }, { firstName: regex }, { lastName: regex }],
+    });
+    console.log(users);
     return res.status(200).json(users);
   } catch (error) {
     return res.status(500).send({ message: "Cannot retrieve any user" });
