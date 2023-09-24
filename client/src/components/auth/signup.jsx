@@ -30,7 +30,7 @@ const SignUp = () => {
         <div className="flex flex-col gap-4 bg-white shadow-lg p-6 rounded-md text-lg dark:bg-neutral-800">
           <div className="flex gap-4 justify-between ">
             <input
-              className="outline outline-1 outline-neutral-400 text-neutral-700 rounded-sm focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
+              className="outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
               type="text"
               value={userInfo.firstName}
               placeholder="First Name"
@@ -44,7 +44,7 @@ const SignUp = () => {
             />
 
             <input
-              className="outline outline-1 outline-neutral-400 text-neutral-700 rounded-sm focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
+              className="outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
               type="text"
               value={userInfo.lastName}
               placeholder="Last Name"
@@ -59,7 +59,7 @@ const SignUp = () => {
           </div>
           <div className="flex flex-col gap-4">
             <input
-              className="outline outline-1 outline-neutral-400 text-neutral-700 rounded-sm focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
+              className="outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
               type="text"
               value={userInfo.username}
               placeholder="Username"
@@ -72,7 +72,7 @@ const SignUp = () => {
               }
             />
             <input
-              className="outline outline-1 outline-neutral-400 text-neutral-700 rounded-sm focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
+              className="outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
               type="text"
               value={userInfo.email}
               placeholder="Email"
@@ -85,7 +85,7 @@ const SignUp = () => {
               }
             />
             <input
-              className="outline outline-1 outline-neutral-400 text-neutral-700 rounded-sm focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
+              className="outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block w-full p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300"
               type="password"
               value={userInfo.password}
               placeholder="Password"

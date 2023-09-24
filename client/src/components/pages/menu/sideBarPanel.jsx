@@ -7,12 +7,8 @@ import UserSettings from "./userSettings";
 import DarkModeToggle from "./darkModeToggle";
 const SideBarPanel = () => {
   const [searchTerm, setSearchTerm] = useState();
-  const { data, isLoading, error, isFetching } = useQuery(
-    "userData",
-    () => getUserProfile(),
-    {
-      refetchOnWindowFocus: false,
-    }
+  const { data, isLoading, error, isFetching } = useQuery("userData", () =>
+    getUserProfile()
   );
 
   if (isLoading) {

@@ -50,7 +50,7 @@ const CreateGroupChat = ({
                   : "bg-neutral-700 text-neutral-300"
               } mx-auto max-w-sm rounded-md bg-white shadow-xl p-4`}
             >
-              <Dialog.Title className="text-lg pb-4">
+              <Dialog.Title className="text-lg pb-4 font-semibold">
                 Create Group Chat
               </Dialog.Title>
               <div>

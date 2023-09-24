@@ -51,20 +51,20 @@ const CreatePrivateChat = ({
                   : "bg-neutral-700 text-neutral-300"
               } mx-auto max-w-sm rounded-md shadow-xl  p-4`}
             >
-              <Dialog.Title className={`text-lg pb-4`}>
+              <Dialog.Title className={`text-lg pb-4 font-semibold`}>
                 Create Private Chat
               </Dialog.Title>
               <div>
                 <SearchUser setUserNameId={setUserNameId} theme={theme} />
                 <div className="flex justify-between dark:bg-neutral-800">
                   <button
-                    className="bg-red-500 text-red-50 rounded px-10 py-2 hover:bg-red-600 shadow-md  capitalize"
+                    className="bg-red-500 text-red-50 rounded px-10 py-2 hover:bg-red-600 shadow-md capitalize"
                     onClick={toggleCreatePrivateChatOpen}
                   >
                     Cancel
                   </button>
                   <button
-                    className="bg-blue-500 text-blue-50 rounded px-10 py-2 hover:bg-blue-600  shadow-md  capitalize"
+                    className="bg-blue-500 text-blue-50 rounded px-10 py-2 hover:bg-blue-600 shadow-md  capitalize"
                     onClick={handleCreatePrivateChat}
                   >
                     Create

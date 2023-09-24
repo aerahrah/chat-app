@@ -30,7 +30,7 @@ const SignIn = () => {
         </h1>
         <div className="flex flex-col gap-4 bg-white shadow-lg p-6 rounded-md text-lg dark:bg-neutral-800">
           <input
-            className="outline outline-1 text-neutral-700 outline-neutral-400 rounded-sm focus:outline-blue-500 block p-2  w-[100vw] max-w-[400px]   dark:text-neutral-300 dark:bg-neutral-800 dark:outline-neutral-700 "
+            className="outline outline-1 text-neutral-700 bg-neutral-50 outline-neutral-300 rounded focus:outline-blue-500 block p-2  w-[100vw] max-w-[400px] dark:text-neutral-300 dark:bg-neutral-800 dark:outline-neutral-700 "
             type="text"
             value={userInfo.identifier}
             placeholder="Email or username"
@@ -43,7 +43,7 @@ const SignIn = () => {
           />
 
           <input
-            className="outline outline-1 text-neutral-700 outline-neutral-400 rounded-sm focus:outline-blue-500 block p-2  w-[100vw] max-w-[400px]   dark:text-neutral-300 dark:bg-neutral-800 dark:outline-neutral-700 "
+            className="outline outline-1 text-neutral-700 bg-neutral-50 outline-neutral-300 rounded focus:outline-blue-500 block p-2  w-[100vw] max-w-[400px]   dark:text-neutral-300 dark:bg-neutral-800 dark:outline-neutral-700 "
             type="password"
             value={userInfo.password}
             placeholder="Password"
