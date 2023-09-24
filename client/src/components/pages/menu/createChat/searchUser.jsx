@@ -4,7 +4,7 @@ import debounce from "lodash/debounce";
 import { getAllUsers } from "../../../api/authAPI";
 import { Combobox } from "@headlessui/react";
 
-const SearchUser = ({ setUserNameId }) => {
+const SearchUser = ({ setUserNameId, theme }) => {
   const [identifier, setIdentifier] = useState("");
 
   const { data, isLoading, error, refetch } = useQuery(
@@ -45,19 +45,27 @@ const SearchUser = ({ setUserNameId }) => {
         <Combobox.Input
           onChange={(e) => setIdentifier(e.target.value)}
           placeholder="Enter name or username"
-          className="outline outline-1 bg-stone-100 outline-neutral-400 rounded-sm focus:outline-blue-500 block p-2 mb-2 w-[40vw] max-w-[100%] "
+          className={`${
+            theme === "light"
+              ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
+              : "bg-neutral-800 outline-neutral-800"
+          } outline outline-1 rounded block p-2 mb-2 w-[40vw] max-w-[100%]`}
         />
         <div className="h-36 overflow-y-auto">
           {data?.length > 0 && (
             <Combobox.Options>
               {data.map((user) => (
                 <Combobox.Option
-                  className="cursor-pointer hover:bg-stone-100 p-2 border-b-[1px] border-blue-100"
+                  className={`${
+                    theme === "light"
+                      ? "hover:bg-neutral-100"
+                      : "hover:bg-neutral-600"
+                  } cursor-pointer  p-2 rounded`}
                   key={user._id}
                   value={user._id}
                   onClick={() => handleChangeUsername(user)}
                 >
-                  <div className="flex justify-between items-center">
+                  <div className="flex gap-4 items-center">
                     <img
                       src={`https://api.dicebear.com/7.x/${user.userProfileImgType}/svg?seed=${user.userProfileImg}`}
                       alt="avatar"

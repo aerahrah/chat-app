@@ -12,7 +12,7 @@ const UserSettings = () => {
 
   return (
     <Popover className="relative text-lg">
-      <Popover.Button className="bg-neutral-200/40 hover:bg-neutral-200 rounded-full dark:bg-neutral-700/10 dark:hover:bg-neutral-700/40 p-1 transition duration-[300ms]">
+      <Popover.Button className="bg-neutral-200/40 hover:bg-neutral-200 rounded-full dark:bg-neutral-700/10 dark:hover:bg-neutral-700/40 p-1 transition duration-[300ms] outline-0">
         <BiDotsHorizontalRounded className="h-8 w-8 " />
       </Popover.Button>
       <Transition
@@ -26,13 +26,13 @@ const UserSettings = () => {
         className="absolute z-30"
       >
         <Popover.Panel>
-          <div className="absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap">
-            <button className="flex gap-2 items-center whitespace-nowrap capitalize py-2 px-4 hover:bg-neutral-100">
+          <div className="absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap dark:bg-neutral-700 dark:shadow-lg  border-[1px] border-neutral-200 dark:border-neutral-800 ">
+            <button className="flex gap-2 items-center  capitalize py-2 px-4 hover:bg-neutral-100 hover:dark:bg-neutral-600">
               <FaGear />
               Profile settings
             </button>
             <button
-              className="flex gap-2 items-center whitespace-nowrap capitalize py-2 px-4  hover:bg-neutral-100 w-full"
+              className="flex gap-2 items-center  capitalize py-2 px-4 hover:bg-neutral-100 hover:dark:bg-neutral-600 w-full"
               onClick={handleLogout}
             >
               <i>
