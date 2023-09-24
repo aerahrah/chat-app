@@ -1,9 +1,10 @@
-import CreateChat from "./createChat/createChatBtn";
 import { useQuery } from "react-query";
 import { getUserProfile } from "../../api/authAPI";
+import { useState } from "react";
+import CreateChat from "./createChat/createChatBtn";
 import SearchChat from "./searchChats";
 import UserSettings from "./userSettings";
-import { useState } from "react";
+import DarkModeToggle from "./darkModeToggle";
 const SideBarPanel = () => {
   const [searchTerm, setSearchTerm] = useState();
   const { data, isLoading, error, isFetching } = useQuery(
@@ -30,10 +31,10 @@ const SideBarPanel = () => {
           alt="avatar"
           className="h-12 w-12 rounded-full"
         />
-        <div className="flex gap-2">
+        <div className="flex gap-2 text-neutral-700 dark:text-neutral-300 ">
           <UserSettings />
           <CreateChat />
-          <p>DMode</p>
+          <DarkModeToggle />
         </div>
       </div>
       <SearchChat setSearchTerm={setSearchTerm} />

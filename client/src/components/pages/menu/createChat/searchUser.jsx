@@ -45,7 +45,7 @@ const SearchUser = ({ setUserNameId }) => {
         <Combobox.Input
           onChange={(e) => setIdentifier(e.target.value)}
           placeholder="Enter name or username"
-          className="outline outline-1 bg-stone-100 outline-gray-400 rounded-sm focus:outline-blue-500 block p-2 mb-2 w-[40vw] max-w-[100%] "
+          className="outline outline-1 bg-stone-100 outline-neutral-400 rounded-sm focus:outline-blue-500 block p-2 mb-2 w-[40vw] max-w-[100%] "
         />
         <div className="h-36 overflow-y-auto">
           {data?.length > 0 && (

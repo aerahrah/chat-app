@@ -16,11 +16,11 @@ const GetAllChat = () => {
     return <div>Error fetching data: {error.message}</div>;
   }
   return (
-    <div className="relative z-0 overflow-y-auto h-full">
+    <div className="relative text-neutral-700 dark:text-neutral-300 z-0 overflow-y-auto h-full">
       <div>
         {data.map((data) => (
           <ul
-            className="flex items-center justify-between p-4 hover:bg-gray-300"
+            className="flex items-center justify-between p-4 hover:bg-neutral-300 hover:dark:bg-neutral-700"
             key={data._id}
           >
             <li>
