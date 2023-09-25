@@ -5,7 +5,6 @@ export const getAllChat = async (req, res) => {
   try {
     const getUserId = req.user;
     const { chatName } = req.query;
-    console.log(getUserId, chatName);
 
     const baseQuery = { "members.user": getUserId };
     if (chatName && chatName.trim() !== "") {
@@ -13,7 +12,7 @@ export const getAllChat = async (req, res) => {
     }
 
     const chats = await Chat.find(baseQuery).exec();
-    console.log(chats);
+
     return res.status(200).json(chats);
   } catch (error) {
     return res.status(500).send({ error: "Error getting chats" });
@@ -68,7 +67,6 @@ export const createPrivateChat = async (req, res) => {
       .status(201)
       .json({ message: "Private chat created successfully", chat });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Error creating private chat" });
   }
 };
@@ -123,7 +121,6 @@ export const sendChatMessage = async (req, res) => {
 
     res.status(201).json({ message: "Message sent successfully", chat });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Error sending private chat message" });
   }
 };
@@ -175,7 +172,6 @@ export const leaveGroupChat = async (req, res) => {
       .status(200)
       .json({ message: "User left the group successfully" });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: "Error leaving group" });
   }
 };

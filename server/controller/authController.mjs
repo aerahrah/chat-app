@@ -15,7 +15,7 @@ export const signup = async (req, res) => {
       return res.status(401).send({ message: "User already exists" });
     }
     const userImg = getInitials(firstName);
-    console.log(firstName);
+
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = Users({
       email: email,
@@ -38,7 +38,7 @@ export const signup = async (req, res) => {
 export const signin = async (req, res) => {
   try {
     const { identifier, password } = req.body;
-    console.log(identifier);
+
     const userExist = await Users.findOne({
       $or: [{ username: identifier }, { email: identifier }],
     });
@@ -87,15 +87,40 @@ export const getAllUsers = async (req, res) => {
     if (!name) {
       return res.status(200).json([]);
     }
-    console.log(name);
+
     const regex = new RegExp(name, "i");
 
     const users = await Users.find({
       $or: [{ username: regex }, { firstName: regex }, { lastName: regex }],
     });
-    console.log(users);
+
     return res.status(200).json(users);
   } catch (error) {
     return res.status(500).send({ message: "Cannot retrieve any user" });
+  }
+};
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const { username, email, firstName, lastName } = req.body;
+    const getUserId = req.user;
+    const user = await Users.findById(getUserId);
+    const userImg = getInitials(firstName);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
+    user.userProfileImg = userImg;
+    await user.save();
+    return res
+      .status(200)
+      .json({ message: "User profile updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import useThemeStore from "../../state/useThemeStore";
 import { FaXmark } from "react-icons/fa6";
 import { getUserProfile } from "../../api/authAPI";
+import UpdateUserInfo from "./updateUserInfo";
 const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
   const theme = useThemeStore((state) => state.theme);
   const { data, isLoading, error, isFetching } = useQuery("userData", () =>
@@ -35,8 +36,12 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
             <Dialog.Panel
               as={motion.div}
               initial={{ scale: 0.7 }}
-              animate={{ scale: profileSettingOpen ? 1 : 0.7 }}
-              exit={{ scale: 0.7 }}
+              animate={
+                profileSettingOpen
+                  ? { scale: 1, opacity: 1 }
+                  : { scale: 0.7, opacity: 0 }
+              }
+              exit={{ scale: 0.7, opacity: 0 }}
               className={`${
                 theme === "light"
                   ? "bg-white text-neutral-700"
@@ -64,64 +69,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                   <button>Edit Image</button>
                 </div>
                 <hr />
-                <h3 className="mt-4 m-2 font-semibold">personal information</h3>
-                <div className="p-2 flex flex-col gap-3.5 w-full mb-4">
-                  <div className="flex justify-between">
-                    <div className="flex flex-col gap-1">
-                      <label>First Name</label>
-                      <input
-                        className={`${
-                          theme === "light"
-                            ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                            : "bg-neutral-800 outline-neutral-800"
-                        } outline outline-1 rounded block p-2  `}
-                        type="text"
-                        value={data.firstName}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label>Last Name</label>
-                      <input
-                        className={`${
-                          theme === "light"
-                            ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                            : "bg-neutral-800 outline-neutral-800"
-                        } outline outline-1 rounded block p-2`}
-                        type="text"
-                        value={data.lastName}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label>Username </label>
-                    <input
-                      className={`${
-                        theme === "light"
-                          ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                          : "bg-neutral-800 outline-neutral-800"
-                      } outline outline-1 rounded block p-2  w-full`}
-                      type="text"
-                      value={data.username}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label>Email</label>
-                    <input
-                      className={`${
-                        theme === "light"
-                          ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                          : "bg-neutral-800 outline-neutral-800"
-                      } outline outline-1 rounded block p-2 mb-2 w-full`}
-                      type="text"
-                      value={data.email}
-                    />
-                  </div>
-                </div>
-                <div className="w-[100%]">
-                  <button className="block bg-blue-500 text-blue-50 rounded p-2 hover:bg-blue-600 mx-auto shadow-md capitalize w-[80vw] max-w-[80%]">
-                    Update profile
-                  </button>
-                </div>
+                <UpdateUserInfo data={data} theme={theme} />
               </div>
               <button
                 className={`${

@@ -42,8 +42,12 @@ const CreateGroupChat = ({
             <Dialog.Panel
               as={motion.div}
               initial={{ scale: 0.7 }}
-              animate={{ scale: isCreateGroupChatOpen ? 1 : 0.7 }}
-              exit={{ scale: 0.7 }}
+              animate={
+                isCreateGroupChatOpen
+                  ? { scale: 1, opacity: 1 }
+                  : { scale: 0.7, opacity: 0 }
+              }
+              exit={{ scale: 0.7, opacity: 0 }}
               className={`${
                 theme === "light"
                   ? "bg-white text-neutral-700"

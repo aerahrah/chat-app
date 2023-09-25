@@ -15,6 +15,7 @@ const GetAllChat = () => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
+
   return (
     <div className="relative text-neutral-700 dark:text-neutral-300 z-0 overflow-y-auto h-full">
       <div>

@@ -5,12 +5,11 @@ import { useQueryClient } from "react-query";
 
 const SearchChat = () => {
   const queryClient = useQueryClient();
-  const { setSearchTermChat, searchTermChat } = useChatCreationStore();
+  const { setSearchTermChat } = useChatCreationStore();
 
   const [chatName, setChatName] = useState("");
   const handleSearchChange = (e) => {
     setSearchTermChat(e.target.value);
-    console.log(searchTermChat);
     setChatName(e.target.value);
     queryClient.invalidateQueries("getAllChat");
   };

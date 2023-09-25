@@ -75,3 +75,23 @@ export const getUserProfile = async () => {
     console.log(error);
   }
 };
+
+export const updateUserInfo = async (userInfo) => {
+  try {
+    const { username, email, firstName, lastName } = userInfo;
+    const url = `${BASE_URL}/user/update-info`;
+    console.log(userInfo);
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ username, email, firstName, lastName }),
+    });
+    console.log(response);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

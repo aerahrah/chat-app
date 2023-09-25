@@ -15,8 +15,7 @@ const SignUp = () => {
 
   const handleSignUp = async () => {
     try {
-      const data = await signUpMutation.mutateAsync(userInfo);
-      console.log(data);
+      await signUpMutation.mutateAsync(userInfo);
     } catch (error) {
       console.log(error);
     }

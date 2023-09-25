@@ -6,7 +6,6 @@ import SearchChat from "./searchChats";
 import UserSettings from "./userSettings";
 import DarkModeToggle from "./darkModeToggle";
 const SideBarPanel = () => {
-  const [searchTerm, setSearchTerm] = useState();
   const { data, isLoading, error, isFetching } = useQuery("userData", () =>
     getUserProfile()
   );
@@ -18,7 +17,7 @@ const SideBarPanel = () => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
-  console.log(data);
+
   return (
     <div className="flex flex-col w-[100%] pb-4">
       <div className="flex justify-between items-center px-4 py-6">
@@ -33,7 +32,7 @@ const SideBarPanel = () => {
           <DarkModeToggle />
         </div>
       </div>
-      <SearchChat setSearchTerm={setSearchTerm} />
+      <SearchChat />
     </div>
   );
 };
