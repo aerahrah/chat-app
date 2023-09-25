@@ -13,7 +13,7 @@ export const getAllChat = async (req, res) => {
 
     const chats = await Chat.find(baseQuery).exec();
 
-    return res.status(200).json(chats);
+    return res.status(200).json({ chats: chats, userId: getUserId });
   } catch (error) {
     return res.status(500).send({ error: "Error getting chats" });
   }
@@ -35,10 +35,13 @@ export const createPrivateChat = async (req, res) => {
   try {
     const { userNameId } = req.body;
     const getUserId = req.user;
-
+    const isCurrentUserExist = await Users.findById(getUserId);
+    if (!isCurrentUserExist) {
+      return res.status(401).send({ message: "User not found" });
+    }
     const isUsernameExist = await Users.findById(userNameId);
     if (!isUsernameExist) {
-      return res.status(401).send({ error: "User not found" });
+      return res.status(401).send({ message: "User not found" });
     }
     const imgName = `${getInitials(isUsernameExist.firstName)}`;
 
@@ -56,7 +59,16 @@ export const createPrivateChat = async (req, res) => {
       chat = new Chat({
         name: `${isUsernameExist.firstName} ${isUsernameExist.lastName}`,
         type: "private",
-        members: [{ user: getUserId }, { user: userNameId }],
+        members: [
+          {
+            user: getUserId,
+            displayName: `${isCurrentUserExist.firstName} ${isCurrentUserExist.lastName}`,
+          },
+          {
+            user: userNameId,
+            displayName: `${isUsernameExist.firstName} ${isUsernameExist.lastName}`,
+          },
+        ],
         chatImg: imgName,
         chatImgType: "initials",
       });
@@ -75,6 +87,10 @@ export const createGroupChat = async (req, res) => {
   try {
     const { chatName } = req.body;
     const getUserId = req.user;
+
+    const isUsernameExist = await Users.findById(getUserId);
+    if (!isUsernameExist)
+      return res.status(401).send({ message: "User not found" });
     if (!chatName)
       return res
         .status(401)
@@ -83,7 +99,12 @@ export const createGroupChat = async (req, res) => {
     const newGroupChat = new Chat({
       name: chatName,
       type: "group",
-      members: [{ user: getUserId, displayName: "Initial User" }],
+      members: [
+        {
+          user: getUserId,
+          displayName: `${isUsernameExist.firstName} ${isUsernameExist.lastName}`,
+        },
+      ],
       chatImg: chatName,
       chatImgType: "initials",
     });

@@ -1,12 +1,16 @@
 import { useQuery } from "react-query";
 import { getAllChat } from "../../api/chatAPI";
 import useChatCreationStore from "../../state/chat/useChatCreationStore";
+import { getChatName } from "./getChatName";
 const GetAllChat = () => {
   const searchTermChat = useChatCreationStore((state) => state.searchTermChat);
   const queryKey = ["getAllChat", searchTermChat];
-  const { data, isLoading, error, isFetching } = useQuery(queryKey, () =>
-    getAllChat(searchTermChat)
-  );
+  const {
+    data: chatInfo,
+    isLoading,
+    error,
+    isFetching,
+  } = useQuery(queryKey, () => getAllChat(searchTermChat));
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -19,7 +23,7 @@ const GetAllChat = () => {
   return (
     <div className="relative text-neutral-700 dark:text-neutral-300 z-0 overflow-y-auto h-full">
       <div>
-        {data.map((data) => (
+        {chatInfo.chats.map((data) => (
           <ul
             className="flex items-center justify-between p-4 hover:bg-neutral-300 hover:dark:bg-neutral-700"
             key={data._id}
@@ -31,7 +35,7 @@ const GetAllChat = () => {
                 className="h-12 w-12 rounded-full"
               />
             </li>
-            {data.name}
+            {getChatName(data, chatInfo.userId)}
           </ul>
         ))}
       </div>
