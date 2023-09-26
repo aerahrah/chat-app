@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dicebear/collection": "^7.0.1",
+    "@dicebear/core": "^7.0.1",
     "@headlessui/react": "^1.7.17",
     "framer-motion": "^10.16.4",
     "lodash": "^4.17.21",

@@ -4,12 +4,20 @@ import { useQuery } from "react-query";
 import useThemeStore from "../../state/useThemeStore";
 import { FaXmark } from "react-icons/fa6";
 import { getUserProfile } from "../../api/authAPI";
+import { useState } from "react";
 import UpdateUserInfo from "./updateUserInfo";
+import EditImage from "./editImg";
+
 const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
   const theme = useThemeStore((state) => state.theme);
+  const [isEditImgOpen, setIsEditImgOpen] = useState(false);
   const { data, isLoading, error, isFetching } = useQuery("userData", () =>
     getUserProfile()
   );
+
+  const toggleEditImgOpen = () => {
+    return setIsEditImgOpen(!isEditImgOpen);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -18,6 +26,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
+
   return (
     <AnimatePresence>
       {profileSettingOpen && (
@@ -45,8 +54,8 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
               className={`${
                 theme === "light"
                   ? "bg-white text-neutral-700"
-                  : "bg-neutral-700 text-neutral-300"
-              } relative mx-auto rounded-md bg-white shadow-xl p-4 w-[100vw]  max-w-md`}
+                  : " bg-neutral-700 text-neutral-300"
+              } relative mx-auto rounded-md shadow-xl p-4 w-[100vw]  max-w-md`}
             >
               <Dialog.Title className="text-lg text-center mb-6 font-semibold">
                 Profile Setting
@@ -60,6 +69,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                       ? "hover:bg-neutral-100"
                       : "hover:bg-neutral-600/30 "
                   } flex items-center gap-2 mb-2 p-2 rounded-md cursor-pointer`}
+                  onClick={toggleEditImgOpen}
                 >
                   <img
                     src={`https://api.dicebear.com/7.x/${data.userImgType}/svg?seed=${data.userImg}`}
@@ -81,6 +91,10 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
               >
                 <FaXmark className="h-5 w-5" />
               </button>
+              <EditImage
+                isEditImgOpen={isEditImgOpen}
+                setIsEditImgOpen={setIsEditImgOpen}
+              />
             </Dialog.Panel>
           </div>
         </Dialog>
