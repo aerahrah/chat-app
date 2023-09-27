@@ -55,7 +55,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                 theme === "light"
                   ? "bg-white text-neutral-700"
                   : " bg-neutral-700 text-neutral-300"
-              } relative mx-auto rounded-md shadow-xl p-4 w-[100vw]  max-w-md`}
+              } relative mx-auto rounded-md shadow-xl p-4 w-[100vw]  max-w-md overflow-hidden`}
             >
               <Dialog.Title className="text-lg text-center mb-6 font-semibold">
                 Profile Setting
@@ -79,7 +79,18 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                   <button>Edit Image</button>
                 </div>
                 <hr />
-                <UpdateUserInfo data={data} theme={theme} />
+                <div className="relative">
+                  <UpdateUserInfo
+                    data={data}
+                    theme={theme}
+                    isEditImgOpen={isEditImgOpen}
+                    toggleEditImgOpen={toggleEditImgOpen}
+                  />
+                  <EditImage
+                    isEditImgOpen={isEditImgOpen}
+                    toggleEditImgOpen={toggleEditImgOpen}
+                  />
+                </div>
               </div>
               <button
                 className={`${
@@ -91,10 +102,6 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
               >
                 <FaXmark className="h-5 w-5" />
               </button>
-              <EditImage
-                isEditImgOpen={isEditImgOpen}
-                setIsEditImgOpen={setIsEditImgOpen}
-              />
             </Dialog.Panel>
           </div>
         </Dialog>
