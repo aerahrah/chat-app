@@ -3,7 +3,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { FaGear, FaArrowRightFromBracket } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import ProfileSetting from "./profileSetting";
+import ProfileSetting from "./userSettingModal";
 
 const UserSettings = () => {
   const [profileSettingOpen, toggleProfileSettingOpen] = useState(false);

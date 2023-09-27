@@ -1,5 +1,5 @@
 import { FaSun, FaMoon } from "react-icons/fa";
-import useThemeStore from "../../state/useThemeStore";
+import useThemeStore from "../../../../state/useThemeStore";
 const DarkModeToggle = () => {
   const { theme, toggleTheme } = useThemeStore();
   return (

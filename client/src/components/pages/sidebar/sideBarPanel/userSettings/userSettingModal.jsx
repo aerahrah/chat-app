@@ -1,12 +1,12 @@
 import { Dialog } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "react-query";
-import useThemeStore from "../../state/useThemeStore";
+import useThemeStore from "../../../../state/useThemeStore";
 import { FaXmark } from "react-icons/fa6";
-import { getUserProfile } from "../../api/authAPI";
+import { getUserProfile } from "../../../../api/authAPI";
 import { useState } from "react";
 import UpdateUserInfo from "./updateUserInfo";
-import EditImage from "./editImg";
+import EditImage from "./updateUserImg";
 
 const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
   const theme = useThemeStore((state) => state.theme);

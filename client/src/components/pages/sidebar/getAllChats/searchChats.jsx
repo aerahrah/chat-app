@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import useChatCreationStore from "../../state/chat/useChatCreationStore";
+import useChatCreationStore from "../../../state/chat/useChatCreationStore";
 import { useQueryClient } from "react-query";
 
 const SearchChat = () => {

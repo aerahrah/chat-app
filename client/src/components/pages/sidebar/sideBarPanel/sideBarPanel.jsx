@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
-import { getUserProfile } from "../../api/authAPI";
-import { useState } from "react";
+import { getUserProfile } from "../../../api/authAPI";
 import CreateChat from "./createChat/createChatBtn";
-import SearchChat from "./searchChats";
-import UserSettings from "./userSettings";
-import DarkModeToggle from "./darkModeToggle";
+import UserSettings from "./userSettings/userSettingBtn";
+import DarkModeToggle from "./darkModeToggle/darkModeToggle";
+import SearchChat from "../getAllChats/searchChats";
+
 const SideBarPanel = () => {
   const { data, isLoading, error, isFetching } = useQuery("userData", () =>
     getUserProfile()

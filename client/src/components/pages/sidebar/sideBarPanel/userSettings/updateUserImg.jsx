@@ -6,7 +6,7 @@ import {
   adventurerAvatar,
   funAvatar,
   avatarsNeutral,
-} from "../../utils/diceBearAvatars/avatars";
+} from "../../../../utils/diceBearAvatars/avatars";
 
 const EditImage = ({ isEditImgOpen, toggleEditImgOpen }) => {
   const generateAvatars = (seeds, collection) => {

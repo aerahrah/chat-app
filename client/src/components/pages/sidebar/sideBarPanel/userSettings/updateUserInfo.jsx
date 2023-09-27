@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateUserInfo } from "../../api/authAPI";
+import { updateUserInfo } from "../../../../api/authAPI";
 import { useMutation, useQueryClient } from "react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaArrowTrendUp, FaGalacticSenate } from "react-icons/fa6";

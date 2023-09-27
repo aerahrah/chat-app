@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import { getAllChat } from "../../api/chatAPI";
-import useChatCreationStore from "../../state/chat/useChatCreationStore";
+import { getAllChat } from "../../../api/chatAPI";
+import useChatCreationStore from "../../../state/chat/useChatCreationStore";
 import { getChatName } from "./getChatName";
 const GetAllChat = () => {
   const searchTermChat = useChatCreationStore((state) => state.searchTermChat);

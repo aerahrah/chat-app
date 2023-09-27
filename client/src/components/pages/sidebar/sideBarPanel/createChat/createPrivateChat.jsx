@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "react-query";
-import { createPrivateChat } from "../../../api/chatAPI";
-import SearchUser from "./searchUser";
+import { createPrivateChat } from "../../../../api/chatAPI";
+import SearchUser from "./searchUsers";
 import { Dialog } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import useChatCreationStore from "../../../state/chat/useChatCreationStore";
-import useThemeStore from "../../../state/useThemeStore";
+import useChatCreationStore from "../../../../state/chat/useChatCreationStore";
+import useThemeStore from "../../../../state/useThemeStore";
 
 const CreatePrivateChat = ({
   isCreatePrivateChatOpen,

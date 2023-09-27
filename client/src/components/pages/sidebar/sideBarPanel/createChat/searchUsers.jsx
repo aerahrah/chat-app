@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "react-query";
 import { useState, useEffect } from "react";
 import debounce from "lodash/debounce";
-import { getAllUsers } from "../../../api/authAPI";
+import { getAllUsers } from "../../../../api/authAPI";
 import { Combobox } from "@headlessui/react";
 
 const SearchUser = ({ setUserNameId, theme }) => {
