@@ -102,10 +102,13 @@ export const getAllUsers = async (req, res) => {
 
 export const updateUserProfile = async (req, res) => {
   try {
-    const { username, email, firstName, lastName } = req.body;
+    const { username, email, firstName, lastName, userImg, userImgType } =
+      req.body;
     const getUserId = req.user;
     const user = await Users.findById(getUserId);
-    const userImg = getInitials(firstName);
+    if (userImgType === "initials") {
+      userImg = getInitials(firstName);
+    }
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -115,7 +118,9 @@ export const updateUserProfile = async (req, res) => {
     user.email = email || user.email;
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
-    user.userProfileImg = userImg;
+    user.userProfileImg = userImg || user.userProfileImg;
+    user.userProfileImgType = userImgType || user.userProfileImgType;
+
     await user.save();
     return res
       .status(200)

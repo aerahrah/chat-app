@@ -78,7 +78,8 @@ export const getUserProfile = async () => {
 
 export const updateUserInfo = async (userInfo) => {
   try {
-    const { username, email, firstName, lastName } = userInfo;
+    const { username, email, firstName, lastName, userImg, userImgType } =
+      userInfo;
     const url = `${BASE_URL}/user/update-info`;
     console.log(userInfo);
     const response = await fetch(url, {
@@ -87,7 +88,14 @@ export const updateUserInfo = async (userInfo) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify({ username, email, firstName, lastName }),
+      body: JSON.stringify({
+        username,
+        email,
+        firstName,
+        lastName,
+        userImg,
+        userImgType,
+      }),
     });
     console.log(response);
     return response.json();

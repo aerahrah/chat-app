@@ -8,17 +8,18 @@ import {
   avatarsNeutral,
 } from "../../../../utils/diceBearAvatars/avatars";
 
-const EditImage = ({ isEditImgOpen, toggleEditImgOpen }) => {
+const EditImage = ({ setUserData, isEditImgOpen, toggleEditImgOpen }) => {
   const adventurerAvatars = useMemo(
-    () => generateAvatars(adventurerAvatar, adventurer),
+    () => generateAvatars(adventurerAvatar, adventurer, "adventurer"),
     [adventurerAvatar]
   );
   const neutralAvatars = useMemo(
-    () => generateAvatars(avatarsNeutral, avataaarsNeutral),
+    () =>
+      generateAvatars(avatarsNeutral, avataaarsNeutral, "avataaars-neutral"),
     [avatarsNeutral]
   );
   const funAvatars = useMemo(
-    () => generateAvatars(funAvatar, funEmoji),
+    () => generateAvatars(funAvatar, funEmoji, "fun-emoji"),
     [funAvatar]
   );
   return (
@@ -33,15 +34,21 @@ const EditImage = ({ isEditImgOpen, toggleEditImgOpen }) => {
           <div className="h-full  flex flex-col max-h-[344px]  overflow-y-auto gap-6">
             <div>
               <h2 className="font-semibold mb-2">Adventurer Avatars</h2>
-              <AvatarOptions avatars={adventurerAvatars} />
+              <AvatarOptions
+                setUserData={setUserData}
+                avatars={adventurerAvatars}
+              />
             </div>
             <div>
               <h2 className="font-semibold mb-2">Neutral Avatars</h2>
-              <AvatarOptions avatars={neutralAvatars} />
+              <AvatarOptions
+                setUserData={setUserData}
+                avatars={neutralAvatars}
+              />
             </div>
             <div>
               <h2 className="font-semibold mb-2">Fun Avatars</h2>
-              <AvatarOptions avatars={funAvatars} />
+              <AvatarOptions setUserData={setUserData} avatars={funAvatars} />
             </div>
           </div>
         </motion.div>
