@@ -14,7 +14,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
   const { data, isLoading, error, isFetching } = useQuery("userData", () =>
     getUserProfile()
   );
-
+  const [userData, setUserData] = useState(data);
   const toggleEditImgOpen = () => {
     return setIsEditImgOpen(!isEditImgOpen);
   };
@@ -72,7 +72,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                   onClick={toggleEditImgOpen}
                 >
                   <img
-                    src={`https://api.dicebear.com/7.x/${data.userImgType}/svg?seed=${data.userImg}`}
+                    src={`https://api.dicebear.com/7.x/${userData.userImgType}/svg?seed=${userData.userImg}`}
                     alt="avatar"
                     className="h-16 w-16 rounded-full"
                   />
@@ -81,12 +81,15 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                 <hr />
                 <div className="relative">
                   <UpdateUserInfo
-                    data={data}
+                    userData={userData}
+                    setUserData={setUserData}
                     theme={theme}
                     isEditImgOpen={isEditImgOpen}
                     toggleEditImgOpen={toggleEditImgOpen}
                   />
                   <EditImage
+                    userData={userData}
+                    setUserData={setUserData}
                     isEditImgOpen={isEditImgOpen}
                     toggleEditImgOpen={toggleEditImgOpen}
                   />

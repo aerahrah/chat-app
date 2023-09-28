@@ -4,16 +4,22 @@ import { useMutation, useQueryClient } from "react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaArrowTrendUp, FaGalacticSenate } from "react-icons/fa6";
 
-const UpdateUserInfo = ({ data, theme, isEditImgOpen, toggleEditImgOpen }) => {
+const UpdateUserInfo = ({
+  userData,
+  setUserData,
+  theme,
+  isEditImgOpen,
+  toggleEditImgOpen,
+}) => {
   const updateUserInfoMutation = useMutation(updateUserInfo);
-  const [userInfo, setUserInfo] = useState(data);
+
   const [initialState, setInitialState] = useState(false);
   const queryClient = useQueryClient();
 
   const handleUpdateUserInfo = async () => {
     try {
       const updatedUserInfo = await updateUserInfoMutation.mutateAsync(
-        userInfo
+        userData
       );
       queryClient.invalidateQueries("userData");
 
@@ -45,9 +51,9 @@ const UpdateUserInfo = ({ data, theme, isEditImgOpen, toggleEditImgOpen }) => {
                           : "bg-neutral-800 outline-neutral-800"
                       } outline outline-1 rounded block p-2  `}
                       type="text"
-                      value={userInfo.firstName}
+                      value={userData.firstName}
                       onChange={(e) =>
-                        setUserInfo((prevVal) => ({
+                        setUserData((prevVal) => ({
                           ...prevVal,
                           firstName: e.target.value,
                         }))
@@ -63,9 +69,9 @@ const UpdateUserInfo = ({ data, theme, isEditImgOpen, toggleEditImgOpen }) => {
                           : "bg-neutral-800 outline-neutral-800"
                       } outline outline-1 rounded block p-2`}
                       type="text"
-                      value={userInfo.lastName}
+                      value={userData.lastName}
                       onChange={(e) =>
-                        setUserInfo((prevVal) => ({
+                        setUserData((prevVal) => ({
                           ...prevVal,
                           lastName: e.target.value,
                         }))
@@ -82,9 +88,9 @@ const UpdateUserInfo = ({ data, theme, isEditImgOpen, toggleEditImgOpen }) => {
                         : "bg-neutral-800 outline-neutral-800"
                     } outline outline-1 rounded block p-2  w-full`}
                     type="text"
-                    value={userInfo.username}
+                    value={userData.username}
                     onChange={(e) =>
-                      setUserInfo((prevVal) => ({
+                      setUserData((prevVal) => ({
                         ...prevVal,
                         username: e.target.value,
                       }))
@@ -100,9 +106,9 @@ const UpdateUserInfo = ({ data, theme, isEditImgOpen, toggleEditImgOpen }) => {
                         : "bg-neutral-800 outline-neutral-800"
                     } outline outline-1 rounded block p-2 mb-2 w-full`}
                     type="text"
-                    value={userInfo.email}
+                    value={userData.email}
                     onChange={(e) =>
-                      setUserInfo((prevVal) => ({
+                      setUserData((prevVal) => ({
                         ...prevVal,
                         email: e.target.value,
                       }))

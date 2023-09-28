@@ -1,7 +1,7 @@
-import { useMemo } from "react";
-import { createAvatar } from "@dicebear/core";
-import { adventurer, avataaarsNeutral, funEmoji } from "@dicebear/collection";
 import { AnimatePresence, motion } from "framer-motion";
+import AvatarOptions, { generateAvatars } from "./loadUserImgOptions";
+import { useMemo } from "react";
+import { adventurer, avataaarsNeutral, funEmoji } from "@dicebear/collection";
 import {
   adventurerAvatar,
   funAvatar,
@@ -9,19 +9,18 @@ import {
 } from "../../../../utils/diceBearAvatars/avatars";
 
 const EditImage = ({ isEditImgOpen, toggleEditImgOpen }) => {
-  const generateAvatars = (seeds, collection) => {
-    return seeds.map((seed) => {
-      const avatar = createAvatar(collection, {
-        seed: seed,
-        size: 128,
-      }).toDataUriSync();
-      return avatar;
-    });
-  };
-
-  const adventurerAvatars = generateAvatars(adventurerAvatar, adventurer);
-  const neutralAvatars = generateAvatars(avatarsNeutral, avataaarsNeutral);
-  const funAvatars = generateAvatars(funAvatar, funEmoji);
+  const adventurerAvatars = useMemo(
+    () => generateAvatars(adventurerAvatar, adventurer),
+    [adventurerAvatar]
+  );
+  const neutralAvatars = useMemo(
+    () => generateAvatars(avatarsNeutral, avataaarsNeutral),
+    [avatarsNeutral]
+  );
+  const funAvatars = useMemo(
+    () => generateAvatars(funAvatar, funEmoji),
+    [funAvatar]
+  );
   return (
     <div>
       {isEditImgOpen && (
@@ -34,42 +33,15 @@ const EditImage = ({ isEditImgOpen, toggleEditImgOpen }) => {
           <div className="h-full  flex flex-col max-h-[344px]  overflow-y-auto gap-6">
             <div>
               <h2 className="font-semibold mb-2">Adventurer Avatars</h2>
-              <div className="flex gap-2 flex-wrap ">
-                {adventurerAvatars.map((avatar, index) => (
-                  <img
-                    className="h-20 w-20"
-                    key={index}
-                    src={avatar}
-                    alt={`Avatar ${index}`}
-                  />
-                ))}
-              </div>
+              <AvatarOptions avatars={adventurerAvatars} />
             </div>
             <div>
-              <h2 className="font-semibold mb-2">Adventurer Avatars</h2>
-              <div className="flex gap-2 flex-wrap ">
-                {neutralAvatars.map((avatar, index) => (
-                  <img
-                    className="h-20 w-20"
-                    key={index}
-                    src={avatar}
-                    alt={`Avatar ${index}`}
-                  />
-                ))}
-              </div>
+              <h2 className="font-semibold mb-2">Neutral Avatars</h2>
+              <AvatarOptions avatars={neutralAvatars} />
             </div>
             <div>
-              <h2 className="font-semibold mb-2">Adventurer Avatars</h2>
-              <div className="flex gap-2 flex-wrap ">
-                {funAvatars.map((avatar, index) => (
-                  <img
-                    className="h-20 w-20"
-                    key={index}
-                    src={avatar}
-                    alt={`Avatar ${index}`}
-                  />
-                ))}
-              </div>
+              <h2 className="font-semibold mb-2">Fun Avatars</h2>
+              <AvatarOptions avatars={funAvatars} />
             </div>
           </div>
         </motion.div>
