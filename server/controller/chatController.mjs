@@ -11,10 +11,13 @@ export const getAllChat = async (req, res) => {
       baseQuery.name = { $regex: chatName, $options: "i" };
     }
 
-    const chats = await Chat.find(baseQuery).exec();
+    const chats = await Chat.find(baseQuery)
+      .populate("members.user", "userProfileImg userProfileImgType")
+      .exec();
 
     return res.status(200).json({ chats: chats, userId: getUserId });
   } catch (error) {
+    console.error(error);
     return res.status(500).send({ error: "Error getting chats" });
   }
 };
@@ -35,6 +38,8 @@ export const createPrivateChat = async (req, res) => {
   try {
     const { userNameId } = req.body;
     const getUserId = req.user;
+    console.log(userNameId);
+    console.log(getUserId);
     const isCurrentUserExist = await Users.findById(getUserId);
     if (!isCurrentUserExist) {
       return res.status(401).send({ message: "User not found" });
@@ -62,11 +67,13 @@ export const createPrivateChat = async (req, res) => {
         members: [
           {
             user: getUserId,
-            displayName: `${isCurrentUserExist.firstName} ${isCurrentUserExist.lastName}`,
+            name: `${isCurrentUserExist.firstName} ${isCurrentUserExist.lastName}`,
+            displayName: "",
           },
           {
             user: userNameId,
-            displayName: `${isUsernameExist.firstName} ${isUsernameExist.lastName}`,
+            name: `${isUsernameExist.firstName} ${isUsernameExist.lastName}`,
+            displayName: "",
           },
         ],
         chatImg: imgName,
@@ -80,6 +87,7 @@ export const createPrivateChat = async (req, res) => {
       .json({ message: "Private chat created successfully", chat });
   } catch (error) {
     res.status(500).json({ error: "Error creating private chat" });
+    console.log(error);
   }
 };
 

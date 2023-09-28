@@ -56,6 +56,7 @@ export const createPrivateChat = async (userNameId) => {
 
     return response.json();
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   }
 };

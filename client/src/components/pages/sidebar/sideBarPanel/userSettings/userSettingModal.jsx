@@ -26,7 +26,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
-
+  console.log(isEditImgOpen);
   return (
     <AnimatePresence>
       {profileSettingOpen && (
@@ -37,7 +37,10 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
           animate={{ opacity: profileSettingOpen ? 1 : 0 }}
           exit={{ opacity: 0 }}
           open={profileSettingOpen}
-          onClose={toggleProfileSetting}
+          onClose={() => {
+            setIsEditImgOpen(false);
+            toggleProfileSetting();
+          }}
         >
           <div className="fixed inset-0 bg-black/40" />
 
@@ -101,7 +104,10 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                     ? "bg-neutral-100 hover:bg-neutral-200"
                     : "bg-neutral-600/20 hover:bg-neutral-600/50 "
                 } absolute top-3 right-4 p-2 rounded-full `}
-                onClick={toggleProfileSetting}
+                onClick={() => {
+                  setIsEditImgOpen(false);
+                  toggleProfileSetting();
+                }}
               >
                 <FaXmark className="h-5 w-5" />
               </button>

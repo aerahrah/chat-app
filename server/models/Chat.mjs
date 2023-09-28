@@ -2,9 +2,12 @@ import mongoose from "mongoose";
 
 const memberSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
-  displayName: {
+  name: {
     type: String,
     required: true,
+  },
+  displayName: {
+    type: String,
   },
 });
 

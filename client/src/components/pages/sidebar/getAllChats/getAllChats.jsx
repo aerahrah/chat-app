@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { getAllChat } from "../../../api/chatAPI";
 import useChatCreationStore from "../../../state/chat/useChatCreationStore";
-import { getChatName } from "./getChatName";
+import { getChatName, getChatImg } from "./getChatInfo";
 const GetAllChat = () => {
   const searchTermChat = useChatCreationStore((state) => state.searchTermChat);
   const queryKey = ["getAllChat", searchTermChat];
@@ -30,7 +30,7 @@ const GetAllChat = () => {
           >
             <li>
               <img
-                src={`https://api.dicebear.com/7.x/${data.chatImgType}/svg?seed=${data.chatImg}`}
+                src={getChatImg(data, chatInfo.userId)}
                 alt="avatar"
                 className="h-12 w-12 rounded-full"
               />
