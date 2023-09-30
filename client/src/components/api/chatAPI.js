@@ -22,6 +22,24 @@ export const getAllChat = async (searchTermChat) => {
   }
 };
 
+export const getChatConversation = async (chatId) => {
+  try {
+    console.log(chatId);
+    const response = await fetch(`${BASE_URL}/${chatId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+    console.log(response);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export const createGroupChat = async (chatName) => {
   try {
     if (!chatName) {
