@@ -24,12 +24,15 @@ export const getAllChat = async (req, res) => {
 
 export const getConversation = async (req, res) => {
   try {
+    const getUserId = req.user;
     const { chatId } = req.params;
-    const chat = await Chat.findById(chatId);
+    const chat = await Chat.findById(chatId)
+      .populate("members.user", "userProfileImg userProfileImgType")
+      .exec();
 
     if (!chat) return res.status(404).json({ error: "Chat not found" });
 
-    return res.status(200).send(chat);
+    return res.status(200).send({ chat: chat, userId: getUserId });
   } catch (error) {
     return res.status(500).send({ error: "Error getting chat conversation" });
   }
@@ -110,7 +113,8 @@ export const createGroupChat = async (req, res) => {
       members: [
         {
           user: getUserId,
-          displayName: `${isUsernameExist.firstName} ${isUsernameExist.lastName}`,
+          name: `${isUsernameExist.firstName} ${isUsernameExist.lastName}`,
+          displayName: "",
         },
       ],
       chatImg: chatName,
