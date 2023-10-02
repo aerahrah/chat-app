@@ -14,10 +14,9 @@ export const getAllChat = async (searchTermChat) => {
         Authorization: `Bearer ${getToken()}`,
       },
     });
-    console.log(response);
+
     return response.json();
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -32,10 +31,9 @@ export const getChatConversation = async (chatId) => {
         Authorization: `Bearer ${getToken()}`,
       },
     });
-    console.log(response);
+
     return response.json();
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -62,7 +60,6 @@ export const createGroupChat = async (chatName) => {
 
 export const createPrivateChat = async (userNameId) => {
   try {
-    console.log(userNameId);
     const response = await fetch(`${BASE_URL}/private`, {
       method: "POST",
       headers: {
@@ -76,5 +73,25 @@ export const createPrivateChat = async (userNameId) => {
   } catch (error) {
     console.log(error);
     throw new Error(error);
+  }
+};
+
+export const sendMessage = async ({ chatId, content }) => {
+  try {
+    console.log(chatId);
+    console.log(content);
+    const response = await fetch(`${BASE_URL}/${chatId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ content }),
+    });
+    console.log(response);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };

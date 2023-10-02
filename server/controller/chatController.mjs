@@ -41,8 +41,7 @@ export const createPrivateChat = async (req, res) => {
   try {
     const { userNameId } = req.body;
     const getUserId = req.user;
-    console.log(userNameId);
-    console.log(getUserId);
+
     const isCurrentUserExist = await Users.findById(getUserId);
     if (!isCurrentUserExist) {
       return res.status(401).send({ message: "User not found" });
@@ -132,6 +131,7 @@ export const sendChatMessage = async (req, res) => {
     const { chatId } = req.params;
     const { content } = req.body;
     const getUserId = req.user;
+    console.log(content, chatId);
     if (!content) {
       return res
         .status(401)

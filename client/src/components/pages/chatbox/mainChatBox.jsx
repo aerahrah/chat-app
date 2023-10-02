@@ -1,15 +1,30 @@
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { getChatConversation } from "../../api/chatAPI";
 import useChatBoxStore from "../../state/chat/useChatBoxStore";
 import { getChatName, getChatImg } from "../sidebar/getAllChats/getChatInfo";
 import { BiSolidHappyAlt, BiSolidSend } from "react-icons/bi";
 import EmojiPicker from "emoji-picker-react";
-import { Popover, Transition } from "@headlessui/react";
+import { Popover } from "@headlessui/react";
+import { useState } from "react";
+import { sendMessage } from "../../api/chatAPI";
 
 const MainChatBox = () => {
   const chatId = useChatBoxStore((state) => state.chatId);
-
+  const [message, setMessage] = useState("");
   const chatQuery = ["getConversation", chatId];
+  const sendMessageMutation = useMutation(sendMessage);
+
+  const handleSendMessage = async () => {
+    try {
+      const response = await sendMessageMutation.mutateAsync({
+        chatId,
+        content: message,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const {
     data: userData,
     isLoading,
@@ -44,7 +59,14 @@ const MainChatBox = () => {
 
               <Popover.Panel>
                 <div className="absolute bottom-10 z-30">
-                  <EmojiPicker height={370} width={300} />
+                  <EmojiPicker
+                    onEmojiClick={(emoji) =>
+                      setMessage((prevMessage) => prevMessage + emoji.emoji)
+                    }
+                    height={370}
+                    width={300}
+                    previewConfig={{ showPreview: false }}
+                  />
                 </div>
               </Popover.Panel>
             </Popover>
@@ -52,9 +74,14 @@ const MainChatBox = () => {
             <input
               type="text"
               placeholder="Aa"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               className="bg-neutral-200/70 py-2 px-4 w-full outline-0 rounded-full"
             />
-            <button className="p-2 hover:bg-neutral-200 rounded-full">
+            <button
+              className="p-2 hover:bg-neutral-200 rounded-full"
+              onClick={handleSendMessage}
+            >
               <BiSolidSend className="h-6 w-6" />
             </button>
           </div>
