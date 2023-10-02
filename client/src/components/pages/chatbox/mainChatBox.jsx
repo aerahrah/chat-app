@@ -1,15 +1,15 @@
 import { useQuery, useMutation } from "react-query";
 import { getChatConversation } from "../../api/chatAPI";
-import useChatBoxStore from "../../state/chat/useChatBoxStore";
 import { getChatName, getChatImg } from "../sidebar/getAllChats/getChatInfo";
 import { BiSolidHappyAlt, BiSolidSend } from "react-icons/bi";
 import EmojiPicker from "emoji-picker-react";
 import { Popover } from "@headlessui/react";
 import { useState } from "react";
 import { sendMessage } from "../../api/chatAPI";
+import { useParams } from "react-router-dom";
 
 const MainChatBox = () => {
-  const chatId = useChatBoxStore((state) => state.chatId);
+  const { chatId } = useParams();
   const [message, setMessage] = useState("");
   const chatQuery = ["getConversation", chatId];
   const sendMessageMutation = useMutation(sendMessage);
@@ -80,7 +80,10 @@ const MainChatBox = () => {
             />
             <button
               className="p-2 hover:bg-neutral-200 rounded-full"
-              onClick={handleSendMessage}
+              onClick={() => {
+                handleSendMessage();
+                setMessage("");
+              }}
             >
               <BiSolidSend className="h-6 w-6" />
             </button>

@@ -1,6 +1,6 @@
 import SideBarPanel from "./pages/sidebar/sideBarPanel/sideBarPanel";
 import GetAllChat from "./pages/sidebar/getAllChats/getAllChats";
-import MainChatBox from "./pages/chatbox/mainChatBox";
+import { Outlet } from "react-router-dom";
 const ChatLayout = () => {
   return (
     <div className="flex h-screen bg-neutral-100 dark:bg-neutral-800 text-gray-700 transition duration-[300ms]">
@@ -8,7 +8,7 @@ const ChatLayout = () => {
         <SideBarPanel />
         <GetAllChat />
       </div>
-      <MainChatBox />
+      <Outlet />
     </div>
   );
 };
