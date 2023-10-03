@@ -16,7 +16,7 @@ const AvatarOptions = ({ setUserData, avatars }) => {
       {console.log(avatars)}
       {avatars.map((avatar, index) => (
         <img
-          className="h-20 w-20"
+          className="h-20 w-20 transition transform hover:scale-[1.04] duration-[200ms] cursor-pointer"
           key={index}
           src={avatar.dataUri}
           alt={`Avatar ${index}`}

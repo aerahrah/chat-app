@@ -4,13 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaArrowTrendUp, FaGalacticSenate } from "react-icons/fa6";
 
-const UpdateUserInfo = ({
-  userData,
-  setUserData,
-  theme,
-  isEditImgOpen,
-  toggleEditImgOpen,
-}) => {
+const UpdateUserInfo = ({ userData, setUserData, theme, isEditImgOpen }) => {
   const updateUserInfoMutation = useMutation(updateUserInfo);
 
   const [initialState, setInitialState] = useState(false);
@@ -48,7 +42,7 @@ const UpdateUserInfo = ({
                       className={`${
                         theme === "light"
                           ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                          : "bg-neutral-800 outline-neutral-800"
+                          : "bg-neutral-800/70 outline-neutral-800/70"
                       } outline outline-1 rounded block p-2  `}
                       type="text"
                       value={userData.firstName}
@@ -66,7 +60,7 @@ const UpdateUserInfo = ({
                       className={`${
                         theme === "light"
                           ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                          : "bg-neutral-800 outline-neutral-800"
+                          : "bg-neutral-800/70 outline-neutral-800/70"
                       } outline outline-1 rounded block p-2`}
                       type="text"
                       value={userData.lastName}
@@ -85,7 +79,7 @@ const UpdateUserInfo = ({
                     className={`${
                       theme === "light"
                         ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                        : "bg-neutral-800 outline-neutral-800"
+                        : "bg-neutral-800/70 outline-neutral-800/70"
                     } outline outline-1 rounded block p-2  w-full`}
                     type="text"
                     value={userData.username}
@@ -103,7 +97,7 @@ const UpdateUserInfo = ({
                     className={`${
                       theme === "light"
                         ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                        : "bg-neutral-800 outline-neutral-800"
+                        : "bg-neutral-800/70 outline-neutral-800/70"
                     } outline outline-1 rounded block p-2 mb-2 w-full`}
                     type="text"
                     value={userData.email}

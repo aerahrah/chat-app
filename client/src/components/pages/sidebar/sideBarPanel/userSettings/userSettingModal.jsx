@@ -57,8 +57,8 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
               className={`${
                 theme === "light"
                   ? "bg-white text-neutral-700"
-                  : " bg-neutral-700 text-neutral-300"
-              } relative mx-auto rounded-md shadow-xl p-4 w-[100vw]  max-w-md overflow-hidden`}
+                  : "bg-neutral-700 text-neutral-300"
+              } relative mx-auto rounded-md shadow-lg p-4 w-[100vw]  max-w-md overflow-hidden`}
             >
               <Dialog.Title className="text-lg text-center mb-6 font-semibold">
                 Profile Setting
@@ -81,20 +81,24 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                   />
                   <button>Edit Image</button>
                 </div>
-                <hr />
+                <p
+                  className={`${
+                    theme === "light"
+                      ? "border-neutral-300"
+                      : "border-neutral-600 "
+                  } border-b-[1px]`}
+                ></p>
                 <div className="relative">
                   <UpdateUserInfo
                     userData={userData}
                     setUserData={setUserData}
                     theme={theme}
                     isEditImgOpen={isEditImgOpen}
-                    toggleEditImgOpen={toggleEditImgOpen}
                   />
                   <EditImage
-                    userData={userData}
                     setUserData={setUserData}
+                    theme={theme}
                     isEditImgOpen={isEditImgOpen}
-                    toggleEditImgOpen={toggleEditImgOpen}
                   />
                 </div>
               </div>

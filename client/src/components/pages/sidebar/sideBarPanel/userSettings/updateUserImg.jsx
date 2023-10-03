@@ -8,7 +8,7 @@ import {
   avatarsNeutral,
 } from "../../../../utils/diceBearAvatars/avatars";
 
-const EditImage = ({ setUserData, isEditImgOpen, toggleEditImgOpen }) => {
+const EditImage = ({ setUserData, isEditImgOpen, theme }) => {
   const adventurerAvatars = useMemo(
     () => generateAvatars(adventurerAvatar, adventurer, "adventurer"),
     [adventurerAvatar]
@@ -29,7 +29,9 @@ const EditImage = ({ setUserData, isEditImgOpen, toggleEditImgOpen }) => {
           initial={{ x: 300 }}
           animate={{ x: isEditImgOpen ? 0 : 300 }}
           exit={{ opacity: 0 }}
-          className="mt-4 h-full max-h-[344px] bg-neutral-100 dark:bg-neutral-700 p-2 rounded-md overflow-hidden"
+          className={`${
+            theme === "light" ? "bg-neutral-100" : "bg-neutral-800/50"
+          } mt-4 h-full max-h-[344px]  p-2 rounded-md overflow-hidden`}
         >
           <div className="h-full  flex flex-col max-h-[344px]  overflow-y-auto gap-6">
             <div>

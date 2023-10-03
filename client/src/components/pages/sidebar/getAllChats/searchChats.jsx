@@ -14,12 +14,12 @@ const SearchChat = () => {
     queryClient.invalidateQueries("getAllChat");
   };
   return (
-    <div className="relative text-neutral-700 dark:text-neutral-300">
+    <div className="relative text-neutral-700  dark:text-neutral-300">
       <input
         type="text"
         value={chatName}
         placeholder="Search Chats"
-        className="block pl-8 p-2 w-[90%] mx-auto rounded-full bg-neutral-200 outline-0 dark:bg-neutral-900/80 transition duration-[300ms] "
+        className="block pl-8 p-2 w-[90%] mx-auto rounded-full bg-neutral-200 outline-0 dark:bg-neutral-900/60 transition duration-[300ms] "
         onChange={(e) => handleSearchChange(e)}
       />
       <FaSearch className="absolute left-[1.75rem] top-1/2 -translate-y-1/2" />

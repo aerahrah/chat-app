@@ -52,7 +52,7 @@ const CreateGroupChat = ({
                 theme === "light"
                   ? "bg-white text-neutral-700"
                   : "bg-neutral-700 text-neutral-300"
-              } mx-auto max-w-sm rounded-md shadow-xl p-4`}
+              } mx-auto max-w-sm rounded-md shadow-lg p-4`}
             >
               <Dialog.Title className="text-lg pb-4 font-semibold">
                 Create Group Chat
@@ -62,7 +62,7 @@ const CreateGroupChat = ({
                   className={`${
                     theme === "light"
                       ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                      : "bg-neutral-800 outline-neutral-800"
+                      : "bg-neutral-800/70 outline-neutral-800/70"
                   } outline outline-1 rounded block p-2 mb-6 w-[40vw] max-w-[100%]`}
                   type="text"
                   value={chatName}
