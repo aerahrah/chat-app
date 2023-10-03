@@ -1,32 +1,17 @@
-import { useQuery, useMutation } from "react-query";
+import { useQuery } from "react-query";
 import { getChatConversation } from "../../api/chatAPI";
-import { getChatName, getChatImg } from "../sidebar/getAllChats/getChatInfo";
-import { BiSolidHappyAlt, BiSolidSend } from "react-icons/bi";
-import EmojiPicker from "emoji-picker-react";
-import { Popover } from "@headlessui/react";
-import { useState } from "react";
-import { sendMessage } from "../../api/chatAPI";
 import { useParams } from "react-router-dom";
+
+import ConversationHeader from "./conversationHeader";
+import ConversationView from "./conversationView";
+import MessageComposer from "./MessageComposer";
 
 const MainChatBox = () => {
   const { chatId } = useParams();
-  const [message, setMessage] = useState("");
   const chatQuery = ["getConversation", chatId];
-  const sendMessageMutation = useMutation(sendMessage);
 
-  const handleSendMessage = async () => {
-    try {
-      const response = await sendMessageMutation.mutateAsync({
-        chatId,
-        content: message,
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const {
-    data: userData,
+    data: chatData,
     isLoading,
     isError,
     error,
@@ -38,56 +23,14 @@ const MainChatBox = () => {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
+
   return (
     <div className=" w-full max-w-[100%] relative text-neutral-700">
-      {userData && (
-        <div className="max-w[100%]">
-          <header className="p-4 border-b-[1px] flex items-center gap-2">
-            <img
-              src={getChatImg(userData.chat, userData.userId)}
-              alt="avatar"
-              className="h-10 w-10 rounded-full"
-            />
-            <h1>{getChatName(userData.chat, userData.userId)}</h1>
-          </header>
-          <div></div>
-          <div className="absolute border-t-[1px] bottom-0 w-full max-w-[100%] flex gap-2 p-2">
-            <Popover className="relative">
-              <Popover.Button className="bg-neutral-200/40 hover:bg-neutral-200 rounded-full dark:bg-neutral-700/10 dark:hover:bg-neutral-700/40 p-2 transition duration-[300ms] outline-0">
-                <BiSolidHappyAlt className="h-6 w-6" />
-              </Popover.Button>
-
-              <Popover.Panel>
-                <div className="absolute bottom-10 z-30">
-                  <EmojiPicker
-                    onEmojiClick={(emoji) =>
-                      setMessage((prevMessage) => prevMessage + emoji.emoji)
-                    }
-                    height={370}
-                    width={300}
-                    previewConfig={{ showPreview: false }}
-                  />
-                </div>
-              </Popover.Panel>
-            </Popover>
-
-            <input
-              type="text"
-              placeholder="Aa"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="bg-neutral-200/70 py-2 px-4 w-full outline-0 rounded-full"
-            />
-            <button
-              className="p-2 hover:bg-neutral-200 rounded-full"
-              onClick={() => {
-                handleSendMessage();
-                setMessage("");
-              }}
-            >
-              <BiSolidSend className="h-6 w-6" />
-            </button>
-          </div>
+      {chatData && (
+        <div className="flex flex-col max-w[100%] h-screen">
+          <ConversationHeader chatData={chatData} />
+          <ConversationView chatData={chatData} userId={chatData.userId} />
+          <MessageComposer chatId={chatId} />
         </div>
       )}
     </div>

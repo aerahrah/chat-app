@@ -1,6 +1,7 @@
 import { Chat, Message } from "../models/Chat.mjs";
 import Users from "../models/user.mjs";
 import { getInitials } from "../utils/getInitials.mjs";
+
 export const getAllChat = async (req, res) => {
   try {
     const getUserId = req.user;

@@ -19,6 +19,26 @@ export const getChatName = (chatData, userId) => {
   }
 };
 
+export const getConversationName = (chatData, sender) => {
+  if (chatData.chat.type === "group") {
+    const senderName = chatData.chat.members.find((member) => {
+      return String(member.user._id) === sender;
+    });
+
+    if (senderName) {
+      if (senderName.displayName === "") {
+        return senderName.name;
+      } else {
+        return senderName.displayName;
+      }
+    } else {
+      return "Unknown";
+    }
+  } else {
+    return chatData.name;
+  }
+};
+
 export const getChatImg = (chatData, userId) => {
   if (chatData.type === "private") {
     const currentUserId = userId;
