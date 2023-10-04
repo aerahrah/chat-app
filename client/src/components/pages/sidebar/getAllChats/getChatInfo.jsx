@@ -19,6 +19,12 @@ export const getChatName = (chatData, userId) => {
   }
 };
 
+export const getSpecificImg = (memberData) => {
+  if (memberData) {
+    return `https://api.dicebear.com/7.x/${memberData.user.userProfileImgType}/svg?seed=${memberData.user.userProfileImg}`;
+  }
+};
+
 export const getConversationName = (chatData, sender) => {
   if (chatData.chat.type === "group") {
     const senderName = chatData.chat.members.find((member) => {
