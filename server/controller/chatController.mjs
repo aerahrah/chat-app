@@ -209,3 +209,17 @@ export const leaveGroupChat = async (req, res) => {
     return res.status(500).json({ error: "Error leaving group" });
   }
 };
+
+export const editChatMemberNickname = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const userId = req.user;
+    const { memberId, nickname } = req.body;
+    const chat = await Chat.findById(chatId);
+    if (!chat) return res.status(404).json({ error: "Chat not found" });
+
+    return res.status(200).json(chat);
+  } catch (error) {
+    return res.status(500).json({ error: "Error leaving group" });
+  }
+};

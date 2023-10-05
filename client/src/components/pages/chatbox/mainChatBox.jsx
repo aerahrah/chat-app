@@ -1,25 +1,25 @@
 import { useQuery } from "react-query";
 import { getChatConversation } from "../../api/chatAPI";
 import { useParams } from "react-router-dom";
-import { Dialog } from "@headlessui/react";
-import { AnimatePresence, motion } from "framer-motion";
 import { getChatName, getChatImg } from "../sidebar/getAllChats/getChatInfo";
 import useThemeStore from "../../state/useThemeStore";
 import ConversationHeader from "./conversationHeader";
 import ConversationView from "./conversationView";
 import MessageComposer from "./MessageComposer";
 import { useState } from "react";
-import { getSpecificImg } from "../sidebar/getAllChats/getChatInfo";
+import EditNickname from "./chatMenu/editNickname";
 
 const MainChatBox = () => {
   const { chatId } = useParams();
   const chatQuery = ["getConversation", chatId];
   const theme = useThemeStore((state) => state.theme);
   const [editNicknameModal, setEditNicknameModal] = useState(false);
+  const [openChatMenu, setOpenChatMenu] = useState(false);
 
   const toggleEditNickname = () => {
     return setEditNicknameModal(!editNicknameModal);
   };
+
   const {
     data: chatData,
     isLoading,
@@ -72,65 +72,12 @@ const MainChatBox = () => {
               </button>
             </div>
           </div>
-          {editNicknameModal && (
-            <Dialog
-              static
-              as={motion.div}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: editNicknameModal ? 1 : 0 }}
-              exit={{ opacity: 0 }}
-              open={editNicknameModal}
-              onClose={toggleEditNickname}
-            >
-              <div className="fixed inset-0 bg-black/40" />
-
-              <div className="fixed inset-0 flex w-screen items-center justify-center">
-                <Dialog.Panel
-                  as={motion.div}
-                  initial={{ scale: 0.7 }}
-                  animate={
-                    editNicknameModal
-                      ? { scale: 1, opacity: 1 }
-                      : { scale: 0.7, opacity: 0 }
-                  }
-                  exit={{ scale: 0.7, opacity: 0 }}
-                  className={`${
-                    theme === "light"
-                      ? "bg-white text-neutral-700"
-                      : "bg-neutral-700 text-neutral-300"
-                  } mx-auto max-w-lg rounded-md shadow-lg p-4`}
-                >
-                  <Dialog.Title className="text-lg text-center pb-4 font-semibold">
-                    Nickname
-                  </Dialog.Title>
-                  <div className="flex flex-col gap-2">
-                    {chatData.chat.members.map((user) => (
-                      <div
-                        key={user._id}
-                        className="flex items-center gap-2 hover:bg-neutral-600 p-3 rounded-md "
-                      >
-                        <img
-                          src={getSpecificImg(user)}
-                          alt="avatar"
-                          className="h-10 w-10 rounded-full"
-                        />
-                        <div className="flex flex-col gap-1  hover:bg-neutral-600 justify-center w-[100vw] max-w-[1000rem]">
-                          <p>
-                            {user.displayName ? user.displayName : user.name}
-                          </p>
-                          <p className="text-xs">
-                            {user.displayName
-                              ? user.displayName
-                              : "Set Nickname"}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Dialog.Panel>
-              </div>
-            </Dialog>
-          )}
+          <EditNickname
+            theme={theme}
+            chatData={chatData}
+            editNicknameModal={editNicknameModal}
+            toggleEditNickname={toggleEditNickname}
+          />
         </div>
       )}
     </div>

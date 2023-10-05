@@ -95,3 +95,27 @@ export const sendMessage = async ({ chatId, content }) => {
     throw error;
   }
 };
+
+export const editChatMemberNickname = async ({
+  chatId,
+  memberId,
+  nickname,
+}) => {
+  try {
+    console.log(chatId);
+    console.log(content);
+    const response = await fetch(`${BASE_URL}/${chatId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ memberId, nickname }),
+    });
+    console.log(nickname);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
