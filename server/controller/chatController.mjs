@@ -213,13 +213,26 @@ export const leaveGroupChat = async (req, res) => {
 export const editChatMemberNickname = async (req, res) => {
   try {
     const { chatId } = req.params;
-    const userId = req.user;
     const { memberId, nickname } = req.body;
     const chat = await Chat.findById(chatId);
-    if (!chat) return res.status(404).json({ error: "Chat not found" });
+
+    if (!chat) {
+      return res.status(404).json({ error: "Chat not found" });
+    }
+
+    const member = chat.members.find(
+      (member) => member._id.toString() === memberId
+    );
+
+    if (!member) {
+      return res.status(404).json({ error: "Member not found in the chat" });
+    }
+
+    member.displayName = nickname;
+    await chat.save();
 
     return res.status(200).json(chat);
   } catch (error) {
-    return res.status(500).json({ error: "Error leaving group" });
+    return res.status(500).json({ error: "Error updating member's nickname" });
   }
 };

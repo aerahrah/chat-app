@@ -43,7 +43,11 @@ const EditNickname = ({
               </Dialog.Title>
               <div className="flex flex-col gap-2">
                 {chatData.chat.members.map((user) => (
-                  <GetUserNickname key={user._id} user={user} />
+                  <GetUserNickname
+                    key={user._id}
+                    user={user}
+                    chatId={chatData.chat._id}
+                  />
                 ))}
               </div>
             </Dialog.Panel>

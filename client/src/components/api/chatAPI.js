@@ -103,8 +103,8 @@ export const editChatMemberNickname = async ({
 }) => {
   try {
     console.log(chatId);
-    console.log(content);
-    const response = await fetch(`${BASE_URL}/${chatId}`, {
+    console.log(nickname);
+    const response = await fetch(`${BASE_URL}/${chatId}/edit-member-nickname`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export const editChatMemberNickname = async ({
       },
       body: JSON.stringify({ memberId, nickname }),
     });
-    console.log(nickname);
+
     return response.json();
   } catch (error) {
     console.log(error);

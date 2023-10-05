@@ -1,11 +1,28 @@
 import { BiSolidEditAlt, BiCheck } from "react-icons/bi";
 import { getSpecificImg } from "../../sidebar/getAllChats/getChatInfo";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { editChatMemberNickname } from "../../../api/chatAPI";
 
-const GetUserNickname = ({ user }) => {
+const GetUserNickname = ({ chatId, user }) => {
+  const editMemberNicknameMutation = useMutation(editChatMemberNickname);
   const [nickname, setNickname] = useState(user.displayName);
   const [openInputBox, setOpenInputBox] = useState(false);
+  const queryClient = useQueryClient();
 
+  const handleChangeMemberNickname = async (memberId) => {
+    try {
+      await editMemberNicknameMutation.mutateAsync({
+        chatId,
+        memberId,
+        nickname,
+      });
+      queryClient.invalidateQueries("getAllChat");
+      queryClient.invalidateQueries("getConversation");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const toggleOpenInputBox = () => {
     return setOpenInputBox(!openInputBox);
   };
@@ -33,7 +50,13 @@ const GetUserNickname = ({ user }) => {
           />
 
           <i>
-            <BiCheck className="h-7 w-7" />
+            <BiCheck
+              className="h-7 w-7 "
+              onClick={(e) => {
+                e.stopPropagation();
+                handleChangeMemberNickname(user._id);
+              }}
+            />
           </i>
         </div>
       ) : (
@@ -41,7 +64,7 @@ const GetUserNickname = ({ user }) => {
           <div className="flex flex-col gap-1  hover:bg-neutral-600 justify-center ">
             <p>{user.displayName ? user.displayName : user.name}</p>
             <p className="text-xs">
-              {user.displayName ? user.displayName : "Set Nickname"}
+              {user.displayName ? user.name : "Set Nickname"}
             </p>
           </div>
           <i>

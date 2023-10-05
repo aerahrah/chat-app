@@ -1,7 +1,6 @@
 import { getConversationName } from "../sidebar/getAllChats/getChatInfo";
 
 const ConversationView = ({ chatData, userId }) => {
-  console.log(chatData);
   return (
     <div className="flex flex-col w-full h-screen max-h-[100%] overflow-y-auto p-4 gap-2">
       {chatData.chat.messages.map((message) => (
