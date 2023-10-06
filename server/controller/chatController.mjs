@@ -236,3 +236,18 @@ export const editChatMemberNickname = async (req, res) => {
     return res.status(500).json({ error: "Error updating member's nickname" });
   }
 };
+
+export const editChatName = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const { chatName } = req.body;
+    const chat = await Chat.findById(chatId);
+
+    chat.name = chatName;
+    await chat.save();
+
+    return res.status(200).json(chat);
+  } catch (error) {
+    return res.status(500).json({ error: "Error updating chat name" });
+  }
+};

@@ -51,7 +51,7 @@ const GetUserNickname = ({ chatId, theme, user }) => {
             className={`${
               theme === "light"
                 ? "bg-white text-neutral-700"
-                : "bg-neutral-700 text-neutral-300  outline-neutral-300/70"
+                : "bg-neutral-800/70 outline-neutral-300/70"
             } p-2.5 w-full z-50 rounded focus:outline `}
             onClick={(e) => e.stopPropagation()}
             onChange={(e) => setNickname(e.target.value)}

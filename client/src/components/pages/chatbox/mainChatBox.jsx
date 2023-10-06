@@ -4,19 +4,11 @@ import { useParams } from "react-router-dom";
 import ConversationHeader from "./conversationHeader";
 import ConversationView from "./conversationView";
 import MessageComposer from "./MessageComposer";
-import { useState } from "react";
-import EditNickname from "./chatMenu/editNickname";
 import ChatMenuLayout from "./chatMenu/chatMenuLayout";
 
 const MainChatBox = () => {
   const { chatId } = useParams();
   const chatQuery = ["getConversation", chatId];
-
-  const [editNicknameModal, setEditNicknameModal] = useState(false);
-
-  const toggleEditNickname = () => {
-    return setEditNicknameModal(!editNicknameModal);
-  };
 
   const {
     data: chatData,
@@ -42,15 +34,7 @@ const MainChatBox = () => {
             <ConversationView chatData={chatData} userId={chatData.userId} />
             <MessageComposer chatId={chatId} />
           </div>
-          <ChatMenuLayout
-            chatData={chatData}
-            toggleEditNickname={toggleEditNickname}
-          />
-          <EditNickname
-            chatData={chatData}
-            editNicknameModal={editNicknameModal}
-            toggleEditNickname={toggleEditNickname}
-          />
+          <ChatMenuLayout chatData={chatData} />
         </div>
       )}
     </div>

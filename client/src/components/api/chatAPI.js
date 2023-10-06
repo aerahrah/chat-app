@@ -119,3 +119,23 @@ export const editChatMemberNickname = async ({
     throw error;
   }
 };
+
+export const editChatName = async ({ chatId, chatName }) => {
+  try {
+    console.log(chatId);
+    console.log(chatName);
+    const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-name`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ chatName }),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

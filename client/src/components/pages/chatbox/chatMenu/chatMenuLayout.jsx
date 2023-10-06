@@ -1,8 +1,27 @@
 import { getChatImg, getChatName } from "../../sidebar/getAllChats/getChatInfo";
 import useChatCreationStore from "../../../state/chat/useChatCreationStore";
 import { BiImage, BiSolidPencil } from "react-icons/bi";
-const ChatMenuLayout = ({ chatData, toggleEditNickname }) => {
+import EditNickname from "./editNickname";
+import EditChatName from "./editChatName";
+import { useState } from "react";
+
+const ChatMenuLayout = ({ chatData }) => {
   const openChatMenu = useChatCreationStore((state) => state.openChatMenu);
+  const [editNicknameModal, setEditNicknameModal] = useState(false);
+  const [editChatNameModal, setEditChatNameModal] = useState(false);
+  const [editChatImageModal, setEditChatImageModal] = useState(false);
+
+  const toggleEditNickname = () => {
+    return setEditNicknameModal(!editNicknameModal);
+  };
+
+  const toggleEditChatName = () => {
+    return setEditChatNameModal(!editChatNameModal);
+  };
+
+  const toggleEditChatImage = () => {
+    return setEditChatImageModal(!editChatImageModal);
+  };
 
   return (
     <>
@@ -22,15 +41,18 @@ const ChatMenuLayout = ({ chatData, toggleEditNickname }) => {
             <div className="flex flex-col items-start gap-3 w-full">
               {chatData.chat.type === "group" && (
                 <div className="flex flex-col gap-2 w-full">
-                  <div className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer ">
+                  <div
+                    className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
+                    onClick={toggleEditChatName}
+                  >
                     <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
-                      <BiImage className="h-5 w-5" />
+                      <BiSolidPencil className="h-5 w-5" />
                     </i>
                     <p>Change chat name</p>
                   </div>
                   <div className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer">
                     <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
-                      <BiSolidPencil className="h-5 w-5" />
+                      <BiImage className="h-5 w-5" />
                     </i>
                     <p>Change photo</p>
                   </div>
@@ -53,6 +75,16 @@ const ChatMenuLayout = ({ chatData, toggleEditNickname }) => {
               </button>
             </div>
           </div>
+          <EditNickname
+            chatData={chatData}
+            editNicknameModal={editNicknameModal}
+            toggleEditNickname={toggleEditNickname}
+          />
+          <EditChatName
+            chatData={chatData}
+            editChatNameModal={editChatNameModal}
+            toggleEditChatName={toggleEditChatName}
+          />
         </div>
       )}
     </>

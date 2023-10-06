@@ -8,7 +8,7 @@ const ConversationHeader = ({ chatData }) => {
   );
 
   return (
-    <header className="p-4 border-neutral-300 border-b-[1px] dark:border-neutral-700 transition duration-[300ms] ">
+    <header className="p-4 border-neutral-300 border-b-[1px] shadow-sm dark:border-neutral-700 transition duration-[300ms] ">
       <div className="flex justify-between text-neutral-700 dark:text-neutral-300 ">
         <div className="flex items-center gap-2">
           <img
