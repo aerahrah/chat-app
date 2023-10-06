@@ -1,13 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Dialog } from "@headlessui/react";
 import GetUserNickname from "./getUserNickname";
+import useThemeStore from "../../../state/useThemeStore";
 
-const EditNickname = ({
-  theme,
-  chatData,
-  editNicknameModal,
-  toggleEditNickname,
-}) => {
+const EditNickname = ({ chatData, editNicknameModal, toggleEditNickname }) => {
+  const theme = useThemeStore((state) => state.theme);
+
   return (
     <AnimatePresence>
       {editNicknameModal && (
@@ -46,6 +44,7 @@ const EditNickname = ({
                   <GetUserNickname
                     key={user._id}
                     user={user}
+                    theme={theme}
                     chatId={chatData.chat._id}
                   />
                 ))}
