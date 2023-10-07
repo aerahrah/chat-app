@@ -3,6 +3,7 @@ import useChatCreationStore from "../../../state/chat/useChatCreationStore";
 import { BiImage, BiSolidPencil } from "react-icons/bi";
 import EditNickname from "./editNickname";
 import EditChatName from "./editChatName";
+import EditChatImgBtn from "./editChatImg/editChatImgBtn";
 import { useState } from "react";
 
 const ChatMenuLayout = ({ chatData }) => {
@@ -50,7 +51,10 @@ const ChatMenuLayout = ({ chatData }) => {
                     </i>
                     <p>Change chat name</p>
                   </div>
-                  <div className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer">
+                  <div
+                    className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer"
+                    onClick={toggleEditChatImage}
+                  >
                     <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
                       <BiImage className="h-5 w-5" />
                     </i>
@@ -84,6 +88,11 @@ const ChatMenuLayout = ({ chatData }) => {
             chatData={chatData}
             editChatNameModal={editChatNameModal}
             toggleEditChatName={toggleEditChatName}
+          />
+          <EditChatImgBtn
+            chatData={chatData}
+            editChatImageModal={editChatImageModal}
+            toggleEditChatImage={toggleEditChatImage}
           />
         </div>
       )}

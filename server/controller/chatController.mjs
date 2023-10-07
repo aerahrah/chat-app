@@ -242,7 +242,9 @@ export const editChatName = async (req, res) => {
     const { chatId } = req.params;
     const { chatName } = req.body;
     const chat = await Chat.findById(chatId);
-
+    if (!chatName)
+      return res.status(401).send({ message: "Chat name is empty" });
+    chat.chatImg = getInitials(chatName);
     chat.name = chatName;
     await chat.save();
 
