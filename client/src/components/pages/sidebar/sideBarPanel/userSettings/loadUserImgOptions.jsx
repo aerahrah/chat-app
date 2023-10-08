@@ -10,7 +10,7 @@ export const generateAvatars = (seeds, collection, collectionName) =>
     }).toDataUriSync(),
   }));
 
-const AvatarOptions = ({ setUserData, avatars }) => {
+const AvatarOptions = ({ setUserData, setChatData, avatars, type }) => {
   return (
     <div className="flex gap-2 flex-wrap">
       {console.log(avatars)}
@@ -20,13 +20,19 @@ const AvatarOptions = ({ setUserData, avatars }) => {
           key={index}
           src={avatar.dataUri}
           alt={`Avatar ${index}`}
-          onClick={() =>
-            setUserData((prevVal) => ({
-              ...prevVal,
-              userImg: avatar.seed,
-              userImgType: avatar.collection,
-            }))
-          }
+          onClick={() => {
+            type === "userImage"
+              ? setUserData((prevVal) => ({
+                  ...prevVal,
+                  userImg: avatar.seed,
+                  userImgType: avatar.collection,
+                }))
+              : setChatData((prevVal) => ({
+                  ...prevVal,
+                  chatImg: avatar.seed,
+                  chatImgType: avatar.collection,
+                }));
+          }}
         />
       ))}
     </div>

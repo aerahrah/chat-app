@@ -1,5 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
-import AvatarOptions, { generateAvatars } from "./loadImgOptionSetting";
+import AvatarOptions, {
+  generateAvatars,
+} from "../../../sidebar/sideBarPanel/userSettings/loadUserImgOptions";
 import { useMemo } from "react";
 import { adventurer, avataaarsNeutral, funEmoji } from "@dicebear/collection";
 import {
@@ -8,7 +10,7 @@ import {
   avatarsNeutral,
 } from "../../../../utils/diceBearAvatars/avatars";
 
-const LoadImgOption = ({ theme }) => {
+const LoadImgOption = ({ theme, setStateChatData }) => {
   const adventurerAvatars = useMemo(
     () => generateAvatars(adventurerAvatar, adventurer, "adventurer"),
     [adventurerAvatar]
@@ -32,15 +34,27 @@ const LoadImgOption = ({ theme }) => {
         <div className="h-full  flex flex-col max-h-[330px]  overflow-y-auto gap-6">
           <div>
             <h2 className="font-semibold mb-2">Adventurer Avatars</h2>
-            <AvatarOptions avatars={adventurerAvatars} />
+            <AvatarOptions
+              avatars={adventurerAvatars}
+              setChatData={setStateChatData}
+              type="groupChatImage"
+            />
           </div>
           <div>
             <h2 className="font-semibold mb-2">Neutral Avatars</h2>
-            <AvatarOptions avatars={neutralAvatars} />
+            <AvatarOptions
+              avatars={neutralAvatars}
+              setChatData={setStateChatData}
+              type="groupChatImage"
+            />
           </div>
           <div>
             <h2 className="font-semibold mb-2">Fun Avatars</h2>
-            <AvatarOptions avatars={funAvatars} />
+            <AvatarOptions
+              avatars={funAvatars}
+              setChatData={setStateChatData}
+              type="groupChatImage"
+            />
           </div>
         </div>
       </motion.div>

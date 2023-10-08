@@ -139,3 +139,24 @@ export const editChatName = async ({ chatId, chatName }) => {
     throw error;
   }
 };
+
+export const editChatImage = async ({ chatId, stateChatData }) => {
+  try {
+    const { chatImg, chatImgType } = stateChatData;
+    console.log(stateChatData);
+    console.log(chatImg, chatImgType);
+    const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-image`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ chatImg, chatImgType }),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

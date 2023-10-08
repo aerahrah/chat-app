@@ -39,6 +39,7 @@ const EditImage = ({ setUserData, isEditImgOpen, theme }) => {
               <AvatarOptions
                 setUserData={setUserData}
                 avatars={adventurerAvatars}
+                type="userImage"
               />
             </div>
             <div>
@@ -46,11 +47,16 @@ const EditImage = ({ setUserData, isEditImgOpen, theme }) => {
               <AvatarOptions
                 setUserData={setUserData}
                 avatars={neutralAvatars}
+                type="userImage"
               />
             </div>
             <div>
               <h2 className="font-semibold mb-2">Fun Avatars</h2>
-              <AvatarOptions setUserData={setUserData} avatars={funAvatars} />
+              <AvatarOptions
+                setUserData={setUserData}
+                avatars={funAvatars}
+                type="userImage"
+              />
             </div>
           </div>
         </motion.div>
