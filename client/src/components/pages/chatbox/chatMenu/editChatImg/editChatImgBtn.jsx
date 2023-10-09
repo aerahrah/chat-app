@@ -68,7 +68,7 @@ const EditChatImgBtn = ({
                 <img
                   src={`https://api.dicebear.com/7.x/${stateChatData.chatImgType}/svg?seed=${stateChatData.chatImg}`}
                   alt="avatar"
-                  className="h-24 w-24 rounded-full"
+                  className="h-20 w-20 rounded-full"
                 />
               </div>
               <div className="mb-4">
