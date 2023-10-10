@@ -42,7 +42,11 @@ const MainChatBox = () => {
         <div className="flex w-full">
           <div className="flex flex-col flex-1 max-w[100%] h-screen  ">
             <ConversationHeader chatData={chatData} />
-            <ConversationView chatData={chatData} userId={chatData.userId} />
+            <ConversationView
+              chatData={chatData}
+              chatId={chatId}
+              userId={chatData.userId}
+            />
             <MessageComposer chatId={chatId} />
           </div>
           <ChatMenuLayout chatData={chatData} />

@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import { sendMessage } from "../../api/chatAPI";
 import { Popover } from "@headlessui/react";
 import { useState } from "react";
+import socket from "../../socket/socket";
 
 const MessageComposer = ({ chatId }) => {
   const sendMessageMutation = useMutation(sendMessage);
@@ -16,6 +17,8 @@ const MessageComposer = ({ chatId }) => {
         content: message,
       });
       console.log(response);
+      socket.emit("send message", chatId, message);
+      setMessage("");
     } catch (error) {
       console.log(error);
     }

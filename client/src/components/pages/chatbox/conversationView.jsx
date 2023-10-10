@@ -1,9 +1,32 @@
 import { getConversationName } from "../sidebar/getAllChats/getChatInfo";
+import { useEffect, useState } from "react";
+import socket from "../../socket/socket";
 
-const ConversationView = ({ chatData, userId }) => {
+const ConversationView = ({ chatData, chatId, userId }) => {
+  const [messages, setMessages] = useState(chatData.chat.messages);
+  console.log(chatId);
+
+  useEffect(() => {
+    socket.emit("join chat", chatId);
+
+    socket.on("receive message", (message) => {
+      try {
+        setMessages((prevMessages) => [...prevMessages, message]);
+        console.log("Received message:", message);
+      } catch (error) {
+        console.error("Error handling received message:", error);
+      }
+    });
+
+    return () => {
+      socket.emit("leave chat", chatId);
+      socket.disconnect();
+    };
+  }, [chatId]);
+
   return (
     <div className="flex flex-col w-full h-screen max-h-[100%] overflow-y-auto p-4 gap-2">
-      {chatData.chat.messages.map((message) => (
+      {messages.map((message) => (
         <div
           className={`flex ${
             message.sender === userId ? "justify-end" : "justify-start"

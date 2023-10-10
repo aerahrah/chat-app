@@ -20,13 +20,25 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
   },
 });
 
 io.on("connection", (socket) => {
-  console.log("A user connected");
+  socket.on("join chat", (chatId) => {
+    socket.join(chatId);
+    console.log("joined chat");
+  });
+
+  socket.on("leave chat", (chatId) => {
+    socket.leave(chatId);
+  });
+  socket.on("send message", (chatId, message) => {
+    socket.to(chatId).emit("receive message", message);
+    console.log(chatId, message);
+  });
 });
+
 const start = async () => {
   try {
     await connectDb(process.env.MONGO_URL);
