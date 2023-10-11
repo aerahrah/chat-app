@@ -4,7 +4,19 @@ import SignUp from "./components/auth/signup";
 import SignIn from "./components/auth/signin";
 import ChatLayout from "./components/chatLayout";
 import MainChatBox from "./components/pages/chatbox/mainChatBox";
+import socket from "./components/socket/socket";
+import { useEffect } from "react";
+
 function App() {
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("WebSocket connection is open.");
+    });
+
+    return () => {
+      socket.off("connect");
+    };
+  }, []);
   return (
     <>
       <Routes>

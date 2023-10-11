@@ -27,14 +27,14 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   socket.on("join chat", (chatId) => {
     socket.join(chatId);
-    console.log("joined chat");
+    console.log("joined chat", chatId);
   });
 
   socket.on("leave chat", (chatId) => {
     socket.leave(chatId);
   });
-  socket.on("send message", (chatId, message) => {
-    socket.to(chatId).emit("receive message", message);
+  socket.on("send message", (chatId, userId, message) => {
+    io.to(chatId).emit("receive message", userId, message);
     console.log(chatId, message);
   });
 });

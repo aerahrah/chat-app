@@ -5,8 +5,6 @@ import ConversationHeader from "./conversationHeader";
 import ConversationView from "./conversationView";
 import MessageComposer from "./MessageComposer";
 import ChatMenuLayout from "./chatMenu/chatMenuLayout";
-import socket from "../../socket/socket";
-import { useEffect } from "react";
 
 const MainChatBox = () => {
   const { chatId } = useParams();
@@ -19,15 +17,6 @@ const MainChatBox = () => {
     error,
   } = useQuery(chatQuery, () => (chatId ? getChatConversation(chatId) : null));
 
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("WebSocket connection is open.");
-    });
-
-    return () => {
-      socket.off("connect");
-    };
-  }, []);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -46,8 +35,9 @@ const MainChatBox = () => {
               chatData={chatData}
               chatId={chatId}
               userId={chatData.userId}
+              key={chatId}
             />
-            <MessageComposer chatId={chatId} />
+            <MessageComposer chatId={chatId} userId={chatData.userId} />
           </div>
           <ChatMenuLayout chatData={chatData} />
         </div>

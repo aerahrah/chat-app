@@ -4,34 +4,37 @@ import socket from "../../socket/socket";
 
 const ConversationView = ({ chatData, chatId, userId }) => {
   const [messages, setMessages] = useState(chatData.chat.messages);
-  console.log(chatId);
 
   useEffect(() => {
+    console.log("Socket status: ", socket.connected);
     socket.emit("join chat", chatId);
-
-    socket.on("receive message", (message) => {
-      try {
-        setMessages((prevMessages) => [...prevMessages, message]);
-        console.log("Received message:", message);
-      } catch (error) {
-        console.error("Error handling received message:", error);
-      }
-    });
-
+    socket.on("receive message", receiveMessageHandler);
+    console.log("Change to: ", chatId);
     return () => {
+      socket.off("receive message", receiveMessageHandler);
       socket.emit("leave chat", chatId);
-      socket.disconnect();
     };
-  }, [chatId]);
+  }, [chatId, userId]);
+
+  console.log(chatId);
+  const receiveMessageHandler = (userId, message) => {
+    try {
+      const messageObject = { sender: userId, content: message };
+      setMessages((prevMessages) => [...prevMessages, messageObject]);
+      console.log("Received message:", message, userId);
+    } catch (error) {
+      console.error("Error handling received message:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col w-full h-screen max-h-[100%] overflow-y-auto p-4 gap-2">
-      {messages.map((message) => (
+      {messages.map((message, index) => (
         <div
           className={`flex ${
             message.sender === userId ? "justify-end" : "justify-start"
           }`}
-          key={message._id}
+          key={index}
         >
           {message.sender === userId ? (
             <div className="max-w-[30vw]">

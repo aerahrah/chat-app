@@ -6,7 +6,7 @@ import { Popover } from "@headlessui/react";
 import { useState } from "react";
 import socket from "../../socket/socket";
 
-const MessageComposer = ({ chatId }) => {
+const MessageComposer = ({ chatId, userId }) => {
   const sendMessageMutation = useMutation(sendMessage);
   const [message, setMessage] = useState("");
 
@@ -17,7 +17,7 @@ const MessageComposer = ({ chatId }) => {
         content: message,
       });
       console.log(response);
-      socket.emit("send message", chatId, message);
+      socket.emit("send message", chatId, userId, message);
       setMessage("");
     } catch (error) {
       console.log(error);
