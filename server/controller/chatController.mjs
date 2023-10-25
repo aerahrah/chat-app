@@ -162,14 +162,14 @@ export const sendChatMessage = async (req, res) => {
 export const addNewMember = async (req, res) => {
   try {
     const { chatId } = req.params;
-    const { username } = req.body;
+    const { userNameId } = req.body;
 
     const chat = await Chat.findById(chatId);
-    if (!chat) return res.status(401).send({ error: "chat not found" });
+    if (!chat) return res.status(401).send({ error: "Chat not found" });
 
-    const newMember = await Users.findOne(username);
-    if (!newMember)
-      return res.status(401).send({ error: "Username not found" });
+    const newMember = await Users.findById(userNameId);
+
+    if (!newMember) return res.status(401).send({ error: "User not found" });
 
     const isMember = chat.members.some((member) =>
       member.user.equals(newMember._id)
@@ -179,7 +179,11 @@ export const addNewMember = async (req, res) => {
         .status(401)
         .send({ error: "User is already in the group chat" });
 
-    chat.members.push({ user: newMember._id, displayName: newMember.username });
+    chat.members.push({
+      user: newMember._id,
+      name: `${newMember.firstName} ${newMember.lastName}`,
+      displayName: "",
+    });
     await chat.save();
 
     return res

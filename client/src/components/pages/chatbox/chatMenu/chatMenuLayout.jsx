@@ -91,7 +91,6 @@ const ChatMenuLayout = ({ chatData }) => {
             <EditChatMember
               chatData={chatData}
               editChatMemberModal={editChatMemberModal}
-              toggleEditChatMember={toggleEditChatMember}
             />
           </div>
           <EditNickname

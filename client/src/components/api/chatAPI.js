@@ -160,3 +160,23 @@ export const editChatImage = async ({ chatId, stateChatData }) => {
     throw error;
   }
 };
+
+export const addChatMember = async ({ chatId, userNameId }) => {
+  try {
+    console.log(userNameId);
+
+    const response = await fetch(`${BASE_URL}/${chatId}/add-member`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ userNameId }),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
