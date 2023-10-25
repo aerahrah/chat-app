@@ -4,6 +4,7 @@ import { BiImage, BiSolidPencil } from "react-icons/bi";
 import EditNickname from "./editNickname";
 import EditChatName from "./editChatName";
 import EditChatImgBtn from "./editChatImg/editChatImgBtn";
+import EditChatMember from "./editChatMember";
 import { useState } from "react";
 
 const ChatMenuLayout = ({ chatData }) => {
@@ -11,7 +12,7 @@ const ChatMenuLayout = ({ chatData }) => {
   const [editNicknameModal, setEditNicknameModal] = useState(false);
   const [editChatNameModal, setEditChatNameModal] = useState(false);
   const [editChatImageModal, setEditChatImageModal] = useState(false);
-
+  const [editChatMemberModal, setEditChatMemberModal] = useState(false);
   const toggleEditNickname = () => {
     return setEditNicknameModal(!editNicknameModal);
   };
@@ -24,6 +25,9 @@ const ChatMenuLayout = ({ chatData }) => {
     return setEditChatImageModal(!editChatImageModal);
   };
 
+  const toggleEditChatMember = () => {
+    return setEditChatMemberModal(!editChatMemberModal);
+  };
   return (
     <>
       {openChatMenu && (
@@ -77,7 +81,18 @@ const ChatMenuLayout = ({ chatData }) => {
                 </p>
                 <p className="p-1">Edit nickname</p>
               </button>
+              <p
+                className="w-full hover:bg-neutral-200/40  hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
+                onClick={toggleEditChatMember}
+              >
+                Change members
+              </p>
             </div>
+            <EditChatMember
+              chatData={chatData}
+              editChatMemberModal={editChatMemberModal}
+              toggleEditChatMember={toggleEditChatMember}
+            />
           </div>
           <EditNickname
             chatData={chatData}
