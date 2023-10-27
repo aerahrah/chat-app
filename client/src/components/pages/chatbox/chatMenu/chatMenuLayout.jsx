@@ -1,33 +1,26 @@
 import { getChatImg, getChatName } from "../../sidebar/getAllChats/getChatInfo";
 import useChatCreationStore from "../../../state/chat/useChatCreationStore";
-import { BiImage, BiSolidPencil } from "react-icons/bi";
-import EditNickname from "./editNickname";
-import EditChatName from "./editChatName";
-import EditChatImgBtn from "./editChatImg/editChatImgBtn";
-import EditChatMember from "./editChatMember";
+import {
+  BiImage,
+  BiSolidPencil,
+  BiSolidChevronRight,
+  BiSolidChevronDown,
+} from "react-icons/bi";
+import EditChatMember from "./chatMember/editChatMember";
 import { useState } from "react";
-
+import CustomizeChat from "./customizeChat/customizeChat";
 const ChatMenuLayout = ({ chatData }) => {
   const openChatMenu = useChatCreationStore((state) => state.openChatMenu);
-  const [editNicknameModal, setEditNicknameModal] = useState(false);
-  const [editChatNameModal, setEditChatNameModal] = useState(false);
-  const [editChatImageModal, setEditChatImageModal] = useState(false);
   const [editChatMemberModal, setEditChatMemberModal] = useState(false);
-  const toggleEditNickname = () => {
-    return setEditNicknameModal(!editNicknameModal);
-  };
-
-  const toggleEditChatName = () => {
-    return setEditChatNameModal(!editChatNameModal);
-  };
-
-  const toggleEditChatImage = () => {
-    return setEditChatImageModal(!editChatImageModal);
-  };
+  const [editChatModal, setEditChatModal] = useState(false);
 
   const toggleEditChatMember = () => {
     return setEditChatMemberModal(!editChatMemberModal);
   };
+  const toggleEditChat = () => {
+    return setEditChatModal(!editChatModal);
+  };
+
   return (
     <>
       {openChatMenu && (
@@ -43,71 +36,48 @@ const ChatMenuLayout = ({ chatData }) => {
                 {getChatName(chatData.chat, chatData.userId)}
               </h1>
             </div>
-            <div className="flex flex-col items-start gap-3 w-full">
+            <div className="flex flex-col items-start w-full">
+              <button
+                className="w-full flex items-center justify-between gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
+                onClick={toggleEditChat}
+              >
+                <p>Customize chat</p>
+                <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
+                  {editChatModal ? (
+                    <BiSolidChevronDown className="h-5 w-5" />
+                  ) : (
+                    <BiSolidChevronRight className="h-5 w-5" />
+                  )}
+                </i>
+              </button>
+              <CustomizeChat
+                chatData={chatData}
+                editChatModal={editChatModal}
+              />
               {chatData.chat.type === "group" && (
-                <div className="flex flex-col gap-2 w-full">
-                  <div
-                    className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
-                    onClick={toggleEditChatName}
+                <div className="w-full">
+                  <button
+                    className="w-full flex items-center justify-between gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
+                    onClick={toggleEditChatMember}
                   >
+                    <p>Change members</p>
                     <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
-                      <BiSolidPencil className="h-5 w-5" />
+                      {editChatMemberModal ? (
+                        <BiSolidChevronDown className="h-5 w-5" />
+                      ) : (
+                        <BiSolidChevronRight className="h-5 w-5" />
+                      )}
                     </i>
-                    <p>Change chat name</p>
-                  </div>
-                  <div
-                    className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer"
-                    onClick={toggleEditChatImage}
-                  >
-                    <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
-                      <BiImage className="h-5 w-5" />
-                    </i>
-                    <p>Change photo</p>
-                  </div>
+                  </button>
+
+                  <EditChatMember
+                    chatData={chatData}
+                    editChatMemberModal={editChatMemberModal}
+                  />
                 </div>
               )}
-              <p className="w-full hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer">
-                Change Theme
-              </p>
-              <p className="w-full hover:bg-neutral-200/40  hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer ">
-                Change Emoji
-              </p>
-              <button
-                className="w-full hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md cursor-pointer text-start flex p-2"
-                onClick={toggleEditNickname}
-              >
-                <p className="p-1 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
-                  Aa
-                </p>
-                <p className="p-1">Edit nickname</p>
-              </button>
-              <p
-                className="w-full hover:bg-neutral-200/40  hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
-                onClick={toggleEditChatMember}
-              >
-                Change members
-              </p>
             </div>
-            <EditChatMember
-              chatData={chatData}
-              editChatMemberModal={editChatMemberModal}
-            />
           </div>
-          <EditNickname
-            chatData={chatData}
-            editNicknameModal={editNicknameModal}
-            toggleEditNickname={toggleEditNickname}
-          />
-          <EditChatName
-            chatData={chatData}
-            editChatNameModal={editChatNameModal}
-            toggleEditChatName={toggleEditChatName}
-          />
-          <EditChatImgBtn
-            chatData={chatData}
-            editChatImageModal={editChatImageModal}
-            toggleEditChatImage={toggleEditChatImage}
-          />
         </div>
       )}
     </>

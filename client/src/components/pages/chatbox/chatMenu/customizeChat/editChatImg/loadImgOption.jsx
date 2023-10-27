@@ -1,14 +1,14 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import AvatarOptions, {
   generateAvatars,
-} from "../../../sidebar/sideBarPanel/userSettings/loadUserImgOptions";
+} from "../../../../sidebar/sideBarPanel/userSettings/loadUserImgOptions";
 import { useMemo } from "react";
 import { adventurer, avataaarsNeutral, funEmoji } from "@dicebear/collection";
 import {
   adventurerAvatar,
   funAvatar,
   avatarsNeutral,
-} from "../../../../utils/diceBearAvatars/avatars";
+} from "../../../../../utils/diceBearAvatars/avatars";
 
 const LoadImgOption = ({ theme, setStateChatData }) => {
   const adventurerAvatars = useMemo(

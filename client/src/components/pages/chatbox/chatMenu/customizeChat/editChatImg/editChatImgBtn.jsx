@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Dialog } from "@headlessui/react";
-import useThemeStore from "../../../../state/useThemeStore";
+import useThemeStore from "../../../../../state/useThemeStore";
 import { useState, useEffect } from "react";
 import { useQueryClient, useMutation } from "react-query";
 import LoadImgOption from "./loadImgOption";
-import { editChatImage } from "../../../../api/chatAPI";
+import { editChatImage } from "../../../../../api/chatAPI";
 const EditChatImgBtn = ({
   chatData,
   editChatImageModal,

@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Dialog } from "@headlessui/react";
 import GetUserNickname from "./getUserNickname";
-import useThemeStore from "../../../state/useThemeStore";
+import useThemeStore from "../../../../../state/useThemeStore";
 
 const EditNickname = ({ chatData, editNicknameModal, toggleEditNickname }) => {
   const theme = useThemeStore((state) => state.theme);

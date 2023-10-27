@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Dialog } from "@headlessui/react";
-import useThemeStore from "../../../state/useThemeStore";
+import useThemeStore from "../../../../state/useThemeStore";
 import { useState } from "react";
 import { useQueryClient, useMutation } from "react-query";
-import { editChatName } from "../../../api/chatAPI";
+import { editChatName } from "../../../../api/chatAPI";
 
 const EditChatName = ({ chatData, editChatNameModal, toggleEditChatName }) => {
   const theme = useThemeStore((state) => state.theme);

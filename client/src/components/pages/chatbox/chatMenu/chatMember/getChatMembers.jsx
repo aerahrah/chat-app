@@ -1,4 +1,4 @@
-import { getSpecificImg } from "../../sidebar/getAllChats/getChatInfo";
+import { getSpecificImg } from "../../../sidebar/getAllChats/getChatInfo";
 
 const GetChatMembers = ({ chatData, BiDotsHorizontalRounded }) => {
   console.log(chatData.chat.members);

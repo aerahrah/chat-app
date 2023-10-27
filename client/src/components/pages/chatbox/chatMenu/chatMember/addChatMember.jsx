@@ -1,9 +1,9 @@
 import { Dialog } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import useThemeStore from "../../../state/useThemeStore";
-import SearchUser from "../../sidebar/sideBarPanel/createChat/searchUsers";
-import useChatCreationStore from "../../../state/chat/useChatCreationStore";
-import { addChatMember } from "../../../api/chatAPI";
+import useThemeStore from "../../../../state/useThemeStore";
+import SearchUser from "../../../sidebar/sideBarPanel/createChat/searchUsers";
+import useChatCreationStore from "../../../../state/chat/useChatCreationStore";
+import { addChatMember } from "../../../../api/chatAPI";
 import { useMutation, useQueryClient } from "react-query";
 
 const AddChatMember = ({ chatId, addChatMemberOpen, toggleAddChatMember }) => {

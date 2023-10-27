@@ -1,8 +1,8 @@
 import { BiSolidEditAlt, BiCheck } from "react-icons/bi";
-import { getSpecificImg } from "../../sidebar/getAllChats/getChatInfo";
+import { getSpecificImg } from "../../../../sidebar/getAllChats/getChatInfo";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { editChatMemberNickname } from "../../../api/chatAPI";
+import { editChatMemberNickname } from "../../../../../api/chatAPI";
 
 const GetUserNickname = ({ chatId, theme, user }) => {
   const editMemberNicknameMutation = useMutation(editChatMemberNickname);
