@@ -194,6 +194,26 @@ export const addNewMember = async (req, res) => {
   }
 };
 
+export const removeChatMember = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const { memberId } = req.body;
+
+    console.log(chatId, memberId);
+    const chat = await Chat.findById(chatId);
+    if (!chat) return res.status(401).send({ error: "Chat not found" });
+
+    chat.members.pull(memberId);
+    await chat.save();
+
+    return res
+      .status(200)
+      .json({ message: "User removed from the group chat successfully", chat });
+  } catch (error) {
+    return res.status(500).send({ error: "Error removing user from the chat" });
+  }
+};
+
 export const leaveGroupChat = async (req, res) => {
   try {
     const { chatId } = req.params;
@@ -203,7 +223,6 @@ export const leaveGroupChat = async (req, res) => {
     if (!chat) return res.status(404).json({ error: "Chat not found" });
 
     chat.members.pull(userId);
-
     await chat.save();
 
     return res

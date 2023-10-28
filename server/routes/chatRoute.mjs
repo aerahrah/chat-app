@@ -10,6 +10,7 @@ import {
   editChatMemberNickname,
   editChatName,
   editChatImage,
+  removeChatMember,
 } from "../controller/chatController.mjs";
 import authenticate from "../middleware/authenticate.mjs";
 
@@ -22,6 +23,7 @@ router.post("/group", authenticate, createGroupChat);
 
 router.post("/:chatId", authenticate, sendChatMessage);
 router.post("/:chatId/add-member", authenticate, addNewMember);
+router.post("/:chatId/remove-member", authenticate, removeChatMember);
 router.post("/:chatId/edit-chat-name", authenticate, editChatName);
 router.post("/:chatId/edit-chat-image", authenticate, editChatImage);
 router.post("/:chatId/leave", authenticate, leaveGroupChat);

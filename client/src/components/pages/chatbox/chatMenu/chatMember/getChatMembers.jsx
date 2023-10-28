@@ -14,8 +14,12 @@ const GetChatMembers = ({ chatData, BiDotsHorizontalRounded }) => {
   return (
     <div>
       {chatData.chat.members.map((member) => {
+        console.log(member);
         return (
-          <div className="p-2 flex justify-between items-center">
+          <div
+            className="p-2 flex justify-between items-center"
+            key={member._id}
+          >
             <div className="flex gap-2 items-center">
               <img
                 src={getSpecificImg(member)}
@@ -46,6 +50,8 @@ const GetChatMembers = ({ chatData, BiDotsHorizontalRounded }) => {
             <RemoveChatMember
               openConfirmationDialog={openConfirmationDialog}
               toggleOpenComfirmationDialog={toggleOpenComfirmationDialog}
+              chatId={chatData.chat._id}
+              memberId={member._id}
             />
           </div>
         );

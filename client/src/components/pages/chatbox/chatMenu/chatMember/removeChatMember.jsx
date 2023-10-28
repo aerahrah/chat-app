@@ -1,13 +1,32 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Dialog } from "@headlessui/react";
 import useThemeStore from "../../../../state/useThemeStore";
+import { removeChatMember } from "../../../../api/chatAPI";
+import { useMutation, useQueryClient } from "react-query";
+
 const RemoveChatMember = ({
   openConfirmationDialog,
   toggleOpenComfirmationDialog,
+  memberId,
+  chatId,
 }) => {
   const theme = useThemeStore((state) => state.theme);
-  const handleRemoveChatMember = () => {};
 
+  const removeChatMemberMutation = useMutation(removeChatMember);
+  const queryClient = useQueryClient();
+  const handleRemoveChatMember = async () => {
+    try {
+      await removeChatMemberMutation.mutateAsync({
+        chatId,
+        memberId,
+      });
+      queryClient.refetchQueries("getAllChat");
+      queryClient.invalidateQueries("getConversation");
+      toggleOpenComfirmationDialog();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <AnimatePresence>
       {openConfirmationDialog && (
