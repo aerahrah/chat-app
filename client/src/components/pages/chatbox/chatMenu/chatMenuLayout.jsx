@@ -1,14 +1,10 @@
 import { getChatImg, getChatName } from "../../sidebar/getAllChats/getChatInfo";
 import useChatCreationStore from "../../../state/chat/useChatCreationStore";
-import {
-  BiImage,
-  BiSolidPencil,
-  BiSolidChevronRight,
-  BiSolidChevronDown,
-} from "react-icons/bi";
+import { BiSolidChevronRight, BiSolidChevronDown } from "react-icons/bi";
 import EditChatMember from "./chatMember/editChatMember";
 import { useState } from "react";
 import CustomizeChat from "./customizeChat/customizeChat";
+
 const ChatMenuLayout = ({ chatData }) => {
   const openChatMenu = useChatCreationStore((state) => state.openChatMenu);
   const [editChatMemberModal, setEditChatMemberModal] = useState(false);
