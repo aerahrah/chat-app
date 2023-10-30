@@ -11,6 +11,9 @@ const MessageComposer = ({ chatId, userId }) => {
   const [message, setMessage] = useState("");
 
   const handleSendMessage = async () => {
+    if (message.trim() === "") {
+      return;
+    }
     try {
       const response = await sendMessageMutation.mutateAsync({
         chatId,
