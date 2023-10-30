@@ -9,10 +9,16 @@ const SECRET_KEY = process.env.SECRET_KEY;
 export const signup = async (req, res) => {
   try {
     const { email, username, password, firstName, lastName } = req.body;
-    const userExist = await Users.findOne({ username });
 
-    if (userExist) {
-      return res.status(401).send({ message: "User already exists" });
+    const userByEmail = await Users.findOne({ email });
+    const userByUsername = await Users.findOne({ username });
+
+    if (userByEmail) {
+      return res.status(409).send({ message: "Email already exists" });
+    }
+
+    if (userByUsername) {
+      return res.status(409).send({ message: "Username already exists" });
     }
     const userImg = getInitials(firstName);
 

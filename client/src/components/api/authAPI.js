@@ -13,10 +13,16 @@ export const signUp = async (userInfo) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, username, password, firstName, lastName }),
     });
-    console.log(response);
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw `${errorResponse.message}`;
+    }
+
     return response.json();
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
@@ -31,9 +37,14 @@ export const signIn = async (userInfo) => {
       body: JSON.stringify({ identifier, password }),
     });
 
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw `${errorResponse.message}`;
+    }
     return response.json();
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
