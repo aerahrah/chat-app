@@ -108,8 +108,7 @@ export const getAllUsers = async (req, res) => {
 
 export const updateUserProfile = async (req, res) => {
   try {
-    const { username, email, firstName, lastName, userImg, userImgType } =
-      req.body;
+    const { username, email, firstName, lastName } = req.body;
     const userByEmail = await Users.findOne({ email });
     const userByUsername = await Users.findOne({ username });
 
@@ -128,21 +127,40 @@ export const updateUserProfile = async (req, res) => {
       return res.status(409).send({ message: "Username already exists" });
     }
 
-    if (userImgType === "initials") {
-      userImg = getInitials(firstName);
-    }
-
     user.username = username || user.username;
     user.email = email || user.email;
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
-    user.userProfileImg = userImg || user.userProfileImg;
-    user.userProfileImgType = userImgType || user.userProfileImgType;
 
     await user.save();
     return res
       .status(200)
       .json({ message: "User profile updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const updateUserImage = async (req, res) => {
+  try {
+    const { userImg, userImgType } = req.body;
+
+    const getUserId = req.user;
+    const user = await Users.findById(getUserId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (userImgType === "initials") {
+      userImg = getInitials(firstName);
+    }
+
+    user.userProfileImg = userImg || user.userProfileImg;
+    user.userProfileImgType = userImgType || user.userProfileImgType;
+
+    await user.save();
+    return res.status(200).json({ message: "User image updated successfully" });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }

@@ -89,8 +89,7 @@ export const getUserProfile = async () => {
 
 export const updateUserInfo = async (userInfo) => {
   try {
-    const { username, email, firstName, lastName, userImg, userImgType } =
-      userInfo;
+    const { username, email, firstName, lastName } = userInfo;
     const url = `${BASE_URL}/user/update-info`;
     console.log(userInfo);
     const response = await fetch(url, {
@@ -104,6 +103,32 @@ export const updateUserInfo = async (userInfo) => {
         email,
         firstName,
         lastName,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw `${errorResponse.message}`;
+    }
+
+    return response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserImage = async (userInfo) => {
+  try {
+    const { userImg, userImgType } = userInfo;
+    const url = `${BASE_URL}/user/update-userimg`;
+    console.log(userInfo);
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({
         userImg,
         userImgType,
       }),

@@ -1,14 +1,22 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useQueryClient, useMutation } from "react-query";
+import { useState } from "react";
 import AvatarOptions, { generateAvatars } from "./loadUserImgOptions";
 import { useMemo } from "react";
 import { adventurer, avataaarsNeutral, funEmoji } from "@dicebear/collection";
+import { updateUserImage } from "../../../../api/authAPI";
 import {
   adventurerAvatar,
   funAvatar,
   avatarsNeutral,
 } from "../../../../utils/diceBearAvatars/avatars";
 
-const EditImage = ({ setUserData, isEditImgOpen, theme }) => {
+const EditImage = ({ userData, setUserData, isEditImgOpen, theme }) => {
+  const queryClient = useQueryClient();
+  const updateUserImageMutation = useMutation(updateUserImage);
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const adventurerAvatars = useMemo(
     () => generateAvatars(adventurerAvatar, adventurer, "adventurer"),
     [adventurerAvatar]
@@ -22,6 +30,27 @@ const EditImage = ({ setUserData, isEditImgOpen, theme }) => {
     () => generateAvatars(funAvatar, funEmoji, "fun-emoji"),
     [funAvatar]
   );
+
+  const handleUpdateUserImage = async () => {
+    try {
+      const updatedUserImage = await updateUserImageMutation.mutateAsync(
+        userData
+      );
+
+      queryClient.invalidateQueries("userData");
+      setMessage(updatedUserImage.message);
+
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+    } catch (error) {
+      setErrorMessage(error);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+    }
+  };
+
   return (
     <div>
       {isEditImgOpen && (
@@ -29,11 +58,13 @@ const EditImage = ({ setUserData, isEditImgOpen, theme }) => {
           initial={{ x: 300 }}
           animate={{ x: isEditImgOpen ? 0 : 300 }}
           exit={{ opacity: 0 }}
-          className={`${
-            theme === "light" ? "bg-neutral-100" : "bg-neutral-800/50"
-          } mt-4 h-full max-h-[344px]  p-2 rounded-md overflow-hidden`}
+          className={` mt-4 h-full overflow-hidden`}
         >
-          <div className="h-full  flex flex-col max-h-[344px]  overflow-y-auto gap-6">
+          <div
+            className={`${
+              theme === "light" ? "bg-neutral-100" : "bg-neutral-800/50"
+            } h-full p-2 flex flex-col max-h-[300px] rounded overflow-y-auto gap-6`}
+          >
             <div>
               <h2 className="font-semibold mb-2">Adventurer Avatars</h2>
               <AvatarOptions
@@ -58,6 +89,22 @@ const EditImage = ({ setUserData, isEditImgOpen, theme }) => {
                 type="userImage"
               />
             </div>
+          </div>
+          <div className="relative py-6">
+            <p className="absolute top-1/2 transform translate-y-[-50%] text-center w-full text-base text-green-500">
+              {message}
+            </p>
+            <p className="absolute top-1/2 transform translate-y-[-50%] center w-full text-base text-red-500">
+              {errorMessage}
+            </p>
+          </div>
+          <div className="w-[100%] ">
+            <button
+              className="block bg-blue-500 text-blue-50 rounded p-2 hover:bg-blue-600 mx-auto shadow-md capitalize w-[80vw] max-w-[80%] cursor-pointer"
+              onClick={handleUpdateUserImage}
+            >
+              Update Image
+            </button>
           </div>
         </motion.div>
       )}

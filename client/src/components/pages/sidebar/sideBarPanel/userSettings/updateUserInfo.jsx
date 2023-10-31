@@ -7,11 +7,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const UpdateUserInfo = ({ data, theme, isEditImgOpen }) => {
+  const queryClient = useQueryClient();
   const updateUserInfoMutation = useMutation(updateUserInfo);
   const [initialState, setInitialState] = useState(false);
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const queryClient = useQueryClient();
 
   const schema = yup.object().shape({
     email: yup

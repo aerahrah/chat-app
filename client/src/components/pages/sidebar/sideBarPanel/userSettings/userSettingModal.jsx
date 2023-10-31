@@ -2,7 +2,7 @@ import { Dialog } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "react-query";
 import useThemeStore from "../../../../state/useThemeStore";
-import { FaXmark } from "react-icons/fa6";
+import { FaXmark, FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import { getUserProfile } from "../../../../api/authAPI";
 import { useState } from "react";
 import UpdateUserInfo from "./updateUserInfo";
@@ -26,7 +26,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
-  console.log(isEditImgOpen);
+
   return (
     <AnimatePresence>
       {profileSettingOpen && (
@@ -65,21 +65,37 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
               </Dialog.Title>
 
               <div className="capitalize w-full">
-                <h3 className="mb-2 mx-2 font-semibold">Account</h3>
+                <h3 className="mb-2 mx-2 font-semibold ">Account</h3>
                 <div
                   className={`${
                     theme === "light"
                       ? "hover:bg-neutral-100"
                       : "hover:bg-neutral-600/30 "
-                  } flex items-center gap-2 mb-2 p-2 rounded-md cursor-pointer`}
+                  } flex items-center justify-between gap-2 mb-2 p-2 rounded-md cursor-pointer`}
                   onClick={toggleEditImgOpen}
                 >
-                  <img
-                    src={`https://api.dicebear.com/7.x/${userData.userImgType}/svg?seed=${userData.userImg}`}
-                    alt="avatar"
-                    className="h-16 w-16 rounded-full"
-                  />
-                  <button>Edit Image</button>
+                  <div className="flex gap-2">
+                    <img
+                      src={`https://api.dicebear.com/7.x/${userData.userImgType}/svg?seed=${userData.userImg}`}
+                      alt="avatar"
+                      className="h-16 w-16 rounded-full"
+                    />
+                    <button>Edit Image</button>
+                  </div>
+
+                  <i
+                    className={`${
+                      theme === "light"
+                        ? "bg-neutral-100"
+                        : "bg-neutral-600/50 "
+                    } p-2 rounded-full `}
+                  >
+                    {isEditImgOpen ? (
+                      <FaAngleLeft className="h-5 w-5" />
+                    ) : (
+                      <FaAngleRight className="h-5 w-5" />
+                    )}
+                  </i>
                 </div>
                 <p
                   className={`${
@@ -95,6 +111,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                     isEditImgOpen={isEditImgOpen}
                   />
                   <EditImage
+                    userData={userData}
                     setUserData={setUserData}
                     theme={theme}
                     isEditImgOpen={isEditImgOpen}
