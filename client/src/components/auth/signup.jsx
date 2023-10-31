@@ -39,7 +39,9 @@ const SignUp = () => {
     try {
       const response = await signUpMutation.mutateAsync(userInfo);
       setMessage(response.message);
-      console.log(response.message);
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     } catch (error) {
       setErrorMessage(error);
       setTimeout(() => {

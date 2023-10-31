@@ -58,7 +58,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                 theme === "light"
                   ? "bg-white text-neutral-700"
                   : "bg-neutral-700 text-neutral-300"
-              } relative mx-auto rounded-md shadow-lg p-4 w-[100vw]  max-w-md overflow-hidden`}
+              } relative mx-auto rounded-md shadow-lg p-4 w-[100vw]  max-w-lg overflow-hidden`}
             >
               <Dialog.Title className="text-lg text-center mb-6 font-semibold">
                 Profile Setting
@@ -90,8 +90,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
                 ></p>
                 <div className="relative">
                   <UpdateUserInfo
-                    userData={userData}
-                    setUserData={setUserData}
+                    data={data}
                     theme={theme}
                     isEditImgOpen={isEditImgOpen}
                   />

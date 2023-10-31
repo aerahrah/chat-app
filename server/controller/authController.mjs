@@ -110,14 +110,26 @@ export const updateUserProfile = async (req, res) => {
   try {
     const { username, email, firstName, lastName, userImg, userImgType } =
       req.body;
+    const userByEmail = await Users.findOne({ email });
+    const userByUsername = await Users.findOne({ username });
+
     const getUserId = req.user;
     const user = await Users.findById(getUserId);
-    if (userImgType === "initials") {
-      userImg = getInitials(firstName);
-    }
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
+    }
+
+    if (userByEmail && userByEmail._id.toString() !== getUserId) {
+      return res.status(409).send({ message: "Email already exists" });
+    }
+
+    if (userByUsername && userByUsername._id.toString() !== getUserId) {
+      return res.status(409).send({ message: "Username already exists" });
+    }
+
+    if (userImgType === "initials") {
+      userImg = getInitials(firstName);
     }
 
     user.username = username || user.username;

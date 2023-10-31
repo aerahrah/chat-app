@@ -108,9 +108,14 @@ export const updateUserInfo = async (userInfo) => {
         userImgType,
       }),
     });
-    console.log(response);
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw `${errorResponse.message}`;
+    }
+
     return response.json();
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
