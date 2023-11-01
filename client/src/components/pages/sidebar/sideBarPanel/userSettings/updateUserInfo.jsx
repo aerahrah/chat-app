@@ -47,6 +47,8 @@ const UpdateUserInfo = ({ data, theme, isEditImgOpen }) => {
       );
 
       queryClient.invalidateQueries("userData");
+      queryClient.invalidateQueries("getAllChat");
+      queryClient.invalidateQueries("getConversation");
       setMessage(updatedUserInfo.message);
 
       setTimeout(() => {

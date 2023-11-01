@@ -38,6 +38,8 @@ const EditImage = ({ userData, setUserData, isEditImgOpen, theme }) => {
       );
 
       queryClient.invalidateQueries("userData");
+      queryClient.invalidateQueries("getAllChat");
+      queryClient.invalidateQueries("getConversation");
       setMessage(updatedUserImage.message);
 
       setTimeout(() => {

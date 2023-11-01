@@ -1,4 +1,5 @@
 import Users from "../models/user.mjs";
+import { Chat } from "../models/Chat.mjs";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
@@ -133,6 +134,12 @@ export const updateUserProfile = async (req, res) => {
     user.lastName = lastName || user.lastName;
 
     await user.save();
+
+    await Chat.updateMany(
+      { "members.user": getUserId },
+      { $set: { "members.$.name": `${user.firstName} ${user.lastName}` } }
+    );
+
     return res
       .status(200)
       .json({ message: "User profile updated successfully" });
