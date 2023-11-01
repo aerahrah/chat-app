@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import { createGroupChat } from "../../../../api/chatAPI";
-import { Dialog } from "@headlessui/react";
-import { AnimatePresence, motion } from "framer-motion";
+import DialogComponent from "../../../../utils/dialogComponent";
 import useThemeStore from "../../../../state/useThemeStore";
 import useChatCreationStore from "../../../../state/chat/useChatCreationStore";
 
@@ -25,71 +24,38 @@ const CreateGroupChat = ({
   };
 
   return (
-    <AnimatePresence>
-      {isCreateGroupChatOpen && (
-        <Dialog
-          static
-          as={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isCreateGroupChatOpen ? 1 : 0 }}
-          exit={{ opacity: 0 }}
-          open={isCreateGroupChatOpen}
-          onClose={toggleCreateGroupChatOpen}
+    <DialogComponent
+      openModal={isCreateGroupChatOpen}
+      closeModal={toggleCreateGroupChatOpen}
+      title="Create group chat"
+    >
+      <input
+        className={`${
+          theme === "light"
+            ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
+            : "bg-neutral-800/70 outline-neutral-800/70"
+        } outline outline-1 rounded block p-2 mb-6 w-[40vw] max-w-[100%]`}
+        type="text"
+        value={chatName}
+        placeholder="Enter chat name"
+        onChange={(e) => setChatName(e.target.value)}
+      />
+
+      <div className="flex justify-between">
+        <button
+          className="bg-red-500 text-red-50 rounded px-10 py-2 hover:bg-red-600 shadow-md  capitalize"
+          onClick={toggleCreateGroupChatOpen}
         >
-          <div className="fixed inset-0 bg-black/40" />
-
-          <div className="fixed inset-0 flex w-screen items-center justify-center">
-            <Dialog.Panel
-              as={motion.div}
-              initial={{ scale: 0.7 }}
-              animate={
-                isCreateGroupChatOpen
-                  ? { scale: 1, opacity: 1 }
-                  : { scale: 0.7, opacity: 0 }
-              }
-              exit={{ scale: 0.7, opacity: 0 }}
-              className={`${
-                theme === "light"
-                  ? "bg-white text-neutral-700"
-                  : "bg-neutral-700 text-neutral-300"
-              } mx-auto max-w-sm rounded-md shadow-lg p-4`}
-            >
-              <Dialog.Title className="text-lg pb-4 font-semibold">
-                Create Group Chat
-              </Dialog.Title>
-              <div>
-                <input
-                  className={`${
-                    theme === "light"
-                      ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
-                      : "bg-neutral-800/70 outline-neutral-800/70"
-                  } outline outline-1 rounded block p-2 mb-6 w-[40vw] max-w-[100%]`}
-                  type="text"
-                  value={chatName}
-                  placeholder="Enter chat name"
-                  onChange={(e) => setChatName(e.target.value)}
-                />
-
-                <div className="flex justify-between">
-                  <button
-                    className="bg-red-500 text-red-50 rounded px-10 py-2 hover:bg-red-600 shadow-md  capitalize"
-                    onClick={toggleCreateGroupChatOpen}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="bg-blue-500 text-blue-50 rounded px-10 py-2 hover:bg-blue-600  shadow-md  capitalize"
-                    onClick={handleCreateGroupChat}
-                  >
-                    create
-                  </button>
-                </div>
-              </div>
-            </Dialog.Panel>
-          </div>
-        </Dialog>
-      )}
-    </AnimatePresence>
+          Cancel
+        </button>
+        <button
+          className="bg-blue-500 text-blue-50 rounded px-10 py-2 hover:bg-blue-600  shadow-md  capitalize"
+          onClick={handleCreateGroupChat}
+        >
+          create
+        </button>
+      </div>
+    </DialogComponent>
   );
 };
 export default CreateGroupChat;

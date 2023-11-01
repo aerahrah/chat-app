@@ -1,11 +1,10 @@
-import { Dialog } from "@headlessui/react";
-import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "react-query";
 import useThemeStore from "../../../../state/useThemeStore";
 import { FaXmark, FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import { getUserProfile } from "../../../../api/authAPI";
 import { useState } from "react";
 import UpdateUserInfo from "./updateUserInfo";
+import DialogComponent from "../../../../utils/dialogComponent";
 import EditImage from "./updateUserImg";
 
 const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
@@ -28,114 +27,75 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
   }
 
   return (
-    <AnimatePresence>
-      {profileSettingOpen && (
-        <Dialog
-          static
-          as={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: profileSettingOpen ? 1 : 0 }}
-          exit={{ opacity: 0 }}
-          open={profileSettingOpen}
-          onClose={() => {
-            setIsEditImgOpen(false);
-            toggleProfileSetting();
-          }}
+    <DialogComponent
+      openModal={profileSettingOpen}
+      closeModal={toggleProfileSetting}
+      title="profile settings"
+    >
+      <div className="capitalize w-full">
+        <h3 className="mb-2 mx-2 font-semibold ">Account</h3>
+        <div
+          className={`${
+            theme === "light"
+              ? "hover:bg-neutral-100"
+              : "hover:bg-neutral-600/30 "
+          } flex items-center justify-between gap-2 mb-2 p-2 rounded-md cursor-pointer`}
+          onClick={toggleEditImgOpen}
         >
-          <div className="fixed inset-0 bg-black/40" />
-
-          <div className="fixed inset-0 flex w-screen items-center justify-center">
-            <Dialog.Panel
-              as={motion.div}
-              initial={{ scale: 0.7 }}
-              animate={
-                profileSettingOpen
-                  ? { scale: 1, opacity: 1 }
-                  : { scale: 0.7, opacity: 0 }
-              }
-              exit={{ scale: 0.7, opacity: 0 }}
-              className={`${
-                theme === "light"
-                  ? "bg-white text-neutral-700"
-                  : "bg-neutral-700 text-neutral-300"
-              } relative mx-auto rounded-md shadow-lg p-4 w-[100vw]  max-w-lg overflow-hidden`}
-            >
-              <Dialog.Title className="text-lg text-center mb-6 font-semibold">
-                Profile Setting
-              </Dialog.Title>
-
-              <div className="capitalize w-full">
-                <h3 className="mb-2 mx-2 font-semibold ">Account</h3>
-                <div
-                  className={`${
-                    theme === "light"
-                      ? "hover:bg-neutral-100"
-                      : "hover:bg-neutral-600/30 "
-                  } flex items-center justify-between gap-2 mb-2 p-2 rounded-md cursor-pointer`}
-                  onClick={toggleEditImgOpen}
-                >
-                  <div className="flex gap-2">
-                    <img
-                      src={`https://api.dicebear.com/7.x/${userData.userImgType}/svg?seed=${userData.userImg}`}
-                      alt="avatar"
-                      className="h-16 w-16 rounded-full"
-                    />
-                    <button>Edit Image</button>
-                  </div>
-
-                  <i
-                    className={`${
-                      theme === "light"
-                        ? "bg-neutral-100"
-                        : "bg-neutral-600/50 "
-                    } p-2 rounded-full `}
-                  >
-                    {isEditImgOpen ? (
-                      <FaAngleLeft className="h-5 w-5" />
-                    ) : (
-                      <FaAngleRight className="h-5 w-5" />
-                    )}
-                  </i>
-                </div>
-                <p
-                  className={`${
-                    theme === "light"
-                      ? "border-neutral-300"
-                      : "border-neutral-600 "
-                  } border-b-[1px]`}
-                ></p>
-                <div className="relative">
-                  <UpdateUserInfo
-                    data={data}
-                    theme={theme}
-                    isEditImgOpen={isEditImgOpen}
-                  />
-                  <EditImage
-                    userData={userData}
-                    setUserData={setUserData}
-                    theme={theme}
-                    isEditImgOpen={isEditImgOpen}
-                  />
-                </div>
-              </div>
-              <button
-                className={`${
-                  theme === "light"
-                    ? "bg-neutral-100 hover:bg-neutral-200"
-                    : "bg-neutral-600/20 hover:bg-neutral-600/50 "
-                } absolute top-3 right-4 p-2 rounded-full `}
-                onClick={() => {
-                  setIsEditImgOpen(false);
-                  toggleProfileSetting();
-                }}
-              >
-                <FaXmark className="h-5 w-5" />
-              </button>
-            </Dialog.Panel>
+          <div className="flex gap-2">
+            <img
+              src={`https://api.dicebear.com/7.x/${userData.userImgType}/svg?seed=${userData.userImg}`}
+              alt="avatar"
+              className="h-16 w-16 rounded-full"
+            />
+            <button>Edit Image</button>
           </div>
-        </Dialog>
-      )}
-    </AnimatePresence>
+
+          <i
+            className={`${
+              theme === "light" ? "bg-neutral-100" : "bg-neutral-600/50 "
+            } p-2 rounded-full `}
+          >
+            {isEditImgOpen ? (
+              <FaAngleLeft className="h-5 w-5" />
+            ) : (
+              <FaAngleRight className="h-5 w-5" />
+            )}
+          </i>
+        </div>
+        <p
+          className={`${
+            theme === "light" ? "border-neutral-300" : "border-neutral-600 "
+          } border-b-[1px]`}
+        ></p>
+        <div className="relative">
+          <UpdateUserInfo
+            data={data}
+            theme={theme}
+            isEditImgOpen={isEditImgOpen}
+          />
+          <EditImage
+            userData={userData}
+            setUserData={setUserData}
+            theme={theme}
+            isEditImgOpen={isEditImgOpen}
+          />
+        </div>
+      </div>
+      <button
+        className={`${
+          theme === "light"
+            ? "bg-neutral-100 hover:bg-neutral-200"
+            : "bg-neutral-600/20 hover:bg-neutral-600/50 "
+        } absolute top-3 right-4 p-2 rounded-full `}
+        onClick={() => {
+          setIsEditImgOpen(false);
+          toggleProfileSetting();
+        }}
+      >
+        <FaXmark className="h-5 w-5" />
+      </button>
+    </DialogComponent>
   );
 };
 export default ProfileSetting;
