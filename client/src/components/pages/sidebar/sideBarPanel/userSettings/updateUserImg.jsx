@@ -60,7 +60,7 @@ const EditImage = ({ userData, setUserData, isEditImgOpen, theme }) => {
           initial={{ x: 300 }}
           animate={{ x: isEditImgOpen ? 0 : 300 }}
           exit={{ opacity: 0 }}
-          className={` mt-4 h-full overflow-hidden`}
+          className={` mt-2 h-full overflow-hidden`}
         >
           <div
             className={`${

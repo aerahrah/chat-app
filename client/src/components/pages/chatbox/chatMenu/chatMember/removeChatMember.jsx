@@ -1,6 +1,7 @@
 import { removeChatMember } from "../../../../api/chatAPI";
 import { useMutation, useQueryClient } from "react-query";
 import DialogComponent from "../../../../utils/dialogComponent";
+import BtnPanelComponent from "../../../../utils/btnPanelComponent";
 const RemoveChatMember = ({
   openConfirmationDialog,
   toggleOpenComfirmationDialog,
@@ -33,20 +34,11 @@ const RemoveChatMember = ({
           Are you sure you want to remove this person from the conversation?
           They will no longer be able to send or receive new messages.
         </p>
-        <div className="flex justify-between dark:bg-neutral-800">
-          <button
-            className="bg-red-500 text-red-50 rounded px-10 py-2 hover:bg-red-600 shadow-md capitalize"
-            onClick={toggleOpenComfirmationDialog}
-          >
-            Cancel
-          </button>
-          <button
-            className="bg-blue-500 text-blue-50 rounded px-10 py-2 hover:bg-blue-600 shadow-md  capitalize"
-            onClick={handleRemoveChatMember}
-          >
-            remove from chat
-          </button>
-        </div>
+        <BtnPanelComponent
+          closeModal={toggleOpenComfirmationDialog}
+          handleOnClick={handleRemoveChatMember}
+          label="remove from chat"
+        />
       </div>
     </DialogComponent>
   );

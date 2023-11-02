@@ -52,7 +52,7 @@ const SearchUser = ({ setUserNameId, theme }) => {
               : "bg-neutral-800/70 outline-neutral-800/70"
           } outline outline-1 rounded block p-2 mb-2 w-[40vw] max-w-[100%]`}
         />
-        <div className="h-36 overflow-y-auto">
+        <div className="h-44 overflow-y-auto">
           {data?.length > 0 && (
             <Combobox.Options>
               {data.map((user) => (

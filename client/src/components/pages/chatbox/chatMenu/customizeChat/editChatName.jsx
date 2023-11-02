@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { editChatName } from "../../../../api/chatAPI";
 import DialogComponent from "../../../../utils/dialogComponent";
-
+import BtnPanelComponent from "../../../../utils/btnPanelComponent";
 const EditChatName = ({ chatData, editChatNameModal, toggleEditChatName }) => {
   const theme = useThemeStore((state) => state.theme);
   const [chatName, setChatName] = useState("");
@@ -18,6 +18,7 @@ const EditChatName = ({ chatData, editChatNameModal, toggleEditChatName }) => {
       });
       queryClient.invalidateQueries("getAllChat");
       queryClient.invalidateQueries("getConversation");
+      toggleEditChatName();
     } catch (error) {
       console.log(error);
     }
@@ -45,20 +46,11 @@ const EditChatName = ({ chatData, editChatNameModal, toggleEditChatName }) => {
           onChange={(e) => setChatName(e.target.value)}
         />
       </div>
-      <div className="flex justify-between dark:bg-neutral-800">
-        <button
-          className="bg-red-500 text-red-50 rounded px-10 py-2 hover:bg-red-600 shadow-md capitalize"
-          onClick={toggleEditChatName}
-        >
-          Cancel
-        </button>
-        <button
-          className="bg-blue-500 text-blue-50 rounded px-10 py-2 hover:bg-blue-600 shadow-md  capitalize"
-          onClick={handleChangeChatName}
-        >
-          save
-        </button>
-      </div>
+      <BtnPanelComponent
+        closeModal={toggleEditChatName}
+        handleOnClick={handleChangeChatName}
+        label="Save"
+      />
     </DialogComponent>
   );
 };

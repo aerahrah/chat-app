@@ -7,11 +7,18 @@ import ProfileSetting from "./userSettingModal";
 
 const UserSettings = () => {
   const [profileSettingOpen, toggleProfileSettingOpen] = useState(false);
+  const [isEditImgOpen, setIsEditImgOpen] = useState(false);
   const navigate = useNavigate();
 
+  const toggleEditImgOpen = () => {
+    return setIsEditImgOpen(!isEditImgOpen);
+  };
+
   const toggleProfileSetting = () => {
+    setIsEditImgOpen(false);
     return toggleProfileSettingOpen(!profileSettingOpen);
   };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -56,6 +63,8 @@ const UserSettings = () => {
         </Transition>
       </Popover>
       <ProfileSetting
+        isEditImgOpen={isEditImgOpen}
+        toggleEditImgOpen={toggleEditImgOpen}
         profileSettingOpen={profileSettingOpen}
         toggleProfileSetting={toggleProfileSetting}
       />

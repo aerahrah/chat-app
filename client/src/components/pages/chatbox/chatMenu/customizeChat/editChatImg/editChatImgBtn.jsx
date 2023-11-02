@@ -1,10 +1,11 @@
-import { AnimatePresence, motion } from "framer-motion";
 import DialogComponent from "../../../../../utils/dialogComponent";
+import BtnPanelComponent from "../../../../../utils/btnPanelComponent";
 import useThemeStore from "../../../../../state/useThemeStore";
 import { useState, useEffect } from "react";
 import { useQueryClient, useMutation } from "react-query";
 import LoadImgOption from "./loadImgOption";
 import { editChatImage } from "../../../../../api/chatAPI";
+
 const EditChatImgBtn = ({
   chatData,
   editChatImageModal,
@@ -15,7 +16,7 @@ const EditChatImgBtn = ({
   const editChatImageMutation = useMutation(editChatImage);
   const [stateChatData, setStateChatData] = useState(() => chatData.chat);
 
-  const handleChangeChatName = async () => {
+  const handleChangeChatImage = async () => {
     try {
       await editChatImageMutation.mutateAsync({
         chatId: chatData.chat._id,
@@ -23,6 +24,7 @@ const EditChatImgBtn = ({
       });
       queryClient.invalidateQueries("getAllChat");
       queryClient.invalidateQueries("getConversation");
+      toggleEditChatImage();
     } catch (error) {
       console.log(error);
     }
@@ -47,20 +49,11 @@ const EditChatImgBtn = ({
       <div className="mb-4">
         <LoadImgOption theme={theme} setStateChatData={setStateChatData} />
       </div>
-      <div className="flex justify-between dark:bg-neutral-800">
-        <button
-          className="bg-red-500 text-red-50 rounded px-10 py-2 hover:bg-red-600 shadow-md capitalize"
-          onClick={toggleEditChatImage}
-        >
-          Cancel
-        </button>
-        <button
-          className="bg-blue-500 text-blue-50 rounded px-10 py-2 hover:bg-blue-600 shadow-md  capitalize"
-          onClick={handleChangeChatName}
-        >
-          save
-        </button>
-      </div>
+      <BtnPanelComponent
+        closeModal={toggleEditChatImage}
+        handleOnClick={handleChangeChatImage}
+        label="Save"
+      />
     </DialogComponent>
   );
 };

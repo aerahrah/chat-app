@@ -7,16 +7,18 @@ import UpdateUserInfo from "./updateUserInfo";
 import DialogComponent from "../../../../utils/dialogComponent";
 import EditImage from "./updateUserImg";
 
-const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
+const ProfileSetting = ({
+  profileSettingOpen,
+  isEditImgOpen,
+  toggleProfileSetting,
+  toggleEditImgOpen,
+}) => {
   const theme = useThemeStore((state) => state.theme);
-  const [isEditImgOpen, setIsEditImgOpen] = useState(false);
+
   const { data, isLoading, error, isFetching } = useQuery("userData", () =>
     getUserProfile()
   );
   const [userData, setUserData] = useState(data);
-  const toggleEditImgOpen = () => {
-    return setIsEditImgOpen(!isEditImgOpen);
-  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -82,19 +84,7 @@ const ProfileSetting = ({ profileSettingOpen, toggleProfileSetting }) => {
           />
         </div>
       </div>
-      <button
-        className={`${
-          theme === "light"
-            ? "bg-neutral-100 hover:bg-neutral-200"
-            : "bg-neutral-600/20 hover:bg-neutral-600/50 "
-        } absolute top-3 right-4 p-2 rounded-full `}
-        onClick={() => {
-          setIsEditImgOpen(false);
-          toggleProfileSetting();
-        }}
-      >
-        <FaXmark className="h-5 w-5" />
-      </button>
+
     </DialogComponent>
   );
 };

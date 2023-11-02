@@ -74,7 +74,7 @@ const UpdateUserInfo = ({ data, theme, isEditImgOpen }) => {
             <div>
               <h3 className="mt-4 m-2 font-semibold">personal information</h3>
               <form
-                className="p-2 flex flex-col gap-6 w-full"
+                className="p-2 pb-0 flex flex-col gap-6 w-full"
                 onSubmit={handleSubmit(handleUpdateUserInfo)}
               >
                 <div className="flex gap-4 justify-between">

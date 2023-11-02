@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import { createGroupChat } from "../../../../api/chatAPI";
 import DialogComponent from "../../../../utils/dialogComponent";
+import BtnPanelComponent from "../../../../utils/btnPanelComponent";
 import useThemeStore from "../../../../state/useThemeStore";
 import useChatCreationStore from "../../../../state/chat/useChatCreationStore";
 
@@ -40,21 +41,11 @@ const CreateGroupChat = ({
         placeholder="Enter chat name"
         onChange={(e) => setChatName(e.target.value)}
       />
-
-      <div className="flex justify-between">
-        <button
-          className="bg-red-500 text-red-50 rounded px-10 py-2 hover:bg-red-600 shadow-md  capitalize"
-          onClick={toggleCreateGroupChatOpen}
-        >
-          Cancel
-        </button>
-        <button
-          className="bg-blue-500 text-blue-50 rounded px-10 py-2 hover:bg-blue-600  shadow-md  capitalize"
-          onClick={handleCreateGroupChat}
-        >
-          create
-        </button>
-      </div>
+      <BtnPanelComponent
+        closeModal={toggleCreateGroupChatOpen}
+        handleOnClick={handleCreateGroupChat}
+        label="Create"
+      />
     </DialogComponent>
   );
 };
