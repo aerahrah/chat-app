@@ -1,5 +1,5 @@
-import GetChatMembers from "./getChatMembers";
-import { BiDotsHorizontalRounded, BiPlus } from "react-icons/bi";
+import ChatMemberList from "./chatMemberList";
+import { BiPlus } from "react-icons/bi";
 import AddChatMember from "./addChatMember";
 import { useState } from "react";
 
@@ -13,10 +13,7 @@ const EditChatMember = ({ chatData, editChatMemberModal }) => {
     <div>
       {editChatMemberModal && (
         <div>
-          <GetChatMembers
-            chatData={chatData}
-            BiDotsHorizontalRounded={BiDotsHorizontalRounded}
-          />
+          <ChatMemberList chatData={chatData} />
           <button
             className="w-full flex gap-2 items-center hover:bg-neutral-200/40  hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
             onClick={toggleAddChatMember}

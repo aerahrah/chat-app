@@ -37,7 +37,7 @@ const DialogComponent = ({ openModal, closeModal, title, children }) => {
               <Dialog.Title className="text-lg text-center pb-4 font-semibold capitalize">
                 {title}
               </Dialog.Title>
-              <div className="overflow-hidden ">{children}</div>
+              <div className="overflow-hidden p-1">{children}</div>
             </Dialog.Panel>
           </div>
         </Dialog>
