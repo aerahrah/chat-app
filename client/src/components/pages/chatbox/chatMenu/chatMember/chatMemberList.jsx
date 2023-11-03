@@ -1,13 +1,15 @@
 import ChatMemberItem from "./chatMemberItem";
 const ChatMemberList = ({ chatData }) => {
+  console.log(chatData);
   return (
     <div>
-      {chatData.chat.members.map((member) => {
+      {chatData.chat.members.map((memberData) => {
         return (
           <ChatMemberItem
-            key={member._id}
-            member={member}
+            key={memberData._id}
+            memberData={memberData}
             chatId={chatData.chat._id}
+            userId={chatData.userId}
           />
         );
       })}

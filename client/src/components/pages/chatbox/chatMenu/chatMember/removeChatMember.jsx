@@ -5,8 +5,9 @@ import BtnPanelComponent from "../../../../utils/btnPanelComponent";
 const RemoveChatMember = ({
   openConfirmationDialog,
   toggleOpenComfirmationDialog,
-  memberId,
+  memberData,
   chatId,
+  userId,
 }) => {
   const removeChatMemberMutation = useMutation(removeChatMember);
   const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ const RemoveChatMember = ({
     try {
       await removeChatMemberMutation.mutateAsync({
         chatId,
-        memberId,
+        memberId: memberData._id,
       });
       queryClient.refetchQueries("getAllChat");
       queryClient.invalidateQueries("getConversation");
@@ -27,17 +28,24 @@ const RemoveChatMember = ({
     <DialogComponent
       openModal={openConfirmationDialog}
       closeModal={toggleOpenComfirmationDialog}
-      title="remove chat member?"
+      title={
+        userId === memberData.user._id
+          ? "leave group chat?"
+          : "remove chat member?"
+      }
     >
       <div className="w-full">
         <p className="text-sm mb-6 text-center">
-          Are you sure you want to remove this person from the conversation?
-          They will no longer be able to send or receive new messages.
+          {userId === memberData.user._id
+            ? "You will stop receiving messages from this conversation and people will see that you left."
+            : " Are you sure you want to remove this person from the conversation? They will no longer be able to send or receive new messages."}
         </p>
         <BtnPanelComponent
           closeModal={toggleOpenComfirmationDialog}
           handleOnClick={handleRemoveChatMember}
-          label="remove from chat"
+          label={
+            userId === memberData.user._id ? "leave group" : "remove from chat"
+          }
         />
       </div>
     </DialogComponent>

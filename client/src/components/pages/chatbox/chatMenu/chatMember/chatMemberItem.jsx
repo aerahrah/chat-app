@@ -1,11 +1,11 @@
 import { getSpecificImg } from "../../../sidebar/getAllChats/getChatInfo";
 import { Menu } from "@headlessui/react";
-import { BiMinus, BiDotsHorizontalRounded } from "react-icons/bi";
+import { BiMinus, BiDotsHorizontalRounded, BiLogOut } from "react-icons/bi";
 import { useState } from "react";
 import useThemeStore from "../../../../state/useThemeStore";
 import RemoveChatMember from "./RemoveChatMember";
 
-const ChatMemberItem = ({ member, chatId }) => {
+const ChatMemberItem = ({ memberData, chatId, userId }) => {
   const theme = useThemeStore((state) => state.theme);
   const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
 
@@ -14,14 +14,14 @@ const ChatMemberItem = ({ member, chatId }) => {
   };
 
   return (
-    <div className="p-2 flex justify-between items-center" key={member._id}>
+    <div className="p-2 flex justify-between items-center" key={memberData._id}>
       <div className="flex gap-2 items-center">
         <img
-          src={getSpecificImg(member)}
+          src={getSpecificImg(memberData)}
           alt="avatar"
           className="h-9 w-9 rounded-full"
         />
-        <p> {member.name}</p>
+        <p> {memberData.name}</p>
       </div>
 
       <Menu as="div" className="relative inline-block text-left">
@@ -47,9 +47,17 @@ const ChatMemberItem = ({ member, chatId }) => {
                   theme === "light" ? "bg-neutral-200/80" : "bg-neutral-600/40"
                 } rounded-full p-2 transition duration-[300ms] outline-0`}
               >
-                <BiMinus className="h-5 w-5" />
+                {userId === memberData.user._id ? (
+                  <BiLogOut className="h-5 w-5 transform rotate-180" />
+                ) : (
+                  <BiMinus className="h-5 w-5" />
+                )}
               </i>
-              <p> remove member</p>
+              <p>
+                {userId === memberData.user._id
+                  ? "leave group"
+                  : "remove member"}
+              </p>
             </button>
           </Menu.Item>
         </Menu.Items>
@@ -58,7 +66,8 @@ const ChatMemberItem = ({ member, chatId }) => {
         openConfirmationDialog={openConfirmationDialog}
         toggleOpenComfirmationDialog={toggleOpenComfirmationDialog}
         chatId={chatId}
-        memberId={member._id}
+        userId={userId}
+        memberData={memberData}
       />
     </div>
   );

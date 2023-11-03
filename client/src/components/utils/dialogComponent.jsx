@@ -33,7 +33,7 @@ const DialogComponent = ({ openModal, closeModal, title, children }) => {
                 theme === "light"
                   ? "bg-white text-neutral-700"
                   : "bg-neutral-700 text-neutral-300"
-              } w-full relative mx-auto max-w-lg rounded-md shadow-lg  p-4`}
+              } w-full relative mx-auto max-w-lg rounded-lg shadow-lg  p-4`}
             >
               <Dialog.Title className="text-lg text-center pb-4 font-semibold capitalize">
                 {title}

@@ -45,10 +45,19 @@ const SignIn = () => {
   };
   return (
     <div className="bg-blue-50 min-h-screen min-w-screen dark:bg-neutral-900">
-      <div className="grid grid-cols-1 md:grid-cols-2   justify-items-center place-items-center min-h-screen mx-auto md:max-w-[940px] px-4 gap-10">
-        <h1 className="text-6xl md:text-7xl font-black text-blue-950 dark:text-blue-500 self-end md:self-center">
-          ChatMe
-        </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2   justify-items-center place-items-center min-h-screen mx-auto md:max-w-[986px] px-4 gap-10">
+        <div className="self-end md:self-center text-center md:text-start max-w-lg">
+          <div className=" flex flex-col md:gap-8">
+            <h1 className="text-6xl md:text-7xl font-black text-blue-950 dark:text-blue-500 ">
+              ChatLink
+            </h1>
+            <p className="text-lg text-neutral-700 dark:text-blue-100 ">
+              Where Conversations Come to Life. Join now to connect effortlessly
+              with loved ones and colleagues.
+            </p>
+          </div>
+        </div>
+
         <form
           className="flex flex-col gap-6 bg-white shadow-lg p-4 md:p-6 rounded-md text-lg dark:bg-neutral-800 w-full max-w-[460px]  self-start md:self-center"
           onSubmit={handleSubmit(handleSignIn)}
