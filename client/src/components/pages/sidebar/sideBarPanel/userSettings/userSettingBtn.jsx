@@ -1,17 +1,23 @@
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { Popover, Transition } from "@headlessui/react";
-import { FaGear, FaArrowRightFromBracket } from "react-icons/fa6";
+import { FaGear, FaArrowRightFromBracket, FaLock } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ProfileSetting from "./userSettingModal";
+import UpdateUserPassword from "./updateUserPassword";
 
 const UserSettings = () => {
   const [profileSettingOpen, toggleProfileSettingOpen] = useState(false);
+  const [changePassword, setChangePassword] = useState(false);
   const [isEditImgOpen, setIsEditImgOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleEditImgOpen = () => {
     return setIsEditImgOpen(!isEditImgOpen);
+  };
+
+  const toggleChangePassword = () => {
+    return setChangePassword(!changePassword);
   };
 
   const toggleProfileSetting = () => {
@@ -43,20 +49,31 @@ const UserSettings = () => {
           <Popover.Panel>
             <div className="absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap dark:bg-neutral-700 dark:shadow-lg  border-[1px] border-neutral-200 dark:border-neutral-800 ">
               <button
-                className="flex gap-2 items-center  capitalize py-2 px-4 hover:bg-neutral-100 hover:dark:bg-neutral-600"
+                className="w-full flex gap-2 items-center  capitalize p-2 hover:bg-neutral-100 hover:dark:bg-neutral-600"
                 onClick={toggleProfileSetting}
               >
-                <FaGear />
-                Profile setting
+                <i>
+                  <FaGear />
+                </i>
+                <p>Profile setting</p>
               </button>
               <button
-                className="flex gap-2 items-center  capitalize py-2 px-4 hover:bg-neutral-100 hover:dark:bg-neutral-600 w-full"
+                className="w-full flex gap-2 items-center  capitalize p-2  hover:bg-neutral-100 hover:dark:bg-neutral-600"
+                onClick={toggleChangePassword}
+              >
+                <i>
+                  <FaLock />
+                </i>
+                <p>change password</p>
+              </button>
+              <button
+                className=" w-full flex gap-2 items-center capitalize p-2  hover:bg-neutral-100 hover:dark:bg-neutral-600"
                 onClick={handleLogout}
               >
                 <i>
                   <FaArrowRightFromBracket />
                 </i>
-                Logout
+                <p>Logout</p>
               </button>
             </div>
           </Popover.Panel>
@@ -67,6 +84,11 @@ const UserSettings = () => {
         toggleEditImgOpen={toggleEditImgOpen}
         profileSettingOpen={profileSettingOpen}
         toggleProfileSetting={toggleProfileSetting}
+      />
+
+      <UpdateUserPassword
+        changePassword={changePassword}
+        toggleChangePassword={toggleChangePassword}
       />
     </div>
   );

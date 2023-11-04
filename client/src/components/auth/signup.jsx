@@ -51,7 +51,7 @@ const SignUp = () => {
   };
   return (
     <div className="bg-blue-50 min-h-screen min-w-screen dark:bg-neutral-900">
-      <div className="grid grid-cols-1 md:grid-cols-2   justify-items-center place-items-center min-h-screen mx-auto md:max-w-[940px] px-4 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2   justify-items-center place-items-center min-h-screen mx-auto md:max-w-[986px] px-4 gap-10">
         <div className="self-end md:self-center text-center md:text-start max-w-lg">
           <div className=" flex flex-col gap-4  md:gap-8">
             <h1 className="text-6xl md:text-7xl font-black text-blue-950 dark:text-blue-500 ">
