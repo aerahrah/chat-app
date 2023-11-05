@@ -14,9 +14,21 @@ const UpdateUserPassword = ({ changePassword, toggleChangePassword }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const schema = yup.object().shape({
-    currentPassword: yup.string().required("Current password is required"),
-    newPassword: yup.string().required("New password is required"),
-    confirmPassword: yup.string().required("Confirm password is required"),
+    currentPassword: yup
+      .string()
+      .required("Current password is required")
+      .min(8, "Password must be at least 8 characters"),
+    newPassword: yup
+      .string()
+      .required("New password is required")
+      .min(8, "Password must be at least 8 characters"),
+    confirmPassword: yup
+      .string()
+      .required("Confirm password is required")
+      .oneOf(
+        [yup.ref("newPassword")],
+        "New password and confirm password must match"
+      ),
   });
 
   const {
@@ -27,16 +39,22 @@ const UpdateUserPassword = ({ changePassword, toggleChangePassword }) => {
     resolver: yupResolver(schema),
   });
 
-  const handleUpdatePassword = async () => {
+  const handleUpdatePassword = async (userInfo) => {
     try {
-      const response = await updatePasswordMutation.mutateAsync({
-        currentPassword,
-        newPassword,
-      });
-    } catch (err) {
-      console.log(err);
+      const response = await updatePasswordMutation.mutateAsync(userInfo);
+
+      setMessage(response.message);
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+    } catch (error) {
+      setErrorMessage(error);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
+
   return (
     <DialogComponent
       openModal={changePassword}
@@ -53,14 +71,14 @@ const UpdateUserPassword = ({ changePassword, toggleChangePassword }) => {
             <input
               className={`${
                 errors.currentPassword
-                  ? "dark:outline-red-500/80 outline-red-500"
-                  : "dark:outline-neutral-700 outline-neutral-300"
+                  ? "outline-red-500/80"
+                  : "outline-neutral-700 outline-neutral-300"
               } ${
                 theme === "light"
                   ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
                   : "bg-neutral-800/70 outline-neutral-800/70"
               } w-full outline outline-1 rounded block p-2  `}
-              type="text"
+              type="password"
               {...register("currentPassword")}
             />
             <p className="absolute bottom-[-1.15rem] text-xs text-red-500">
@@ -72,14 +90,14 @@ const UpdateUserPassword = ({ changePassword, toggleChangePassword }) => {
             <input
               className={`${
                 errors.newPassword
-                  ? "dark:outline-red-500/80 outline-red-500"
-                  : "dark:outline-neutral-700 outline-neutral-300"
+                  ? "outline-red-500/80 "
+                  : "outline-neutral-700 outline-neutral-300"
               } ${
                 theme === "light"
                   ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
                   : "bg-neutral-800/70 outline-neutral-800/70"
               }  w-full outline outline-1 rounded block p-2`}
-              type="text"
+              type="password"
               {...register("newPassword")}
             />
             <p className="absolute bottom-[-1.15rem] text-xs text-red-500">
@@ -92,14 +110,14 @@ const UpdateUserPassword = ({ changePassword, toggleChangePassword }) => {
             <input
               className={`${
                 errors.confirmPassword
-                  ? "dark:outline-red-500/80 outline-red-500"
-                  : "dark:outline-neutral-700 outline-neutral-300"
+                  ? "outline-red-500/80"
+                  : "outline-neutral-700 outline-neutral-300"
               } ${
                 theme === "light"
                   ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
                   : "bg-neutral-800/70 outline-neutral-800/70"
               } outline outline-1 rounded block p-2  w-full`}
-              type="text"
+              type="password"
               {...register("confirmPassword")}
             />
             <p className="absolute bottom-[-1.15rem] text-xs text-red-500">

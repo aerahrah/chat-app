@@ -172,3 +172,47 @@ export const updateUserImage = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const updateUserPassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    const getUserId = req.user;
+    const user = await Users.findById(getUserId);
+
+    if (!user) {
+      return res.status(401).send({ message: "User not found" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+
+    if (!isPasswordValid) {
+      return res.status(401).send({ message: "Incorrect password" });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res
+        .status(401)
+        .send({ message: "New password and confirm password must match" });
+    }
+
+    if (currentPassword === newPassword) {
+      return res
+        .status(401)
+        .send({ message: "Current password should not match new password" });
+    }
+
+    const hashPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashPassword;
+
+    await user.save();
+    return res
+      .status(200)
+      .json({ message: "User password updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

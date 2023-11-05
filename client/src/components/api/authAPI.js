@@ -147,8 +147,8 @@ export const updateUserImage = async (userInfo) => {
 
 export const updateUserPassword = async (userInfo) => {
   try {
-    const { userImg, userImgType } = userInfo;
-    const url = `${BASE_URL}/user/update-userimg`;
+    const { currentPassword, newPassword, confirmPassword } = userInfo;
+    const url = `${BASE_URL}/user/update-password`;
     console.log(userInfo);
     const response = await fetch(url, {
       method: "PATCH",
@@ -157,8 +157,9 @@ export const updateUserPassword = async (userInfo) => {
         Authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify({
-        userImg,
-        userImgType,
+        currentPassword,
+        newPassword,
+        confirmPassword,
       }),
     });
 

@@ -30,10 +30,10 @@ const SignIn = () => {
 
   const handleSignIn = async (userInfo) => {
     try {
-      const data = await signInMutation.mutateAsync(userInfo);
+      const response = await signInMutation.mutateAsync(userInfo);
       queryClient.clear();
       queryClient.invalidateQueries("getAllChat");
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", response.token);
 
       navigate("/chat");
     } catch (error) {
