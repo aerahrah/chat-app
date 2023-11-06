@@ -47,6 +47,20 @@ const chatSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    pinMessages: [
+      {
+        type: String,
+      },
+    ],
+    colorTheme: {
+      type: String,
+      enum: ["blue", "red", "violet", "yellow", "sky"],
+      default: "blue",
+    },
+    defaultEmojis: {
+      type: String,
+      default: "like",
+    },
   },
   { timestamps: true }
 );

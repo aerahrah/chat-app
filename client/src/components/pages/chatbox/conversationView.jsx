@@ -4,6 +4,7 @@ import socket from "../../socket/socket";
 
 const ConversationView = ({ chatData, chatId, userId }) => {
   const [messages, setMessages] = useState(chatData.chat.messages);
+  const [colorTheme, setColorTheme] = useState(chatData.chat.colorTheme);
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
@@ -41,7 +42,10 @@ const ConversationView = ({ chatData, chatId, userId }) => {
         >
           {message.sender === userId ? (
             <div className="max-w-[30vw]">
-              <p className="inline-block py-2 px-3 bg-blue-500 text-blue-50 rounded-[1rem] w-[100%] break-words">
+              <p
+                style={{ backgroundColor: colorTheme }}
+                className="inline-block py-2 px-3 rounded-[1rem] w-[100%] break-words"
+              >
                 {message.content}
               </p>
             </div>
