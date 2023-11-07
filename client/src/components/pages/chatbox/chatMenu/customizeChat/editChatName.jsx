@@ -18,12 +18,11 @@ const EditChatName = ({ chatData, editChatNameModal, toggleEditChatName }) => {
       });
       queryClient.invalidateQueries("getAllChat");
       queryClient.invalidateQueries("getConversation");
-      toggleEditChatName();
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(chatData);
+
   return (
     <DialogComponent
       openModal={editChatNameModal}

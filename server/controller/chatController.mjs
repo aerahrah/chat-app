@@ -254,7 +254,9 @@ export const editChatMemberNickname = async (req, res) => {
     member.displayName = nickname;
     await chat.save();
 
-    return res.status(200).json(chat);
+    return res
+      .status(200)
+      .json({ message: "Successfully updated member nickname" });
   } catch (error) {
     return res.status(500).json({ error: "Error updating member's nickname" });
   }
@@ -265,13 +267,18 @@ export const editChatName = async (req, res) => {
     const { chatId } = req.params;
     const { chatName } = req.body;
     const chat = await Chat.findById(chatId);
+
     if (!chatName)
       return res.status(401).send({ message: "Chat name is empty" });
-    chat.chatImg = getInitials(chatName);
+
+    if (chat.chatImgType === "initials") {
+      chat.chatImg = getInitials(chatName);
+    }
+
     chat.name = chatName;
     await chat.save();
 
-    return res.status(200).json(chat);
+    return res.status(200).json({ message: "Successfully updated chat name" });
   } catch (error) {
     return res.status(500).json({ error: "Error updating chat name" });
   }
@@ -287,8 +294,25 @@ export const editChatImage = async (req, res) => {
     chat.chatImgType = chatImgType;
     await chat.save();
 
-    return res.status(200).json(chat);
+    return res.status(200).json({ message: "Successfully updated chat image" });
   } catch (error) {
     return res.status(500).json({ error: "Error updating chat name" });
+  }
+};
+
+export const editColorTheme = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const { colorTheme } = req.body;
+    const chat = await Chat.findById(chatId);
+
+    chat.colorTheme = colorTheme;
+    await chat.save();
+
+    return res
+      .status(200)
+      .json({ message: "Successfully updated color theme" });
+  } catch (error) {
+    return res.status(500).json({ error: "Error updating color theme" });
   }
 };

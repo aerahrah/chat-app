@@ -118,6 +118,7 @@ export const editChatMemberNickname = async ({
 
 export const editChatName = async ({ chatId, chatName }) => {
   try {
+    console.log(chatName);
     const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-name`, {
       method: "POST",
       headers: {
@@ -183,6 +184,24 @@ export const removeChatMember = async ({ chatId, memberId }) => {
         Authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify({ memberId }),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const editColorTheme = async ({ chatId, colorTheme }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-colortheme`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ colorTheme }),
     });
 
     return response.json();

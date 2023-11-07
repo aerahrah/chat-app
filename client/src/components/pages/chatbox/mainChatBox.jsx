@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
 import { getChatConversation } from "../../api/chatAPI";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import useChatCreationStore from "../../state/chat/useChatCreationStore";
 import ConversationHeader from "./conversationHeader";
 import ConversationView from "./conversationView";
 import MessageComposer from "./MessageComposer";
@@ -8,14 +10,20 @@ import ChatMenuLayout from "./chatMenu/chatMenuLayout";
 
 const MainChatBox = () => {
   const { chatId } = useParams();
+  const setColorTheme = useChatCreationStore((state) => state.setColorTheme);
   const chatQuery = ["getConversation", chatId];
-
   const {
     data: chatData,
     isLoading,
     isError,
     error,
   } = useQuery(chatQuery, () => (chatId ? getChatConversation(chatId) : null));
+
+  useEffect(() => {
+    if (chatData) {
+      setColorTheme(chatData.chat.colorTheme);
+    }
+  }, [chatData]);
 
   if (isLoading) {
     return <div>Loading...</div>;

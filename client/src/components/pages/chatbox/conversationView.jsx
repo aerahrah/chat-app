@@ -1,11 +1,13 @@
 import { getConversationName } from "../sidebar/getAllChats/getChatInfo";
 import { useEffect, useState, useRef } from "react";
 import { getBgColorTheme, getTextColorTheme } from "../../utils/getColorTheme";
+import useChatCreationStore from "../../state/chat/useChatCreationStore";
 import socket from "../../socket/socket";
 
 const ConversationView = ({ chatData, chatId, userId }) => {
+  const colorTheme = useChatCreationStore((state) => state.colorTheme);
   const [messages, setMessages] = useState(chatData.chat.messages);
-  const [colorTheme, setColorTheme] = useState(chatData.chat.colorTheme);
+
   const chatContainerRef = useRef(null);
 
   useEffect(() => {

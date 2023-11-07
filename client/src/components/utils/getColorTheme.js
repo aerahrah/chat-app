@@ -1,5 +1,5 @@
 const bgColorMap = {
-  black: "#2D3748",
+  black: "#171717",
   gray: "#6b7280",
   red: "#F56565",
   orange: "#ED8936",
@@ -21,7 +21,7 @@ const bgColorMap = {
 };
 
 const textColorMap = {
-  black: "#fafafa",
+  black: "#f5f5f5",
   gray: "#f9fafb",
   red: "#fef2f2",
   orange: "#fff7ed",

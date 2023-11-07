@@ -1,8 +1,9 @@
 import useThemeStore from "../../../../state/useThemeStore";
 import { useState } from "react";
 import { useQueryClient, useMutation } from "react-query";
-import { editChatName } from "../../../../api/chatAPI";
 import { getBgColorTheme } from "../../../../utils/getColorTheme";
+import { editColorTheme } from "../../../../api/chatAPI";
+import useChatCreationStore from "../../../../state/chat/useChatCreationStore";
 import DialogComponent from "../../../../utils/dialogComponent";
 import BtnPanelComponent from "../../../../utils/btnPanelComponent";
 
@@ -10,8 +11,11 @@ const EditColorTheme = ({
   chatData,
   colorThemeSelector,
   toggleColorThemeSelector,
+  setColorThemeSelector,
 }) => {
-  const [colorTheme, setColorTheme] = useState(chatData.chat.colorTheme);
+  const { colorTheme, setColorTheme } = useChatCreationStore();
+  const editColorThemeMutation = useMutation(editColorTheme);
+  const queryClient = useQueryClient();
   const theme = useThemeStore((state) => state.theme);
 
   const colorThemeList = [
@@ -36,7 +40,12 @@ const EditColorTheme = ({
   ];
   const handleChangeColorTheme = async () => {
     try {
-      console.log("test");
+      await editColorThemeMutation.mutateAsync({
+        chatId: chatData.chat._id,
+        colorTheme,
+      });
+      queryClient.invalidateQueries("getConversation");
+      setColorThemeSelector(false);
     } catch (error) {
       console.log(error);
     }
@@ -63,9 +72,9 @@ const EditColorTheme = ({
           </i>
         </header>
         <ul className="flex flex-wrap items-center justify-center gap-4">
-          {colorThemeList.map((color) => {
+          {colorThemeList.map((color, idx) => {
             return (
-              <li className="flex ">
+              <li className="flex " key={idx}>
                 <button
                   className={`p-2 rounded-full transition duration-[300ms] ${
                     theme === "light"
