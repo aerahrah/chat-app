@@ -3,7 +3,7 @@ import useThemeStore from "../state/useThemeStore";
 const BtnPanelComponent = ({ closeModal, handleOnClick, label }) => {
   const theme = useThemeStore((state) => state.theme);
   return (
-    <div className="flex justify-between font-semibold gap-3">
+    <div className="flex justify-between font-semibold gap-3 mt-6">
       <button
         className={`${
           theme === "light"

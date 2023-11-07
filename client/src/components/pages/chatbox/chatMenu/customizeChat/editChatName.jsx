@@ -41,7 +41,7 @@ const EditChatName = ({ chatData, editChatNameModal, toggleEditChatName }) => {
             theme === "light"
               ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
               : "bg-neutral-800/70 outline-neutral-800/70   "
-          } outline outline-1 rounded block p-2 mb-6 w-[40vw] max-w-[100%]`}
+          } outline outline-1 rounded block p-2 w-[40vw] max-w-[100%]`}
           onClick={(e) => e.stopPropagation()}
           onChange={(e) => setChatName(e.target.value)}
         />

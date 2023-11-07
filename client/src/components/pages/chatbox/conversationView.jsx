@@ -1,5 +1,6 @@
 import { getConversationName } from "../sidebar/getAllChats/getChatInfo";
 import { useEffect, useState, useRef } from "react";
+import { getBgColorTheme, getTextColorTheme } from "../../utils/getColorTheme";
 import socket from "../../socket/socket";
 
 const ConversationView = ({ chatData, chatId, userId }) => {
@@ -43,7 +44,10 @@ const ConversationView = ({ chatData, chatId, userId }) => {
           {message.sender === userId ? (
             <div className="max-w-[30vw]">
               <p
-                style={{ backgroundColor: colorTheme }}
+                style={{
+                  color: getTextColorTheme(colorTheme),
+                  backgroundColor: getBgColorTheme(colorTheme),
+                }}
                 className="inline-block py-2 px-3 rounded-[1rem] w-[100%] break-words"
               >
                 {message.content}
