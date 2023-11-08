@@ -1,6 +1,6 @@
 import { BiSolidHappyAlt, BiSolidSend } from "react-icons/bi";
 import EmojiPicker from "emoji-picker-react";
-import { useMutation } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import { sendMessage } from "../../api/chatAPI";
 import { Popover } from "@headlessui/react";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import socket from "../../socket/socket";
 
 const MessageComposer = ({ chatId, userId }) => {
   const sendMessageMutation = useMutation(sendMessage);
+  const queryClient = useQueryClient();
   const [message, setMessage] = useState("");
 
   const handleSendMessage = async () => {
@@ -19,8 +20,8 @@ const MessageComposer = ({ chatId, userId }) => {
         chatId,
         content: message,
       });
-      console.log(response);
       socket.emit("send message", chatId, userId, message);
+      queryClient.invalidateQueries("getAllChat");
       setMessage("");
     } catch (error) {
       console.log(error);
