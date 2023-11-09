@@ -1,20 +1,28 @@
 import { getChatImg, getChatName } from "../../sidebar/getAllChats/getChatInfo";
-import useChatCreationStore from "../../../state/chat/useChatCreationStore";
 import { BiSolidChevronRight, BiSolidChevronDown } from "react-icons/bi";
-import EditChatMember from "./chatMember/editChatMember";
 import { useState } from "react";
+import useChatCreationStore from "../../../state/chat/useChatCreationStore";
+import EditChatMember from "./chatMember/editChatMember";
 import CustomizeChat from "./customizeChat/customizeChat";
+import GetAllPinMessageBtn from "./chatInfo/getAllPinMessageBtn";
 
 const ChatMenuLayout = ({ chatData }) => {
   const openChatMenu = useChatCreationStore((state) => state.openChatMenu);
-  const [editChatMemberModal, setEditChatMemberModal] = useState(false);
-  const [editChatModal, setEditChatModal] = useState(false);
 
-  const toggleEditChatMember = () => {
-    return setEditChatMemberModal(!editChatMemberModal);
+  const [isChatInfoOpen, setChatInfoOpen] = useState(false);
+  const [isChatCustomizeOpen, setChatCustomizeOpen] = useState(false);
+  const [isChatMembersOpen, setChatMembersOpen] = useState(false);
+
+  const toggleChatInfo = () => {
+    return setChatInfoOpen(!isChatInfoOpen);
   };
-  const toggleEditChat = () => {
-    return setEditChatModal(!editChatModal);
+
+  const toggleChatCustomize = () => {
+    return setChatCustomizeOpen(!isChatCustomizeOpen);
+  };
+
+  const toggleChatMembers = () => {
+    return setChatMembersOpen(!isChatMembersOpen);
   };
 
   return (
@@ -33,32 +41,55 @@ const ChatMenuLayout = ({ chatData }) => {
               </h1>
             </div>
             <div className="flex flex-col items-start w-full ">
-              <button
-                className="w-full flex items-center justify-between gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
-                onClick={toggleEditChat}
-              >
-                <p>Customize chat</p>
-                <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
-                  {editChatModal ? (
-                    <BiSolidChevronDown className="h-5 w-5" />
-                  ) : (
-                    <BiSolidChevronRight className="h-5 w-5" />
-                  )}
-                </i>
-              </button>
-              <CustomizeChat
-                chatData={chatData}
-                editChatModal={editChatModal}
-              />
+              <div className="w-full">
+                <button
+                  className="w-full flex items-center justify-between gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
+                  onClick={toggleChatInfo}
+                >
+                  <p>Chat info</p>
+                  <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
+                    {isChatInfoOpen ? (
+                      <BiSolidChevronDown className="h-5 w-5" />
+                    ) : (
+                      <BiSolidChevronRight className="h-5 w-5" />
+                    )}
+                  </i>
+                </button>
+                <GetAllPinMessageBtn
+                  chatData={chatData}
+                  isChatInfoOpen={isChatInfoOpen}
+                />
+              </div>
+
+              <div className="w-full">
+                <button
+                  className="w-full flex items-center justify-between gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
+                  onClick={toggleChatCustomize}
+                >
+                  <p>Customize chat</p>
+                  <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
+                    {isChatCustomizeOpen ? (
+                      <BiSolidChevronDown className="h-5 w-5" />
+                    ) : (
+                      <BiSolidChevronRight className="h-5 w-5" />
+                    )}
+                  </i>
+                </button>
+                <CustomizeChat
+                  chatData={chatData}
+                  isChatCustomizeOpen={isChatCustomizeOpen}
+                />
+              </div>
+
               {chatData.chat.type === "group" && (
                 <div className="w-full">
                   <button
                     className="w-full flex items-center justify-between gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
-                    onClick={toggleEditChatMember}
+                    onClick={toggleChatMembers}
                   >
                     <p>Change members</p>
                     <i className="p-2 px-2 bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
-                      {editChatMemberModal ? (
+                      {isChatMembersOpen ? (
                         <BiSolidChevronDown className="h-5 w-5" />
                       ) : (
                         <BiSolidChevronRight className="h-5 w-5" />
@@ -68,7 +99,7 @@ const ChatMenuLayout = ({ chatData }) => {
 
                   <EditChatMember
                     chatData={chatData}
-                    editChatMemberModal={editChatMemberModal}
+                    isChatMembersOpen={isChatMembersOpen}
                   />
                 </div>
               )}

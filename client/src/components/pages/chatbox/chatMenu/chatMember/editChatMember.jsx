@@ -3,7 +3,7 @@ import { BiPlus } from "react-icons/bi";
 import AddChatMember from "./addChatMember";
 import { useState } from "react";
 
-const EditChatMember = ({ chatData, editChatMemberModal }) => {
+const EditChatMember = ({ chatData, isChatMembersOpen }) => {
   const [addChatMemberOpen, setAddChatMemberOpen] = useState(false);
   console.log(chatData.chat._id);
   const toggleAddChatMember = () => {
@@ -11,7 +11,7 @@ const EditChatMember = ({ chatData, editChatMemberModal }) => {
   };
   return (
     <div>
-      {editChatMemberModal && (
+      {isChatMembersOpen && (
         <div>
           <ChatMemberList chatData={chatData} />
           <button

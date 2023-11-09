@@ -6,7 +6,7 @@ import EditColorTheme from "./editColorTheme";
 import { BiImage, BiSolidPencil } from "react-icons/bi";
 import { getBgColorTheme } from "../../../../utils/getColorTheme";
 import useChatCreationStore from "../../../../state/chat/useChatCreationStore";
-const CustomizeChat = ({ chatData, editChatModal }) => {
+const CustomizeChat = ({ chatData, isChatCustomizeOpen }) => {
   const { colorTheme, setColorTheme } = useChatCreationStore();
   const [editNicknameModal, setEditNicknameModal] = useState(false);
   const [editChatNameModal, setEditChatNameModal] = useState(false);
@@ -32,7 +32,7 @@ const CustomizeChat = ({ chatData, editChatModal }) => {
 
   return (
     <div className="w-full">
-      {editChatModal && (
+      {isChatCustomizeOpen && (
         <div className="flex flex-col items-start gap-3 w-full">
           {chatData.chat.type === "group" && (
             <div className="flex flex-col gap-2 w-full">
