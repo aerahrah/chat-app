@@ -222,7 +222,12 @@ export const leaveGroupChat = async (req, res) => {
     const chat = await Chat.findById(chatId);
     if (!chat) return res.status(404).json({ error: "Chat not found" });
 
-    chat.members.pull(userId);
+    const updatedMembers = chat.members.filter(
+      (member) => member.user._id.toString() !== userId.toString()
+    );
+
+    chat.members = updatedMembers;
+
     await chat.save();
 
     return res

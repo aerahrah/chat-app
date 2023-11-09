@@ -193,6 +193,24 @@ export const removeChatMember = async ({ chatId, memberId }) => {
   }
 };
 
+export const leaveGroupChat = async ({ chatId }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${chatId}/leave-group`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+
+    console.log(response);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export const editColorTheme = async ({ chatId, colorTheme }) => {
   try {
     const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-colortheme`, {
