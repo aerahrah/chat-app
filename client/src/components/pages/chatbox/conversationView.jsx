@@ -1,13 +1,10 @@
-import { getConversationName } from "../sidebar/getAllChats/getChatInfo";
 import { useEffect, useState, useRef } from "react";
-import { getBgColorTheme, getTextColorTheme } from "../../utils/getColorTheme";
-import useChatCreationStore from "../../state/chat/useChatCreationStore";
+import ConversationItem from "./conversationItem";
+
 import socket from "../../socket/socket";
 
 const ConversationView = ({ chatData, chatId, userId }) => {
-  const colorTheme = useChatCreationStore((state) => state.colorTheme);
   const [messages, setMessages] = useState(chatData.chat.messages);
-
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
@@ -37,35 +34,12 @@ const ConversationView = ({ chatData, chatId, userId }) => {
       ref={chatContainerRef}
     >
       {messages.map((message, index) => (
-        <div
-          className={`flex ${
-            message.sender === userId ? "justify-end" : "justify-start"
-          }`}
+        <ConversationItem
+          message={message}
+          userId={userId}
+          chatData={chatData}
           key={index}
-        >
-          {message.sender === userId ? (
-            <div className="max-w-[30vw]">
-              <p
-                style={{
-                  color: getTextColorTheme(colorTheme),
-                  backgroundColor: getBgColorTheme(colorTheme),
-                }}
-                className="inline-block py-2 px-3 rounded-[1rem] w-[100%] break-words"
-              >
-                {message.content}
-              </p>
-            </div>
-          ) : (
-            <div className="max-w-[30vw]">
-              <p className="px-3 text-sm">
-                {getConversationName(chatData, userId)}
-              </p>
-              <p className="inline-block py-2 px-3 bg-neutral-300 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300 rounded-[1rem] transition duration-[300ms] w-[100%] break-words">
-                {message.content}
-              </p>
-            </div>
-          )}
-        </div>
+        />
       ))}
     </div>
   );
