@@ -1,4 +1,4 @@
-import { Chat, Message } from "../models/Chat.mjs";
+import { Chat, Message, PinMessage } from "../models/Chat.mjs";
 import Users from "../models/user.mjs";
 import { getInitials } from "../utils/getInitials.mjs";
 
@@ -127,16 +127,44 @@ export const createGroupChat = async (req, res) => {
     return res.status(500).send({ error: "Error creating group chat" });
   }
 };
-export const sendChatMessage = async (req, res) => {
+export const createPinMessage = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const { pinMessage } = req.body;
+    const getUserId = req.user;
+
+    if (!pinMessage) {
+      return res.status(401).send({ message: "pinMessage empty" });
+    }
+
+    let chat = await Chat.findById(chatId);
+    if (!chat) {
+      return res.status(401).send({ message: "Chat not found" });
+    }
+
+    const newPinMessage = new PinMessage({
+      pinBy: getUserId,
+      pinMessage,
+    });
+
+    await newPinMessage.save();
+    chat.pinMessages.push(newPinMessage);
+    await chat.save();
+
+    res.status(201).json({ message: "Pinned message successfully", chat });
+  } catch (error) {
+    res.status(500).json({ error: "Error sending private chat message" });
+  }
+};
+
+export const createChatMessage = async (req, res) => {
   try {
     const { chatId } = req.params;
     const { content } = req.body;
     const getUserId = req.user;
-    console.log(content, chatId);
+
     if (!content) {
-      return res
-        .status(401)
-        .send({ message: "Must input text before sending" });
+      return res.status(401).send({ message: "content must not be empty" });
     }
 
     let chat = await Chat.findById(chatId);

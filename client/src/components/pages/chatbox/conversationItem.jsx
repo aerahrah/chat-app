@@ -3,13 +3,15 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { getConversationName } from "../sidebar/getAllChats/getChatInfo";
 import { useState } from "react";
 import useChatCreationStore from "../../state/chat/useChatCreationStore";
+import PinMessage from "./pinMessage";
 const ConversationItem = ({ message, chatData, userId }) => {
-  const [pinMessageBtn, setPinMessageBtn] = useState(false);
   const colorTheme = useChatCreationStore((state) => state.colorTheme);
+  const [pinMessageBtn, setPinMessageBtn] = useState(false);
 
   const togglePinMessageOption = () => {
     return setPinMessageBtn(!pinMessageBtn);
   };
+
   return (
     <div
       className={`flex ${
@@ -22,13 +24,12 @@ const ConversationItem = ({ message, chatData, userId }) => {
           onMouseEnter={togglePinMessageOption}
           onMouseLeave={togglePinMessageOption}
         >
-          {pinMessageBtn && (
-            <div className="absolute left-[-2rem] inset-y-0 inset-x-0 flex items-center">
-              <button className="p-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900/40 dark:hover:bg-neutral-900/70 rounded-full">
-                <BiDotsVerticalRounded className="h-5 w-5 text-neutral-700 dark:text-neutral-400" />
-              </button>
-            </div>
-          )}
+          <PinMessage
+            pinMessageBtn={pinMessageBtn}
+            message={message.content}
+            chatId={chatData.chat._id}
+            alignment="user"
+          />
           <p
             style={{
               color: getTextColorTheme(colorTheme),
@@ -52,17 +53,17 @@ const ConversationItem = ({ message, chatData, userId }) => {
             <p className="inline-block py-2 px-3 bg-neutral-300 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300 rounded-[1rem] transition duration-[300ms] w-[100%] break-words">
               {message.content}
             </p>
-            {pinMessageBtn && (
-              <div className="absolute right-[-3rem] px-4 inset-y-0  flex items-center">
-                <button className="p-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900/40 dark:hover:bg-neutral-900/70 rounded-full">
-                  <BiDotsVerticalRounded className="h-5 w-5 text-neutral-700 dark:text-neutral-400" />
-                </button>
-              </div>
-            )}
+            <PinMessage
+              pinMessageBtn={pinMessageBtn}
+              message={message.content}
+              chatId={chatData.chat._id}
+              alignment="member"
+            />
           </div>
         </div>
       )}
     </div>
   );
 };
+
 export default ConversationItem;

@@ -26,6 +26,21 @@ const messageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const pinMessageSchema = new mongoose.Schema(
+  {
+    pinBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+      required: true,
+    },
+    pinMessage: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
 const chatSchema = new mongoose.Schema(
   {
     name: {
@@ -47,11 +62,7 @@ const chatSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    pinMessages: [
-      {
-        type: String,
-      },
-    ],
+    pinMessages: [pinMessageSchema],
     colorTheme: {
       type: String,
       enum: [
@@ -86,5 +97,6 @@ const chatSchema = new mongoose.Schema(
 
 const Chat = mongoose.model("Chat", chatSchema);
 const Message = mongoose.model("Message", messageSchema);
+const PinMessage = mongoose.model("PinMessage", pinMessageSchema);
 
-export { Chat, Message };
+export { Chat, Message, PinMessage };

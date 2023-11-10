@@ -94,6 +94,24 @@ export const sendMessage = async ({ chatId, content }) => {
   }
 };
 
+export const createPinMessage = async ({ chatId, pinMessage }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${chatId}/add-pin-message`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ pinMessage }),
+    });
+    console.log(response);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export const editChatMemberNickname = async ({
   chatId,
   memberId,

@@ -1,17 +1,18 @@
 import express from "express";
 import {
-  createPrivateChat,
-  createGroupChat,
-  sendChatMessage,
   getAllChat,
   getConversation,
+  createPrivateChat,
+  createGroupChat,
+  createPinMessage,
+  createChatMessage,
   addNewMember,
   leaveGroupChat,
+  removeChatMember,
   editChatMemberNickname,
   editChatName,
   editChatImage,
   editColorTheme,
-  removeChatMember,
 } from "../controller/chatController.mjs";
 import authenticate from "../middleware/authenticate.mjs";
 
@@ -22,7 +23,8 @@ router.get("/:chatId", authenticate, getConversation);
 router.post("/private", authenticate, createPrivateChat);
 router.post("/group", authenticate, createGroupChat);
 
-router.post("/:chatId", authenticate, sendChatMessage);
+router.post("/:chatId", authenticate, createChatMessage);
+router.post("/:chatId/add-pin-message", authenticate, createPinMessage);
 router.post("/:chatId/add-member", authenticate, addNewMember);
 router.post("/:chatId/remove-member", authenticate, removeChatMember);
 router.post("/:chatId/leave-group", authenticate, leaveGroupChat);
