@@ -58,3 +58,30 @@ export const getChatImg = (chatData, userId) => {
     return `https://api.dicebear.com/7.x/${chatData.chatImgType}/svg?seed=${chatData.chatImg}`;
   }
 };
+
+export const getPinByImg = (chatData, userId) => {
+  const pinBy = chatData.chat.members.find(
+    (member) => String(member.user._id) === userId
+  );
+  if (pinBy) {
+    return `https://api.dicebear.com/7.x/${pinBy.user.userProfileImgType}/svg?seed=${pinBy.user.userProfileImg}`;
+  }
+};
+
+export const getPinByName = (chatData, userId) => {
+  if (userId === chatData.userId) {
+    return "You";
+  }
+  const pinBy = chatData.chat.members.find(
+    (member) => String(member.user._id) === userId
+  );
+  if (pinBy) {
+    if (pinBy.displayName === "") {
+      return pinBy.name;
+    } else {
+      return pinBy.displayName;
+    }
+  } else {
+    return "Unknown";
+  }
+};

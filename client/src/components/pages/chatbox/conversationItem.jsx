@@ -1,5 +1,4 @@
 import { getBgColorTheme, getTextColorTheme } from "../../utils/getColorTheme";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { getConversationName } from "../sidebar/getAllChats/getChatInfo";
 import { useState } from "react";
 import useChatCreationStore from "../../state/chat/useChatCreationStore";
@@ -47,7 +46,9 @@ const ConversationItem = ({ message, chatData, userId }) => {
           onMouseLeave={togglePinMessageOption}
         >
           <div className="pl-3 w- text-sm absolute  w-[30vw] top-[-.35rem]">
-            <p className="w-full">{getConversationName(chatData, userId)}</p>
+            <p className="w-full">
+              {getConversationName(chatData, message.sender)}
+            </p>
           </div>
           <div className="relative w-full  mt-4">
             <p className="inline-block py-2 px-3 bg-neutral-300 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300 rounded-[1rem] transition duration-[300ms] w-[100%] break-words">

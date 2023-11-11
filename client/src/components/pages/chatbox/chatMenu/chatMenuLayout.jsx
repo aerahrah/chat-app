@@ -36,7 +36,7 @@ const ChatMenuLayout = ({ chatData }) => {
                 alt="avatar"
                 className="h-16 w-16 rounded-full"
               />
-              <h1 className="text-lg break-words w-[20vw]">
+              <h1 className="text-lg text-center break-words w-[20vw]">
                 {getChatName(chatData.chat, chatData.userId)}
               </h1>
             </div>

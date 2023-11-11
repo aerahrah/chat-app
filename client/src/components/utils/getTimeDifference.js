@@ -17,3 +17,21 @@ export const getTimeDifference = (updatedAt) => {
     return `${Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24 * 7))}w`;
   }
 };
+
+export const getExactDate = (updatedAt) => {
+  const updatedDate = new Date(updatedAt);
+  const currentDate = new Date();
+
+  const timeDifferenceMs = currentDate - updatedDate;
+
+  if (timeDifferenceMs < 86400000) {
+    const options = { hour: "numeric", minute: "numeric", hour12: true };
+    return updatedDate.toLocaleString("en-US", options);
+  } else if (timeDifferenceMs < 604800000) {
+    const options = { weekday: "short" };
+    return updatedDate.toLocaleString("en-US", options);
+  } else {
+    const options = { month: "2-digit", day: "2-digit", year: "numeric" };
+    return updatedDate.toLocaleString("en-US", options);
+  }
+};
