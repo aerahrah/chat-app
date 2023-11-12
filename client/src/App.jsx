@@ -1,11 +1,10 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import SignUp from "./components/auth/signup";
-import SignIn from "./components/auth/signin";
-import ChatLayout from "./components/chatLayout";
-import MainChatBox from "./components/pages/chatbox/mainChatBox";
-import socket from "./components/socket/socket";
 import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import SignUp from "./pages/auth/signup";
+import SignIn from "./pages/auth/signin";
+import ChatLayout from "./pages/chatLayout";
+import MainChatBox from "./pages/chatbox/mainChatBox";
+import socket from "./socket/socket";
 
 function App() {
   useEffect(() => {
