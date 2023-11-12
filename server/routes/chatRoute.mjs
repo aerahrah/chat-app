@@ -6,6 +6,7 @@ import {
   createGroupChat,
   createPinMessage,
   createChatMessage,
+  removePinMessage,
   addNewMember,
   leaveGroupChat,
   removeChatMember,
@@ -25,6 +26,7 @@ router.post("/group", authenticate, createGroupChat);
 
 router.post("/:chatId", authenticate, createChatMessage);
 router.post("/:chatId/add-pin-message", authenticate, createPinMessage);
+router.post("/:chatId/remove-pin-message", authenticate, removePinMessage);
 router.post("/:chatId/add-member", authenticate, addNewMember);
 router.post("/:chatId/remove-member", authenticate, removeChatMember);
 router.post("/:chatId/leave-group", authenticate, leaveGroupChat);

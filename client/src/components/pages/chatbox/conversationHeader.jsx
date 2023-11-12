@@ -1,6 +1,6 @@
 import { getChatName, getChatImg } from "../sidebar/getAllChats/getChatInfo";
-import useChatCreationStore from "../../state/chat/useChatCreationStore";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+import useChatCreationStore from "../../state/chat/useChatCreationStore";
 
 const ConversationHeader = ({ chatData }) => {
   const toggleOpenChatMenu = useChatCreationStore(

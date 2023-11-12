@@ -17,7 +17,7 @@ const DialogComponent = ({ openModal, closeModal, title, children }) => {
           open={openModal}
           onClose={closeModal}
         >
-          <div className="fixed inset-0 !bg-black/40" />
+          <div className="fixed inset-0 !bg-black/60" />
 
           <div className="fixed inset-0 flex w-screen items-center justify-center">
             <Dialog.Panel

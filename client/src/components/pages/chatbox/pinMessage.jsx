@@ -1,12 +1,14 @@
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useState } from "react";
 import { Menu } from "@headlessui/react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { createPinMessage } from "../../api/chatAPI";
 import useThemeStore from "../../state/useThemeStore";
+
 const PinMessage = ({ pinMessageBtn, chatId, message, alignment }) => {
   const createPinMessageMutation = useMutation(createPinMessage);
   const theme = useThemeStore((state) => state.theme);
+  const queryClient = useQueryClient();
 
   const handleCreatePinMessage = async () => {
     try {
@@ -15,6 +17,7 @@ const PinMessage = ({ pinMessageBtn, chatId, message, alignment }) => {
         pinMessage: message,
       });
       console.log(response);
+      queryClient.invalidateQueries("getConversation");
     } catch (error) {
       console.log(error);
     }

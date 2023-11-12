@@ -153,7 +153,34 @@ export const createPinMessage = async (req, res) => {
 
     res.status(201).json({ message: "Pinned message successfully", chat });
   } catch (error) {
-    res.status(500).json({ error: "Error sending private chat message" });
+    res.status(500).json({ error: "Error pinning message" });
+  }
+};
+
+export const removePinMessage = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const { pinMessageId } = req.body;
+
+    const chat = await Chat.findOneAndUpdate(
+      { _id: chatId },
+      { $pull: { pinMessages: { _id: pinMessageId } } },
+      { new: true }
+    );
+
+    if (!chat) {
+      return res
+        .status(404)
+        .json({ error: "Chat not found or pin message not found" });
+    }
+
+    return res.status(200).json({
+      message: "Pinned message successfully removed",
+      chat,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error removing pinned message" });
   }
 };
 

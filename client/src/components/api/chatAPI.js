@@ -112,6 +112,24 @@ export const createPinMessage = async ({ chatId, pinMessage }) => {
   }
 };
 
+export const removePinMessage = async ({ chatId, pinMessageId }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${chatId}/remove-pin-message`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ pinMessageId }),
+    });
+    console.log(response);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export const editChatMemberNickname = async ({
   chatId,
   memberId,
