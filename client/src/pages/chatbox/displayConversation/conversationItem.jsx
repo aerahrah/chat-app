@@ -11,6 +11,7 @@ const ConversationItem = ({ message, chatData, userId }) => {
   const colorTheme = useChatCreationStore((state) => state.colorTheme);
   const [pinMessageBtn, setPinMessageBtn] = useState(false);
 
+  // console.log("hello", message._id);
   const togglePinMessageOption = () => {
     return setPinMessageBtn(!pinMessageBtn);
   };
@@ -29,7 +30,7 @@ const ConversationItem = ({ message, chatData, userId }) => {
         >
           <PinMessage
             pinMessageBtn={pinMessageBtn}
-            message={message.content}
+            messageId={message._id}
             chatId={chatData.chat._id}
             alignment="user"
           />
@@ -58,9 +59,10 @@ const ConversationItem = ({ message, chatData, userId }) => {
             <p className="inline-block py-2 px-3 bg-neutral-300 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300 rounded-[1rem] transition duration-[300ms] w-[100%] break-words">
               {message.content}
             </p>
+
             <PinMessage
               pinMessageBtn={pinMessageBtn}
-              message={message.content}
+              messageId={message._id}
               chatId={chatData.chat._id}
               alignment="member"
             />

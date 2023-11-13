@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { createPinMessage } from "../../../services/chatAPI";
 import useThemeStore from "../../../components/state/useThemeStore";
 
-const PinMessage = ({ pinMessageBtn, chatId, message, alignment }) => {
+const PinMessage = ({ pinMessageBtn, chatId, messageId, alignment }) => {
   const createPinMessageMutation = useMutation(createPinMessage);
   const theme = useThemeStore((state) => state.theme);
   const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ const PinMessage = ({ pinMessageBtn, chatId, message, alignment }) => {
     try {
       const response = await createPinMessageMutation.mutateAsync({
         chatId: chatId,
-        pinMessage: message,
+        pinMessageId: messageId,
       });
       console.log(response);
       queryClient.invalidateQueries("getConversation");

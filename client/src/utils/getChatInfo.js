@@ -85,3 +85,14 @@ export const getPinByName = (chatData, userId) => {
     return "Unknown";
   }
 };
+
+export const getPinMessageDetails = (chatData, pinMessageId) => {
+  const pinMessage = chatData.chat.messages.find(
+    (message) => String(message._id) === pinMessageId
+  );
+  if (pinMessage) {
+    return pinMessage;
+  } else {
+    return "Unknown";
+  }
+};

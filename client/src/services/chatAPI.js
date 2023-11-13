@@ -94,15 +94,16 @@ export const sendMessage = async ({ chatId, content }) => {
   }
 };
 
-export const createPinMessage = async ({ chatId, pinMessage }) => {
+export const createPinMessage = async ({ chatId, pinMessageId }) => {
   try {
+    console.log(pinMessageId);
     const response = await fetch(`${BASE_URL}/${chatId}/add-pin-message`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify({ pinMessage }),
+      body: JSON.stringify({ pinMessageId }),
     });
     console.log(response);
     return response.json();

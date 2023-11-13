@@ -26,20 +26,18 @@ const messageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const pinMessageSchema = new mongoose.Schema(
-  {
-    pinBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Users",
-      required: true,
-    },
-    pinMessage: {
-      type: String,
-      required: true,
-    },
+const pinMessageSchema = new mongoose.Schema({
+  pinBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
+    required: true,
   },
-  { timestamps: true }
-);
+  pinMessage: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Message",
+    required: true,
+  },
+});
 
 const chatSchema = new mongoose.Schema(
   {

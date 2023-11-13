@@ -1,5 +1,12 @@
-import { getPinByName, getPinByImg } from "../../../../utils/getChatInfo";
-import { getExactDate } from "../../../../utils/getTimeDifference";
+import {
+  getPinByName,
+  getPinByImg,
+  getPinMessageDetails,
+} from "../../../../utils/getChatInfo";
+import {
+  getExactDate,
+  getTimeDifference,
+} from "../../../../utils/getTimeDifference";
 import DialogComponent from "../../../../components/globalComponents/dialogComponent";
 import useThemeStore from "../../../../components/state/useThemeStore";
 import RemovePinMessage from "./removePinMessage";
@@ -31,7 +38,10 @@ const DisplayAllPinMessages = ({
                   <div className="flex justify-between pl-2 mb-1 text-sm ">
                     <p>{getPinByName(chatData, message.pinBy)}</p>
                     <p className="lowercase">
-                      {getExactDate(message.updatedAt)}
+                      {getExactDate(
+                        getPinMessageDetails(chatData, message.pinMessage)
+                          .updatedAt
+                      )}
                     </p>
                   </div>
                   <div className="flex justify-between items-center w-full">
@@ -42,7 +52,10 @@ const DisplayAllPinMessages = ({
                           : "bg-neutral-600/70"
                       } break-words p-2 rounded-lg w-[90%]`}
                     >
-                      {message.pinMessage}
+                      {
+                        getPinMessageDetails(chatData, message.pinMessage)
+                          .content
+                      }
                     </p>
                     <RemovePinMessage
                       chatId={chatData.chat._id}

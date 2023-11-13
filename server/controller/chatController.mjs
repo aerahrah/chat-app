@@ -130,11 +130,11 @@ export const createGroupChat = async (req, res) => {
 export const createPinMessage = async (req, res) => {
   try {
     const { chatId } = req.params;
-    const { pinMessage } = req.body;
+    const { pinMessageId } = req.body;
     const getUserId = req.user;
 
-    if (!pinMessage) {
-      return res.status(401).send({ message: "pinMessage empty" });
+    if (!pinMessageId) {
+      return res.status(401).send({ message: "message id is empty" });
     }
 
     let chat = await Chat.findById(chatId);
@@ -144,7 +144,7 @@ export const createPinMessage = async (req, res) => {
 
     const newPinMessage = new PinMessage({
       pinBy: getUserId,
-      pinMessage,
+      pinMessage: pinMessageId,
     });
 
     await newPinMessage.save();
