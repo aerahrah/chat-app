@@ -142,6 +142,16 @@ export const createPinMessage = async (req, res) => {
       return res.status(401).send({ message: "Chat not found" });
     }
 
+    const isAlreadyPinned = chat.pinMessages.some((data) =>
+      data.pinMessage.equals(pinMessageId)
+    );
+
+    if (isAlreadyPinned) {
+      return res
+        .status(400)
+        .json({ message: "Message is already pinned in the chat" });
+    }
+
     const newPinMessage = new PinMessage({
       pinBy: getUserId,
       pinMessage: pinMessageId,
@@ -162,6 +172,7 @@ export const removePinMessage = async (req, res) => {
     const { chatId } = req.params;
     const { pinMessageId } = req.body;
 
+    console.log("remove", pinMessageId);
     const chat = await Chat.findOneAndUpdate(
       { _id: chatId },
       { $pull: { pinMessages: { _id: pinMessageId } } },

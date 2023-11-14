@@ -29,7 +29,7 @@ const ConversationView = ({ chatData, chatId, userId }) => {
 
   return (
     <div
-      className="flex flex-col w-full h-screen max-h-[100%] overflow-y-auto p-4 gap-2"
+      className="flex flex-col w-full h-screen max-h-[100%] overflow-y-auto p-4 gap-2 "
       ref={chatContainerRef}
     >
       {messages.map((message, index) => (

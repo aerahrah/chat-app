@@ -115,6 +115,7 @@ export const createPinMessage = async ({ chatId, pinMessageId }) => {
 
 export const removePinMessage = async ({ chatId, pinMessageId }) => {
   try {
+    console.log("remove", pinMessageId);
     const response = await fetch(`${BASE_URL}/${chatId}/remove-pin-message`, {
       method: "POST",
       headers: {

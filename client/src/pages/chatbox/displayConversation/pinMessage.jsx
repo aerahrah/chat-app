@@ -1,10 +1,17 @@
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { Menu } from "@headlessui/react";
 import { useMutation, useQueryClient } from "react-query";
-import { createPinMessage } from "../../../services/chatAPI";
+import { createPinMessage, removePinMessage } from "../../../services/chatAPI";
 import useThemeStore from "../../../components/state/useThemeStore";
 
-const PinMessage = ({ pinMessageBtn, chatId, messageId, alignment }) => {
+const PinMessage = ({
+  pinMessageBtn,
+  chatId,
+  messageId,
+  alignment,
+  isMessagePinned,
+}) => {
+  const removePinMessageMutation = useMutation(removePinMessage);
   const createPinMessageMutation = useMutation(createPinMessage);
   const theme = useThemeStore((state) => state.theme);
   const queryClient = useQueryClient();
@@ -12,7 +19,7 @@ const PinMessage = ({ pinMessageBtn, chatId, messageId, alignment }) => {
   const handleCreatePinMessage = async () => {
     try {
       const response = await createPinMessageMutation.mutateAsync({
-        chatId: chatId,
+        chatId,
         pinMessageId: messageId,
       });
       console.log(response);
@@ -21,14 +28,27 @@ const PinMessage = ({ pinMessageBtn, chatId, messageId, alignment }) => {
       console.log(error);
     }
   };
+
+  const handleRemovePinMessage = async () => {
+    try {
+      const response = await removePinMessageMutation.mutateAsync({
+        chatId,
+        pinMessageId: messageId,
+      });
+      queryClient.invalidateQueries("getConversation");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       {pinMessageBtn && (
         <div
-          className={`absolute  top-[50%] transform translate-y-[-50%] flex items-center ${
+          className={`absolute top-[50%] transform translate-y-[-50%] flex items-center ${
             alignment === "user"
-              ? "left-[-3rem] py-14 px-4"
-              : "right-[-3rem] py-14 px-4 "
+              ? "left-[-3rem] py-4  px-4"
+              : "right-[-3rem] py-4  px-4 "
           }`}
         >
           <Menu as="div" className="relative inline-block text-left">
@@ -47,9 +67,13 @@ const PinMessage = ({ pinMessageBtn, chatId, messageId, alignment }) => {
                       ? "bg-white ring-neutral-200 hover:bg-neutral-200/30 text-neutral-700"
                       : "bg-neutral-700 ring-neutral-800/30 hover:bg-neutral-800/10 text-neutral-300"
                   } w-full ring-1 flex gap-2 items-center rounded-md p-2 cursor-pointer capitalize`}
-                  onClick={handleCreatePinMessage}
+                  onClick={() => {
+                    isMessagePinned
+                      ? handleRemovePinMessage()
+                      : handleCreatePinMessage();
+                  }}
                 >
-                  <p>pin</p>
+                  <p>{isMessagePinned ? "unpin" : "pin"}</p>
                 </button>
               </Menu.Item>
             </Menu.Items>

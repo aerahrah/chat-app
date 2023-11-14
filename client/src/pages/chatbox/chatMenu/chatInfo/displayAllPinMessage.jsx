@@ -3,10 +3,7 @@ import {
   getPinByImg,
   getPinMessageDetails,
 } from "../../../../utils/getChatInfo";
-import {
-  getExactDate,
-  getTimeDifference,
-} from "../../../../utils/getTimeDifference";
+import { getExactDate } from "../../../../utils/getTimeDifference";
 import DialogComponent from "../../../../components/globalComponents/dialogComponent";
 import useThemeStore from "../../../../components/state/useThemeStore";
 import RemovePinMessage from "./removePinMessage";
