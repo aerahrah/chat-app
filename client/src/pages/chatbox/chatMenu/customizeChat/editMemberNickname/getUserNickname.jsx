@@ -32,7 +32,7 @@ const GetUserNickname = ({ chatId, theme, user }) => {
       key={user._id}
       className={`${
         theme === "light"
-          ? "bg-white hover:bg-neutral-200 text-neutral-700"
+          ? "bg-neutral-50 hover:bg-neutral-200 text-neutral-700"
           : "bg-neutral-700 hover:bg-neutral-600 text-neutral-300"
       } relative flex items-center gap-2 p-3 rounded-md`}
       onClick={toggleOpenInputBox}

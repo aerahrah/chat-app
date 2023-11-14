@@ -87,7 +87,7 @@ const chatSchema = new mongoose.Schema(
     },
     defaultEmojis: {
       type: String,
-      default: "like",
+      default: "👍",
     },
   },
   { timestamps: true }

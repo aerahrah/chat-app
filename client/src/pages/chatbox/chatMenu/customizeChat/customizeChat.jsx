@@ -6,12 +6,14 @@ import EditChatName from "./editChatName";
 import EditNickname from "./editMemberNickname/editNickname";
 import EditChatImgBtn from "./editChatImg/editChatImgBtn";
 import EditColorTheme from "./editColorTheme";
+import EditEmoji from "./editEmoji";
 
 const CustomizeChat = ({ chatData, isChatCustomizeOpen }) => {
   const { colorTheme, setColorTheme } = useChatCreationStore();
   const [editNicknameModal, setEditNicknameModal] = useState(false);
   const [editChatNameModal, setEditChatNameModal] = useState(false);
   const [editChatImageModal, setEditChatImageModal] = useState(false);
+  const [editEmojiModal, setEditEmojiModal] = useState(false);
   const [colorThemeSelector, setColorThemeSelector] = useState(false);
 
   const toggleEditNickname = () => {
@@ -31,12 +33,16 @@ const CustomizeChat = ({ chatData, isChatCustomizeOpen }) => {
     return setEditChatImageModal(!editChatImageModal);
   };
 
+  const toggleEditEmoji = () => {
+    return setEditEmojiModal(!editEmojiModal);
+  };
+
   return (
     <div className="w-full">
       {isChatCustomizeOpen && (
-        <div className="flex flex-col items-start gap-3 w-full">
+        <div className="flex flex-col items-start w-full">
           {chatData.chat.type === "group" && (
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex flex-col w-full">
               <div
                 className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer "
                 onClick={toggleEditChatName}
@@ -71,9 +77,17 @@ const CustomizeChat = ({ chatData, isChatCustomizeOpen }) => {
             </i>
             <p>Change theme</p>
           </div>
-          <p className="w-full hover:bg-neutral-200/40  hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer ">
-            Change Emoji
-          </p>
+          <div
+            className="w-full flex items-center gap-2 hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md p-2 cursor-pointer"
+            onClick={toggleEditEmoji}
+          >
+            <div className="p-[1.125rem] relative bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
+              <p className="text-xl absolute top-1/2 left-1/2 transform translate-y-[-60%] translate-x-[-50%] rounded-full">
+                {chatData.chat.defaultEmojis}
+              </p>
+            </div>
+            <p>Change emoji</p>
+          </div>
           <button
             className="w-full hover:bg-neutral-200/40 hover:dark:bg-neutral-700/30 rounded-md cursor-pointer text-start items-center flex gap-2 p-2"
             onClick={toggleEditNickname}
@@ -105,6 +119,10 @@ const CustomizeChat = ({ chatData, isChatCustomizeOpen }) => {
             colorThemeSelector={colorThemeSelector}
             toggleColorThemeSelector={toggleColorThemeSelector}
             setColorThemeSelector={setColorThemeSelector}
+          />
+          <EditEmoji
+            editEmojiModal={editEmojiModal}
+            toggleEditEmoji={toggleEditEmoji}
           />
         </div>
       )}

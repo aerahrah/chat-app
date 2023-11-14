@@ -15,7 +15,7 @@ const ChatMemberItem = ({ memberData, chatId, userId }) => {
 
   return (
     <div className="p-2 flex justify-between items-center" key={memberData._id}>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2  items-center">
         <img
           src={getSpecificImg(memberData)}
           alt="avatar"
