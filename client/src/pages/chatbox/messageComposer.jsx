@@ -6,15 +6,13 @@ import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import socket from "../../socket/socket";
 
-const MessageComposer = ({ chatId, userId }) => {
+const MessageComposer = ({ chatData, chatId, userId }) => {
   const sendMessageMutation = useMutation(sendMessage);
   const queryClient = useQueryClient();
   const [message, setMessage] = useState("");
 
+  console.log(chatData.chat.defaultEmojis);
   const handleSendMessage = async () => {
-    if (message.trim() === "") {
-      return;
-    }
     try {
       const response = await sendMessageMutation.mutateAsync({
         chatId,
@@ -23,6 +21,19 @@ const MessageComposer = ({ chatId, userId }) => {
       socket.emit("send message", chatId, userId, message);
       queryClient.invalidateQueries("getAllChat");
       setMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSendEmoji = async () => {
+    try {
+      const response = await sendMessageMutation.mutateAsync({
+        chatId,
+        content: chatData.chat.defaultEmojis,
+      });
+      socket.emit("send message", chatId, userId, chatData.chat.defaultEmojis);
+      queryClient.invalidateQueries("getAllChat");
     } catch (error) {
       console.log(error);
     }
@@ -56,15 +67,29 @@ const MessageComposer = ({ chatId, userId }) => {
           onChange={(e) => setMessage(e.target.value)}
           className="bg-neutral-200/70 dark:bg-neutral-900/60 py-2 px-4 w-full outline-0 rounded-full transition duration-[300ms]"
         />
-        <button
-          className="bg-neutral-200/40 hover:bg-neutral-200 rounded-full dark:bg-neutral-700/10  dark:hover:bg-neutral-700/40 p-2 outline-0  transition duration-[300ms]"
-          onClick={() => {
-            handleSendMessage();
-            setMessage("");
-          }}
-        >
-          <BiSolidSend className="h-6 w-6" />
-        </button>
+
+        {message.trim() === "" ? (
+          <button
+            className="p-[1.25rem] relative bg-neutral-200/40 hover:bg-neutral-200 rounded-full dark:bg-neutral-700/10 dark:hover:bg-neutral-700/40 transition duration-[300ms]"
+            onClick={() => {
+              handleSendEmoji();
+            }}
+          >
+            <p className="text-2xl absolute top-1/2 left-1/2 transform translate-y-[-60%] translate-x-[-50%] rounded-full">
+              {chatData.chat.defaultEmojis}
+            </p>
+          </button>
+        ) : (
+          <button
+            className="bg-neutral-200/40 hover:bg-neutral-200 rounded-full dark:bg-neutral-700/10  dark:hover:bg-neutral-700/40 p-2 outline-0  transition duration-[300ms]"
+            onClick={() => {
+              handleSendMessage();
+              setMessage("");
+            }}
+          >
+            <BiSolidSend className="h-6 w-6" />
+          </button>
+        )}
       </div>
     </div>
   );

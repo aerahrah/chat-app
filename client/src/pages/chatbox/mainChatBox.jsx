@@ -45,7 +45,11 @@ const MainChatBox = () => {
               userId={chatData.userId}
               key={chatId}
             />
-            <MessageComposer chatId={chatId} userId={chatData.userId} />
+            <MessageComposer
+              chatData={chatData}
+              chatId={chatId}
+              userId={chatData.userId}
+            />
           </div>
           <ChatMenuLayout chatData={chatData} />
         </div>
