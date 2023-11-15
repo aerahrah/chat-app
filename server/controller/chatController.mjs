@@ -387,3 +387,23 @@ export const editColorTheme = async (req, res) => {
     return res.status(500).json({ error: "Error updating color theme" });
   }
 };
+
+export const editDefaultEmoji = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const { newEmoji } = req.body;
+
+    const chat = await Chat.findById(chatId);
+
+    if (!chat) {
+      return res.status(401).json({ message: "chat not found" });
+    }
+
+    chat.defaultEmojis = newEmoji;
+    await chat.save();
+
+    return res.status(200).json({ message: "Successfully updated emoji" });
+  } catch (error) {
+    return res.status(500).json({ error: "Error updating emoji" });
+  }
+};

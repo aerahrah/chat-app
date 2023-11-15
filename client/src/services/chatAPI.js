@@ -266,3 +266,21 @@ export const editColorTheme = async ({ chatId, colorTheme }) => {
     throw error;
   }
 };
+
+export const editChatEmoji = async ({ chatId, newEmoji }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-emoji`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ newEmoji }),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

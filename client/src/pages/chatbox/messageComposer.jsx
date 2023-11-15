@@ -75,7 +75,7 @@ const MessageComposer = ({ chatData, chatId, userId }) => {
               handleSendEmoji();
             }}
           >
-            <p className="text-2xl absolute top-1/2 left-1/2 transform translate-y-[-60%] translate-x-[-50%] rounded-full">
+            <p className="text-2xl absolute top-1/2 left-1/2 transform translate-y-[-55%] translate-x-[-50%] rounded-full">
               {chatData.chat.defaultEmojis}
             </p>
           </button>

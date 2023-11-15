@@ -1,11 +1,27 @@
+import { editChatEmoji } from "../../../../services/chatAPI";
+import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import DialogComponent from "../../../../components/globalComponents/dialogComponent";
 import BtnPanelComponent from "../../../../components/globalComponents/btnPanelComponent";
 import EmojiPicker from "emoji-picker-react";
-import { useState } from "react";
 
-const EditEmoji = ({ editEmojiModal, toggleEditEmoji }) => {
+const EditEmoji = ({ chatData, editEmojiModal, toggleEditEmoji }) => {
+  const editChatEmojiMutation = useMutation(editChatEmoji);
+  const queryClient = useQueryClient();
   const [defaultEmoji, setDefaultEmoji] = useState("");
-  console.log(defaultEmoji);
+
+  const handleEditChatEmoji = async () => {
+    try {
+      const response = await editChatEmojiMutation.mutateAsync({
+        chatId: chatData.chat._id,
+        newEmoji: defaultEmoji,
+      });
+      queryClient.invalidateQueries("getConversation");
+      toggleEditEmoji();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <DialogComponent
       openModal={editEmojiModal}
@@ -22,7 +38,7 @@ const EditEmoji = ({ editEmojiModal, toggleEditEmoji }) => {
       </div>
       <BtnPanelComponent
         closeModal={toggleEditEmoji}
-        handleOnClick={console.log("")}
+        handleOnClick={handleEditChatEmoji}
         label="Save"
       />
     </DialogComponent>

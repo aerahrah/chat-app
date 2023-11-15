@@ -14,6 +14,7 @@ import {
   editChatName,
   editChatImage,
   editColorTheme,
+  editDefaultEmoji,
 } from "../controller/chatController.mjs";
 import authenticate from "../middleware/authenticate.mjs";
 
@@ -33,6 +34,7 @@ router.post("/:chatId/leave-group", authenticate, leaveGroupChat);
 router.post("/:chatId/edit-chat-name", authenticate, editChatName);
 router.post("/:chatId/edit-chat-image", authenticate, editChatImage);
 router.post("/:chatId/edit-chat-colortheme", authenticate, editColorTheme);
+router.post("/:chatId/edit-chat-emoji", authenticate, editDefaultEmoji);
 router.post(
   "/:chatId/edit-member-nickname",
   authenticate,

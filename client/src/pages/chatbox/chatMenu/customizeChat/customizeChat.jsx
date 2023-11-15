@@ -82,7 +82,7 @@ const CustomizeChat = ({ chatData, isChatCustomizeOpen }) => {
             onClick={toggleEditEmoji}
           >
             <div className="p-[1.125rem] relative bg-neutral-200/80 dark:bg-neutral-700/30 rounded-full transition duration-[300ms]">
-              <p className="text-xl absolute top-1/2 left-1/2 transform translate-y-[-60%] translate-x-[-50%] rounded-full">
+              <p className="text-xl absolute top-1/2 left-1/2 transform translate-y-[-55%] translate-x-[-50%] rounded-full">
                 {chatData.chat.defaultEmojis}
               </p>
             </div>
@@ -121,6 +121,7 @@ const CustomizeChat = ({ chatData, isChatCustomizeOpen }) => {
             setColorThemeSelector={setColorThemeSelector}
           />
           <EditEmoji
+            chatData={chatData}
             editEmojiModal={editEmojiModal}
             toggleEditEmoji={toggleEditEmoji}
           />
