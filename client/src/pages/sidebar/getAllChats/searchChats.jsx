@@ -14,7 +14,7 @@ const SearchChat = () => {
     queryClient.invalidateQueries("getAllChat");
   };
   return (
-    <div className="relative text-neutral-700  dark:text-neutral-300">
+    <div className="relative text-neutral-700 dark:text-neutral-300">
       <input
         type="text"
         value={chatName}

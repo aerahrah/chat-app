@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { getChatConversation } from "../../services/chatAPI";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 import useChatCreationStore from "../../components/state/useChatCreationStore";
 import ConversationHeader from "./conversationHeader";
 import ConversationView from "./displayConversation/conversationView";
@@ -10,7 +11,10 @@ import ChatMenuLayout from "./chatMenu/chatMenuLayout";
 
 const MainChatBox = () => {
   const { chatId } = useParams();
+  const openChatMenu = useChatCreationStore((state) => state.openChatMenu);
   const setColorTheme = useChatCreationStore((state) => state.setColorTheme);
+  const isMediumScreen = useMediaQuery({ minWidth: 0, maxWidth: 767 });
+
   const chatQuery = ["getConversation", chatId];
   const {
     data: chatData,
@@ -37,20 +41,22 @@ const MainChatBox = () => {
     <div className=" w-full max-w-[100%] relative text-neutral-700">
       {chatData && (
         <div className="flex w-full">
-          <div className="flex flex-col flex-1 max-w[100%] h-screen  ">
-            <ConversationHeader chatData={chatData} />
-            <ConversationView
-              chatData={chatData}
-              chatId={chatId}
-              userId={chatData.userId}
-              key={chatId}
-            />
-            <MessageComposer
-              chatData={chatData}
-              chatId={chatId}
-              userId={chatData.userId}
-            />
-          </div>
+          {!(isMediumScreen && openChatMenu) && (
+            <div className="flex flex-col sm:min-w-[300px] md:min-w-[300px] flex-1 max-w[100%] h-screen  ">
+              <ConversationHeader chatData={chatData} />
+              <ConversationView
+                chatData={chatData}
+                chatId={chatId}
+                userId={chatData.userId}
+                key={chatId}
+              />
+              <MessageComposer
+                chatData={chatData}
+                chatId={chatId}
+                userId={chatData.userId}
+              />
+            </div>
+          )}
           <ChatMenuLayout chatData={chatData} />
         </div>
       )}
