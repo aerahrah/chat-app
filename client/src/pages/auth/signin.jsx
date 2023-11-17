@@ -64,7 +64,7 @@ const SignIn = () => {
         >
           <div className="w-full relative">
             <input
-              className={`w-full outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block  p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300 ${
+              className={`w-full outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block  p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300 w-full md:w-[40vw] max-w-full ${
                 errors.identifier
                   ? "dark:outline-red-500/80 outline-red-500"
                   : "dark:outline-neutral-700 outline-neutral-300"
@@ -79,7 +79,7 @@ const SignIn = () => {
           </div>
           <div className="w-full relative">
             <input
-              className={` outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block  p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300   w-full md:w-[40vw] md:max-w-[380px] ${
+              className={` outline outline-1 outline-neutral-300 text-neutral-700 bg-neutral-50 rounded focus:outline-blue-500 block  p-2 dark:bg-neutral-800 dark:outline-neutral-700 dark:text-neutral-300  w-full md:w-[40vw] max-w-full ${
                 errors.password
                   ? "dark:outline-red-500/80 outline-red-500"
                   : "dark:outline-neutral-700 outline-neutral-300"

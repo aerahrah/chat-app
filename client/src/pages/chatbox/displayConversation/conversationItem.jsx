@@ -34,7 +34,7 @@ const ConversationItem = ({ message, chatData, userId }) => {
     >
       {message.sender === userId ? (
         <div
-          className="max-w-[30vw] relative"
+          className="max-w-[45vw] md:max-w-[34vw] lg:max-w-[35vw] relative pl-4"
           onMouseEnter={togglePinMessageOption}
           onMouseLeave={togglePinMessageOption}
         >
@@ -56,14 +56,14 @@ const ConversationItem = ({ message, chatData, userId }) => {
               color: getTextColorTheme(colorTheme),
               backgroundColor: getBgColorTheme(colorTheme),
             }}
-            className="inline-block  py-2 px-3 rounded-[1rem] w-full break-words"
+            className="inline-block py-2 px-3 rounded-[1rem] w-full break-words"
           >
             {message.content}
           </p>
         </div>
       ) : (
         <div
-          className="max-w-[30vw] relative"
+          className="max-w-[45vw] md:max-w-[34vw] lg:max-w-[35vw] relative pr-4"
           onMouseEnter={togglePinMessageOption}
           onMouseLeave={togglePinMessageOption}
         >

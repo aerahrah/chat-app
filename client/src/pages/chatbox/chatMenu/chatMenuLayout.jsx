@@ -16,7 +16,7 @@ const ChatMenuLayout = ({ chatData }) => {
   const toggleOpenChatMenu = useChatCreationStore(
     (state) => state.toggleOpenChatMenu
   );
-  const isMediumScreen = useMediaQuery({ minWidth: 0, maxWidth: 767 });
+  const isMediumScreen = useMediaQuery({ minWidth: 768 });
   const [isChatInfoOpen, setChatInfoOpen] = useState(false);
   const [isChatCustomizeOpen, setChatCustomizeOpen] = useState(false);
   const [isChatMembersOpen, setChatMembersOpen] = useState(false);
@@ -36,7 +36,7 @@ const ChatMenuLayout = ({ chatData }) => {
   return (
     <>
       {openChatMenu && (
-        <div className="w-full text-sm lg:text-base min-w-[200px] max-w-[360px] border-l-[1px] border-neutral-300 dark:border-neutral-700 transition duration-[300ms]">
+        <div className="w-full text-sm lg:text-base min-w-[200px] md:max-w-[360px] border-l-[1px] border-neutral-300 dark:border-neutral-700 transition duration-[300ms]">
           <div className="text-neutral-700 dark:text-neutral-300 font-semibold sm:p-1 md:p-2 lg:p-4 overflow-y-auto h-screen relative">
             <div className="flex flex-col items-center w-full mt-4 mb-8">
               <img
@@ -44,11 +44,11 @@ const ChatMenuLayout = ({ chatData }) => {
                 alt="avatar"
                 className="h-16 w-16 rounded-full"
               />
-              <h1 className="text-lg text-center break-words w-[20vw]">
+              <h1 className="text-lg text-center break-words w-[45vw]  md:w-[20vw] lg:max-w-[300px]">
                 {getChatName(chatData.chat, chatData.userId)}
               </h1>
             </div>
-            {isMediumScreen && (
+            {!isMediumScreen && (
               <button
                 className="absolute left-[.5rem] top-[1.15rem] bg-neutral-200/40 hover:bg-neutral-200 rounded-full dark:bg-neutral-700/10 dark:hover:bg-neutral-700/40 p-2 transition duration-[300ms] outline-0"
                 onClick={toggleOpenChatMenu}

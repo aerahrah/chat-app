@@ -16,7 +16,7 @@ const ConversationHeader = ({ chatData }) => {
             alt="avatar"
             className="h-10 w-10 rounded-full"
           />
-          <h1 className="truncate w-full max-w-[45vw]">
+          <h1 className="truncate w-full w-[24vw] max-w-[600px]">
             {getChatName(chatData.chat, chatData.userId)}
           </h1>
         </div>

@@ -50,7 +50,7 @@ const SearchUser = ({ setUserNameId, theme }) => {
             theme === "light"
               ? "bg-neutral-100 outline-neutral-300 focus:outline-blue-500"
               : "bg-neutral-800/70 outline-neutral-800/70"
-          } outline outline-1 rounded block p-2 mb-2 w-[40vw] max-w-[100%]`}
+          } outline outline-1 rounded block p-2 mb-2 w-full`}
         />
         <div className="h-44 overflow-y-auto">
           {data?.length > 0 && (

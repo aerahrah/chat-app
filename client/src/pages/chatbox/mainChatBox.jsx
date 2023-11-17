@@ -13,7 +13,7 @@ const MainChatBox = () => {
   const { chatId } = useParams();
   const openChatMenu = useChatCreationStore((state) => state.openChatMenu);
   const setColorTheme = useChatCreationStore((state) => state.setColorTheme);
-  const isMediumScreen = useMediaQuery({ minWidth: 0, maxWidth: 767 });
+  const isMediumScreen = useMediaQuery({ minWidth: 768 });
 
   const chatQuery = ["getConversation", chatId];
   const {
@@ -41,8 +41,8 @@ const MainChatBox = () => {
     <div className=" w-full max-w-[100%] relative text-neutral-700">
       {chatData && (
         <div className="flex w-full">
-          {!(isMediumScreen && openChatMenu) && (
-            <div className="flex flex-col sm:min-w-[300px] md:min-w-[300px] flex-1 max-w[100%] h-screen  ">
+          {!(!isMediumScreen && openChatMenu) && (
+            <div className="flex flex-col min-w-[300px] md:min-w-[40vw] flex-1 max-w-[100%] h-screen  ">
               <ConversationHeader chatData={chatData} />
               <ConversationView
                 chatData={chatData}

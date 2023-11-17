@@ -37,7 +37,7 @@ const GetAllChat = () => {
                   className="h-12 w-12 rounded-full"
                 />
               </div>
-              <div className="flex flex-col gap-1/2  w-[16vw] max-w-[250px]">
+              <div className="flex flex-col gap-1/2  w-[18vw] max-w-[250px]">
                 <p className="truncate ">
                   {getChatName(data, chatInfo.userId)}
                 </p>
