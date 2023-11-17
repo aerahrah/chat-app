@@ -5,11 +5,13 @@ import {
 import { getConversationName } from "../../../utils/getChatInfo";
 import { useState } from "react";
 import { BiSolidPin } from "react-icons/bi";
+import { useMediaQuery } from "react-responsive";
 import useChatCreationStore from "../../../components/state/useChatCreationStore";
 import PinMessage from "./pinMessage";
 
 const ConversationItem = ({ message, chatData, userId }) => {
   const colorTheme = useChatCreationStore((state) => state.colorTheme);
+  const isMobileScreen = useMediaQuery({ maxWidth: 548 });
   const [pinMessageBtn, setPinMessageBtn] = useState(false);
   let findPinnedMessageId = null;
   const togglePinMessageOption = () => {
@@ -34,7 +36,11 @@ const ConversationItem = ({ message, chatData, userId }) => {
     >
       {message.sender === userId ? (
         <div
-          className="max-w-[45vw] md:max-w-[34vw] lg:max-w-[35vw] relative pl-4"
+          className={`${
+            isMobileScreen
+              ? "max-w-[80vw]"
+              : "max-w-[45vw] md:max-w-[34vw] lg:max-w-[35vw]"
+          } relative pl-4`}
           onMouseEnter={togglePinMessageOption}
           onMouseLeave={togglePinMessageOption}
         >
@@ -63,7 +69,11 @@ const ConversationItem = ({ message, chatData, userId }) => {
         </div>
       ) : (
         <div
-          className="max-w-[45vw] md:max-w-[34vw] lg:max-w-[35vw] relative pr-4"
+          className={`${
+            isMobileScreen
+              ? "max-w-[80vw]"
+              : "max-w-[45vw] md:max-w-[34vw] lg:max-w-[35vw]"
+          } relative pr-4`}
           onMouseEnter={togglePinMessageOption}
           onMouseLeave={togglePinMessageOption}
         >

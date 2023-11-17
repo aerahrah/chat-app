@@ -1,12 +1,14 @@
 import { useQuery } from "react-query";
 import { getAllChat } from "../../../services/chatAPI";
 import { getChatName, getChatImg } from "../../../utils/getChatInfo";
+import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 import { getTimeDifference } from "../../../utils/getTimeDifference";
 import useChatCreationStore from "../../../components/state/useChatCreationStore";
 
 const GetAllChat = () => {
   const searchTermChat = useChatCreationStore((state) => state.searchTermChat);
+  const isMobileScreen = useMediaQuery({ maxWidth: 548 });
   const queryKey = ["getAllChat", searchTermChat];
   const {
     data: chatInfo,
@@ -37,7 +39,13 @@ const GetAllChat = () => {
                   className="h-12 w-12 rounded-full"
                 />
               </div>
-              <div className="flex flex-col gap-1/2  w-[18vw] max-w-[250px]">
+              <div
+                className={`${
+                  isMobileScreen
+                    ? "w-[68vw] max-w-[500px] "
+                    : "w-[14vw] max-w-[250px]"
+                }flex flex-col gap-1/2  `}
+              >
                 <p className="truncate ">
                   {getChatName(data, chatInfo.userId)}
                 </p>
