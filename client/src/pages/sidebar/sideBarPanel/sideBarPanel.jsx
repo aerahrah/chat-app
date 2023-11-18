@@ -19,8 +19,8 @@ const SideBarPanel = () => {
   }
 
   return (
-    <div className="flex flex-col w-[100%] pb-4">
-      <div className="flex justify-between items-center p-4 ">
+    <div className="flex flex-col w-[100%] pb-4 ">
+      <div className="flex justify-between items-center p-4">
         <img
           src={`https://api.dicebear.com/7.x/${data.userImgType}/svg?seed=${data.userImg}`}
           alt="avatar"

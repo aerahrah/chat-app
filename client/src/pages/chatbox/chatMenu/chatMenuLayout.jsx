@@ -17,6 +17,7 @@ const ChatMenuLayout = ({ chatData }) => {
     (state) => state.toggleOpenChatMenu
   );
   const isMediumScreen = useMediaQuery({ minWidth: 768 });
+  const isMobileScreen = useMediaQuery({ maxWidth: 548 });
   const [isChatInfoOpen, setChatInfoOpen] = useState(false);
   const [isChatCustomizeOpen, setChatCustomizeOpen] = useState(false);
   const [isChatMembersOpen, setChatMembersOpen] = useState(false);
@@ -48,7 +49,11 @@ const ChatMenuLayout = ({ chatData }) => {
                 alt="avatar"
                 className="h-16 w-16 rounded-full"
               />
-              <h1 className="text-lg text-center break-words w-[45vw]  md:w-[20vw] lg:max-w-[300px]">
+              <h1
+                className={`${
+                  isMobileScreen ? "!w-full" : ""
+                } text-lg text-center break-words w-[48vw] md:w-[22vw] lg:max-w-[300px]`}
+              >
                 {getChatName(chatData.chat, chatData.userId)}
               </h1>
             </div>

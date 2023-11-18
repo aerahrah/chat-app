@@ -21,7 +21,7 @@ const DisplayAllPinMessages = ({
       closeModal={toggleDisplayPinMessage}
       title="Pinned message"
     >
-      <div className="h-96 overflow-y-scroll px-4">
+      <div className="h-96 overflow-y-scroll md:px-2">
         <ul className="flex flex-col gap-8 ">
           {chatData.chat.pinMessages.map((message) => {
             return (
@@ -41,7 +41,7 @@ const DisplayAllPinMessages = ({
                       )}
                     </p>
                   </div>
-                  <div className="flex justify-between items-center w-full">
+                  <div className="flex justify-between gap-2 items-center w-full">
                     <p
                       className={`${
                         theme === "light"

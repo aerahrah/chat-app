@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useQueryClient } from "react-query";
+import { useMediaQuery } from "react-responsive";
 import useChatCreationStore from "../../../components/state/useChatCreationStore";
 
 const SearchChat = () => {
   const queryClient = useQueryClient();
   const { setSearchTermChat } = useChatCreationStore();
-
+  const isMobileScreen = useMediaQuery({ maxWidth: 548 });
   const [chatName, setChatName] = useState("");
   const handleSearchChange = (e) => {
     setSearchTermChat(e.target.value);
@@ -22,7 +23,11 @@ const SearchChat = () => {
         className="block pl-8 p-2 w-[90%] mx-auto rounded-full bg-neutral-200 outline-0 dark:bg-neutral-900/60 transition duration-[300ms] "
         onChange={(e) => handleSearchChange(e)}
       />
-      <FaSearch className="absolute left-[1.75rem] top-1/2 -translate-y-1/2" />
+      <FaSearch
+        className={`${
+          isMobileScreen ? "left-[7%]" : "left-[8%]"
+        } absolute  top-1/2 -translate-y-1/2`}
+      />
     </div>
   );
 };

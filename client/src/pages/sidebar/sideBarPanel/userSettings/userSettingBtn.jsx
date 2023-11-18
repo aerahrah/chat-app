@@ -3,6 +3,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { FaGear, FaArrowRightFromBracket, FaLock } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import ProfileSetting from "./userSettingModal";
 import UpdateUserPassword from "./updateUserPassword";
 
@@ -10,6 +11,8 @@ const UserSettings = () => {
   const [profileSettingOpen, toggleProfileSettingOpen] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [isEditImgOpen, setIsEditImgOpen] = useState(false);
+  const isMobileScreen = useMediaQuery({ maxWidth: 548 });
+
   const navigate = useNavigate();
 
   const toggleEditImgOpen = () => {
@@ -47,7 +50,11 @@ const UserSettings = () => {
           className="absolute z-30"
         >
           <Popover.Panel>
-            <div className="absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap dark:bg-neutral-700 dark:shadow-lg  border-[1px] border-neutral-200 dark:border-neutral-800 ">
+            <div
+              className={`${
+                isMobileScreen ? "right-[-9rem]" : ""
+              } absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap dark:bg-neutral-700 dark:shadow-lg  border-[1px] border-neutral-200 dark:border-neutral-800 `}
+            >
               <button
                 className="w-full flex gap-2 items-center  capitalize p-2 hover:bg-neutral-100 hover:dark:bg-neutral-600"
                 onClick={toggleProfileSetting}

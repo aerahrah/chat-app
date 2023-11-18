@@ -43,7 +43,7 @@ const GetUserNickname = ({ chatId, theme, user }) => {
         className="h-10 w-10 rounded-full"
       />
       {openInputBox ? (
-        <div className="flex gap-2 items-center justify-center w-[100vw] max-w-[100%] z-30">
+        <div className="flex gap-2 items-center justify-center w-full max-w-[100%] z-30">
           <input
             type="text"
             placeholder={nickname ? user.displayName : user.name}
@@ -73,7 +73,7 @@ const GetUserNickname = ({ chatId, theme, user }) => {
           </i>
         </div>
       ) : (
-        <div className="flex w-[100vw] max-w-[30rem] justify-between items-center">
+        <div className="flex w-full justify-between items-center">
           <div className="flex flex-col gap-1 justify-center ">
             <p>{user.displayName ? user.displayName : user.name}</p>
             <p className="text-xs">

@@ -32,7 +32,7 @@ const EditEmoji = ({ chatData, editEmojiModal, toggleEditEmoji }) => {
         <EmojiPicker
           onEmojiClick={(emoji) => setDefaultEmoji(emoji.emoji)}
           height={400}
-          width={700}
+          width="100%"
           previewConfig={{ showPreview: false }}
         />
       </div>

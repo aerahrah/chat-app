@@ -2,12 +2,14 @@ import { BiPlus } from "react-icons/bi";
 import { FaUser, FaUsers } from "react-icons/fa";
 import { Popover, Transition } from "@headlessui/react";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import CreateGroupChat from "./createGroupChat";
 import CreatePrivateChat from "./createPrivateChat";
 
 const CreateChat = () => {
   const [isCreatePrivateChatOpen, setIsCreatePrivateChatOpen] = useState(false);
   const [isCreateGroupChatOpen, setIsCreateGroupChatOpen] = useState(false);
+  const isMobileScreen = useMediaQuery({ maxWidth: 548 });
 
   const toggleCreatePrivateChatOpen = () => {
     setIsCreatePrivateChatOpen(!isCreatePrivateChatOpen);
@@ -34,7 +36,11 @@ const CreateChat = () => {
             className="absolute z-30"
           >
             <Popover.Panel>
-              <div className="absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap dark:bg-neutral-700 dark:shadow-lg  border-[1px] border-neutral-200 dark:border-neutral-800 ">
+              <div
+                className={`${
+                  isMobileScreen ? "right-[-6rem]" : ""
+                } absolute shadow-md p-2 flex flex-col gap-2 z-10 rounded-md bg-white items-start whitespace-nowrap dark:bg-neutral-700 dark:shadow-lg  border-[1px] border-neutral-200 dark:border-neutral-800`}
+              >
                 <button
                   className="flex gap-2 items-center whitespace-nowrap capitalize py-2 px-4 hover:bg-neutral-100 hover:dark:bg-neutral-600"
                   onClick={toggleCreatePrivateChatOpen}
