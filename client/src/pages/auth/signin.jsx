@@ -5,11 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import useChatCreationStore from "../../components/state/useChatCreationStore";
 
 const SignIn = () => {
+  const { setSearchTermChat } = useChatCreationStore();
+  const [errorMessage, setErrorMessage] = useState("");
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
   const signInMutation = useMutation(signIn);
 
   const schema = yup.object().shape({
@@ -34,7 +36,7 @@ const SignIn = () => {
       queryClient.clear();
       queryClient.invalidateQueries("getAllChat");
       localStorage.setItem("token", response.token);
-
+      setSearchTermChat("");
       navigate("/chat");
     } catch (error) {
       setErrorMessage(error);

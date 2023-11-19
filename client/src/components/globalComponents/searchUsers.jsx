@@ -25,7 +25,6 @@ const SearchUser = ({ setUserNameId, theme }) => {
   const handleChangeUsername = (e) => {
     setIdentifier(`${e.firstName} ${e.lastName}`);
     setUserNameId(e._id);
-    console.log(e);
   };
 
   useEffect(() => {

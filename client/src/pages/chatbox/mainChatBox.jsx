@@ -7,6 +7,7 @@ import useChatCreationStore from "../../components/state/useChatCreationStore";
 import ConversationHeader from "./conversationHeader";
 import ConversationView from "./displayConversation/conversationView";
 import MessageComposer from "./MessageComposer";
+import Spinner from "../../components/globalComponents/spinner";
 import ChatMenuLayout from "./chatMenu/chatMenuLayout";
 
 const MainChatBox = () => {
@@ -30,7 +31,11 @@ const MainChatBox = () => {
   }, [chatData]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800">
+        <Spinner />
+      </div>
+    );
   }
 
   if (isError) {

@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useQueryClient } from "react-query";
 import { useMediaQuery } from "react-responsive";
 import useChatCreationStore from "../../../components/state/useChatCreationStore";
 
 const SearchChat = () => {
-  const queryClient = useQueryClient();
-  const { setSearchTermChat } = useChatCreationStore();
   const isMobileScreen = useMediaQuery({ maxWidth: 548 });
+  const { setSearchTermChat } = useChatCreationStore();
+
   const [chatName, setChatName] = useState("");
   const handleSearchChange = (e) => {
     setSearchTermChat(e.target.value);
     setChatName(e.target.value);
-    queryClient.invalidateQueries("getAllChat");
   };
+
   return (
     <div className="relative text-neutral-700 dark:text-neutral-300">
       <input

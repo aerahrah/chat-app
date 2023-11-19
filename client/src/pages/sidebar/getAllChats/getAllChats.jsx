@@ -1,35 +1,24 @@
-import { useQuery } from "react-query";
-import { getAllChat } from "../../../services/chatAPI";
 import { getChatName, getChatImg } from "../../../utils/getChatInfo";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 import { getTimeDifference } from "../../../utils/getTimeDifference";
 import useChatCreationStore from "../../../components/state/useChatCreationStore";
 
-const GetAllChat = () => {
-  const searchTermChat = useChatCreationStore((state) => state.searchTermChat);
+const GetAllChat = ({ chatInfo }) => {
   const isMobileScreen = useMediaQuery({ maxWidth: 548 });
-  const queryKey = ["getAllChat", searchTermChat];
-  const {
-    data: chatInfo,
-    isLoading,
-    error,
-    isFetching,
-  } = useQuery(queryKey, () => getAllChat(searchTermChat));
+  const searchTermChat = useChatCreationStore((state) => state.searchTermChat);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const renderChats =
+    searchTermChat !== ""
+      ? chatInfo.chats.filter((data) =>
+          data.name.toLowerCase().includes(searchTermChat.toLowerCase())
+        )
+      : chatInfo.chats;
 
-  if (error) {
-    return <div>Error fetching data: {error.message}</div>;
-  }
-
-  console.log(chatInfo);
   return (
     <div className="relative text-neutral-700 dark:text-neutral-300 overflow-y-auto h-full">
       <div>
-        {chatInfo.chats.map((data) => (
+        {renderChats.map((data) => (
           <Link key={data._id} to={`/chat/${data._id}`}>
             <div className="flex items-center gap-2 p-4 hover:bg-neutral-300 hover:dark:bg-neutral-700">
               <div className="w-14">

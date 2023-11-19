@@ -5,12 +5,7 @@ import { getInitials } from "../utils/getInitials.mjs";
 export const getAllChat = async (req, res) => {
   try {
     const getUserId = req.user;
-    const { chatName } = req.query;
-
     const baseQuery = { "members.user": getUserId };
-    if (chatName && chatName.trim() !== "") {
-      baseQuery.name = { $regex: chatName, $options: "i" };
-    }
 
     const chats = await Chat.find(baseQuery)
       .populate("members.user", "userProfileImg userProfileImgType")
