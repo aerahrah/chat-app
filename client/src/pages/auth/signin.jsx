@@ -1,15 +1,18 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useState } from "react";
 import { signIn } from "../../services/authAPI";
+import { useMediaQuery } from "react-responsive";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Footer from "../../components/globalComponents/footer";
 import useChatCreationStore from "../../components/state/useChatCreationStore";
 
 const SignIn = () => {
   const { setSearchTermChat } = useChatCreationStore();
   const [errorMessage, setErrorMessage] = useState("");
+  const mdHeight = useMediaQuery({ maxWidth: 480, maxHeight: 620 });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const signInMutation = useMutation(signIn);
@@ -46,7 +49,11 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="bg-blue-50 min-h-screen min-w-screen dark:bg-neutral-900">
+    <div
+      className={`${
+        mdHeight ? "py-6" : ""
+      } relative bg-blue-50 min-h-screen min-w-screen dark:bg-neutral-900`}
+    >
       <div className="grid grid-cols-1 md:grid-cols-2   justify-items-center place-items-center min-h-screen mx-auto md:max-w-[986px] px-4 gap-10">
         <div className="self-end md:self-center text-center md:text-start max-w-lg">
           <div className=" flex flex-col md:gap-8">
@@ -99,7 +106,7 @@ const SignIn = () => {
           </Link>
 
           <div className="relative">
-            <hr className="h-[1px] mb-3 bg-gray-300" />
+            <hr className="h-[1px] md:mb-2 bg-gray-300" />
             <p className="absolute text-center w-full text-base text-red-500">
               {errorMessage}
             </p>
@@ -114,6 +121,7 @@ const SignIn = () => {
           </div>
         </form>
       </div>
+      <Footer />
     </div>
   );
 };

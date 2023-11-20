@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import * as yup from "yup";
+import Footer from "../../components/globalComponents/footer.jsx";
 
 const SignUp = () => {
   const signUpMutation = useMutation(signUp);
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const lgHeight = useMediaQuery({ minHeight: 730, maxHeight: 800 });
+  const mdHeight = useMediaQuery({ maxWidth: 480, maxHeight: 730 });
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -50,7 +54,11 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="bg-blue-50 min-h-screen min-w-screen dark:bg-neutral-900">
+    <div
+      className={`${
+        lgHeight ? "py-8" : mdHeight ? "py-14" : ""
+      } relative bg-blue-50 min-h-screen min-w-screen dark:bg-neutral-900`}
+    >
       <div className="grid grid-cols-1 md:grid-cols-2   justify-items-center place-items-center min-h-screen mx-auto md:max-w-[986px] px-4 gap-10">
         <div className="self-end md:self-center text-center md:text-start max-w-lg">
           <div className=" flex flex-col gap-4  md:gap-8">
@@ -151,7 +159,7 @@ const SignUp = () => {
             </Link>
           </div>
           <div className="relative">
-            <hr className="h-[1px] mb-3 bg-gray-300" />
+            <hr className="h-[1px] md:mb-2 bg-gray-300" />
             <p className="absolute text-center w-full text-base text-green-500">
               {message}
             </p>
@@ -167,6 +175,7 @@ const SignUp = () => {
             />
           </div>
         </form>
+        <Footer />
       </div>
     </div>
   );
