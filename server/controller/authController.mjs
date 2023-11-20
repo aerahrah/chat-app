@@ -159,10 +159,6 @@ export const updateUserImage = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (userImgType === "initials") {
-      userImg = getInitials(firstName);
-    }
-
     user.userProfileImg = userImg || user.userProfileImg;
     user.userProfileImgType = userImgType || user.userProfileImgType;
 

@@ -6,11 +6,18 @@ import {
   avatarsNeutral,
   funAvatar,
 } from "../../../../../utils/getAvatarsDetails";
-import { adventurer, avataaarsNeutral, funEmoji } from "@dicebear/collection";
+import {
+  adventurer,
+  avataaarsNeutral,
+  funEmoji,
+  initials,
+} from "@dicebear/collection";
 import { useMemo } from "react";
+import { getInitials } from "../../../../../utils/getInitials";
 import { motion } from "framer-motion";
 
-const LoadImgOption = ({ theme, setStateChatData }) => {
+const LoadImgOption = ({ theme, chatInitials, setStateChatData }) => {
+  const singleArrayInitial = [getInitials(chatInitials)];
   const adventurerAvatars = useMemo(
     () => generateAvatars(adventurerAvatar, adventurer, "adventurer"),
     [adventurerAvatar]
@@ -24,6 +31,11 @@ const LoadImgOption = ({ theme, setStateChatData }) => {
     () => generateAvatars(funAvatar, funEmoji, "fun-emoji"),
     [funAvatar]
   );
+
+  const initialsAvatar = useMemo(
+    () => generateAvatars(singleArrayInitial, initials, "initials"),
+    [funAvatar]
+  );
   return (
     <div>
       <motion.div
@@ -32,6 +44,14 @@ const LoadImgOption = ({ theme, setStateChatData }) => {
         } my-4 h-full max-h-[360px] p-2 rounded-md overflow-hidden`}
       >
         <div className="h-full  flex flex-col max-h-[330px]  overflow-y-auto gap-6">
+          <div>
+            <h2 className="font-semibold mb-2">Initials Avatar</h2>
+            <AvatarOptions
+              avatars={initialsAvatar}
+              setChatData={setStateChatData}
+              type="groupChatImage"
+            />
+          </div>
           <div>
             <h2 className="font-semibold mb-2">Adventurer Avatars</h2>
             <AvatarOptions

@@ -16,6 +16,7 @@ const EditChatImgBtn = ({
   const editChatImageMutation = useMutation(editChatImage);
   const [stateChatData, setStateChatData] = useState(() => chatData.chat);
 
+  console.log(stateChatData);
   const handleChangeChatImage = async () => {
     try {
       await editChatImageMutation.mutateAsync({
@@ -47,7 +48,11 @@ const EditChatImgBtn = ({
         />
       </div>
       <div className="mb-4">
-        <LoadImgOption theme={theme} setStateChatData={setStateChatData} />
+        <LoadImgOption
+          theme={theme}
+          chatInitials={stateChatData.name}
+          setStateChatData={setStateChatData}
+        />
       </div>
       <BtnPanelComponent
         closeModal={toggleEditChatImage}

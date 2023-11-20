@@ -6,9 +6,15 @@ import {
 import AvatarOptions, {
   generateAvatars,
 } from "../../../../components/globalComponents/loadAvatarOptions";
-import { adventurer, avataaarsNeutral, funEmoji } from "@dicebear/collection";
+import {
+  adventurer,
+  avataaarsNeutral,
+  funEmoji,
+  initials,
+} from "@dicebear/collection";
 import { motion } from "framer-motion";
 import { useQueryClient, useMutation } from "react-query";
+import { getInitials } from "../../../../utils/getInitials";
 import { useState } from "react";
 import { useMemo } from "react";
 import { updateUserImage } from "../../../../services/authAPI";
@@ -19,6 +25,8 @@ const EditImage = ({ userData, setUserData, isEditImgOpen, theme }) => {
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const singleArrayInitial = [getInitials(userData.firstName)];
+  console.log(userData);
   const adventurerAvatars = useMemo(
     () => generateAvatars(adventurerAvatar, adventurer, "adventurer"),
     [adventurerAvatar]
@@ -32,7 +40,10 @@ const EditImage = ({ userData, setUserData, isEditImgOpen, theme }) => {
     () => generateAvatars(funAvatar, funEmoji, "fun-emoji"),
     [funAvatar]
   );
-
+  const initialsAvatar = useMemo(
+    () => generateAvatars(singleArrayInitial, initials, "initials"),
+    [funAvatar]
+  );
   const handleUpdateUserImage = async () => {
     try {
       const updatedUserImage = await updateUserImageMutation.mutateAsync(
@@ -70,26 +81,34 @@ const EditImage = ({ userData, setUserData, isEditImgOpen, theme }) => {
             } h-full p-2 flex flex-col max-h-[300px] rounded overflow-y-auto gap-6`}
           >
             <div>
+              <h2 className="font-semibold mb-2">Initials Avatar</h2>
+              <AvatarOptions
+                avatars={initialsAvatar}
+                setUserData={setUserData}
+                type="userImage"
+              />
+            </div>
+            <div>
               <h2 className="font-semibold mb-2">Adventurer Avatars</h2>
               <AvatarOptions
-                setUserData={setUserData}
                 avatars={adventurerAvatars}
+                setUserData={setUserData}
                 type="userImage"
               />
             </div>
             <div>
               <h2 className="font-semibold mb-2">Neutral Avatars</h2>
               <AvatarOptions
-                setUserData={setUserData}
                 avatars={neutralAvatars}
+                setUserData={setUserData}
                 type="userImage"
               />
             </div>
             <div>
               <h2 className="font-semibold mb-2">Fun Avatars</h2>
               <AvatarOptions
-                setUserData={setUserData}
                 avatars={funAvatars}
+                setUserData={setUserData}
                 type="userImage"
               />
             </div>
