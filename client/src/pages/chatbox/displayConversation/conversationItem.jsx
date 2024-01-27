@@ -26,7 +26,7 @@ const ConversationItem = ({ message, chatData, userId }) => {
     findPinnedMessageId = chatData.chat.pinMessages.find(
       (data) => data.pinMessage === message._id
     );
-    console.log("hello", findPinnedMessageId);
+  
   }
   return (
     <div

@@ -26,7 +26,7 @@ const EditImage = ({ userData, setUserData, isEditImgOpen, theme }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const singleArrayInitial = [getInitials(userData.firstName)];
-  console.log(userData);
+
   const adventurerAvatars = useMemo(
     () => generateAvatars(adventurerAvatar, adventurer, "adventurer"),
     [adventurerAvatar]

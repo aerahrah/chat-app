@@ -22,7 +22,7 @@ const PinMessage = ({
         chatId,
         pinMessageId: messageId,
       });
-      console.log(response);
+   
       queryClient.invalidateQueries("getConversation");
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ const PinMessage = ({
         pinMessageId: messageId,
       });
       queryClient.invalidateQueries("getConversation");
-      console.log(response);
+    
     } catch (error) {
       console.log(error);
     }

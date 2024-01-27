@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3500/auth";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -7,8 +7,8 @@ const getToken = () => {
 export const signUp = async (userInfo) => {
   try {
     const { email, username, password, firstName, lastName } = userInfo;
-    console.log(email, username, password, firstName, lastName);
-    const response = await fetch(`${BASE_URL}/signup`, {
+
+    const response = await fetch(`${BASE_URL}auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, username, password, firstName, lastName }),
@@ -29,7 +29,7 @@ export const signUp = async (userInfo) => {
 export const signIn = async (userInfo) => {
   try {
     const { identifier, password } = userInfo;
-    const response = await fetch(`${BASE_URL}/signin`, {
+    const response = await fetch(`${BASE_URL}auth/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,13 +49,12 @@ export const signIn = async (userInfo) => {
 };
 
 export const getAllUsers = async (userName) => {
-  console.log(userName);
   try {
     if (!userName) {
       return [];
     }
 
-    const url = `${BASE_URL}?name=${encodeURIComponent(userName)}`;
+    const url = `${BASE_URL}auth?name=${encodeURIComponent(userName)}`;
 
     const response = await fetch(url, {
       method: "GET",
@@ -71,7 +70,7 @@ export const getAllUsers = async (userName) => {
 
 export const getUserProfile = async () => {
   try {
-    const url = `${BASE_URL}/user`;
+    const url = `${BASE_URL}auth/user`;
 
     const response = await fetch(url, {
       method: "GET",
@@ -80,7 +79,7 @@ export const getUserProfile = async () => {
         Authorization: `Bearer ${getToken()}`,
       },
     });
-    console.log(response);
+
     return response.json();
   } catch (error) {
     console.log(error);
@@ -90,8 +89,8 @@ export const getUserProfile = async () => {
 export const updateUserInfo = async (userInfo) => {
   try {
     const { username, email, firstName, lastName } = userInfo;
-    const url = `${BASE_URL}/user/update-info`;
-    console.log(userInfo);
+    const url = `${BASE_URL}auth/user/update-info`;
+
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
@@ -120,8 +119,8 @@ export const updateUserInfo = async (userInfo) => {
 export const updateUserImage = async (userInfo) => {
   try {
     const { userImg, userImgType } = userInfo;
-    const url = `${BASE_URL}/user/update-userimg`;
-    console.log(userInfo);
+    const url = `${BASE_URL}auth/user/update-userimg`;
+
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
@@ -148,8 +147,8 @@ export const updateUserImage = async (userInfo) => {
 export const updateUserPassword = async (userInfo) => {
   try {
     const { currentPassword, newPassword, confirmPassword } = userInfo;
-    const url = `${BASE_URL}/user/update-password`;
-    console.log(userInfo);
+    const url = `${BASE_URL}auth/user/update-password`;
+
     const response = await fetch(url, {
       method: "PATCH",
       headers: {

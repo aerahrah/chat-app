@@ -13,7 +13,6 @@ const RemovePinMessage = ({ chatId, theme, pinMessageId }) => {
         pinMessageId,
       });
       queryClient.invalidateQueries("getConversation");
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

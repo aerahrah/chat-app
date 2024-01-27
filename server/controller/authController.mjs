@@ -1,4 +1,4 @@
-import Users from "../models/user.mjs";
+import Users from "../models/User.mjs";
 import { Chat } from "../models/Chat.mjs";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";

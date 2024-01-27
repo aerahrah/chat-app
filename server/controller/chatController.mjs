@@ -1,5 +1,5 @@
 import { Chat, Message, PinMessage } from "../models/Chat.mjs";
-import Users from "../models/user.mjs";
+import Users from "../models/User.mjs";
 import { getInitials } from "../utils/getInitials.mjs";
 
 export const getAllChat = async (req, res) => {

@@ -11,7 +11,6 @@ const MessageComposer = ({ chatData, chatId, userId }) => {
   const queryClient = useQueryClient();
   const [message, setMessage] = useState("");
 
-  console.log(chatData.chat.defaultEmojis);
   const handleSendMessage = async () => {
     try {
       const response = await sendMessageMutation.mutateAsync({

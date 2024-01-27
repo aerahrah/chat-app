@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3500/chat";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -6,7 +6,7 @@ const getToken = () => {
 
 export const getAllChat = async () => {
   try {
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${BASE_URL}chat`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,8 +22,7 @@ export const getAllChat = async () => {
 
 export const getChatConversation = async (chatId) => {
   try {
-    console.log(chatId);
-    const response = await fetch(`${BASE_URL}/${chatId}`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,10 +39,9 @@ export const getChatConversation = async (chatId) => {
 export const createGroupChat = async (chatName) => {
   try {
     if (!chatName) {
-      console.log("No chat name");
       return null;
     }
-    const response = await fetch(`${BASE_URL}/group`, {
+    const response = await fetch(`${BASE_URL}chat/group`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +57,7 @@ export const createGroupChat = async (chatName) => {
 
 export const createPrivateChat = async (userNameId) => {
   try {
-    const response = await fetch(`${BASE_URL}/private`, {
+    const response = await fetch(`${BASE_URL}chat/private`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +75,7 @@ export const createPrivateChat = async (userNameId) => {
 
 export const sendMessage = async ({ chatId, content }) => {
   try {
-    const response = await fetch(`${BASE_URL}/${chatId}`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +83,7 @@ export const sendMessage = async ({ chatId, content }) => {
       },
       body: JSON.stringify({ content }),
     });
-    console.log(response);
+
     return response.json();
   } catch (error) {
     console.log(error);
@@ -96,7 +94,7 @@ export const sendMessage = async ({ chatId, content }) => {
 export const createPinMessage = async ({ chatId, pinMessageId }) => {
   try {
     console.log(pinMessageId);
-    const response = await fetch(`${BASE_URL}/${chatId}/add-pin-message`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}/add-pin-message`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +102,7 @@ export const createPinMessage = async ({ chatId, pinMessageId }) => {
       },
       body: JSON.stringify({ pinMessageId }),
     });
-    console.log(response);
+
     return response.json();
   } catch (error) {
     console.log(error);
@@ -114,16 +112,18 @@ export const createPinMessage = async ({ chatId, pinMessageId }) => {
 
 export const removePinMessage = async ({ chatId, pinMessageId }) => {
   try {
-    console.log("remove", pinMessageId);
-    const response = await fetch(`${BASE_URL}/${chatId}/remove-pin-message`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
-      },
-      body: JSON.stringify({ pinMessageId }),
-    });
-    console.log(response);
+    const response = await fetch(
+      `${BASE_URL}chat/${chatId}/remove-pin-message`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify({ pinMessageId }),
+      }
+    );
+
     return response.json();
   } catch (error) {
     console.log(error);
@@ -137,14 +137,17 @@ export const editChatMemberNickname = async ({
   nickname,
 }) => {
   try {
-    const response = await fetch(`${BASE_URL}/${chatId}/edit-member-nickname`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
-      },
-      body: JSON.stringify({ memberId, nickname }),
-    });
+    const response = await fetch(
+      `${BASE_URL}chat/${chatId}/edit-member-nickname`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify({ memberId, nickname }),
+      }
+    );
 
     return response.json();
   } catch (error) {
@@ -155,8 +158,7 @@ export const editChatMemberNickname = async ({
 
 export const editChatName = async ({ chatId, chatName }) => {
   try {
-    console.log(chatName);
-    const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-name`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}/edit-chat-name`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -175,7 +177,7 @@ export const editChatName = async ({ chatId, chatName }) => {
 export const editChatImage = async ({ chatId, stateChatData }) => {
   try {
     const { chatImg, chatImgType } = stateChatData;
-    const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-image`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}/edit-chat-image`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -193,9 +195,7 @@ export const editChatImage = async ({ chatId, stateChatData }) => {
 
 export const addChatMember = async ({ chatId, userNameId }) => {
   try {
-    console.log(userNameId);
-
-    const response = await fetch(`${BASE_URL}/${chatId}/add-member`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}/add-member`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -213,8 +213,7 @@ export const addChatMember = async ({ chatId, userNameId }) => {
 
 export const removeChatMember = async ({ chatId, memberId }) => {
   try {
-    console.log(chatId, memberId);
-    const response = await fetch(`${BASE_URL}/${chatId}/remove-member`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}/remove-member`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -232,7 +231,7 @@ export const removeChatMember = async ({ chatId, memberId }) => {
 
 export const leaveGroupChat = async ({ chatId }) => {
   try {
-    const response = await fetch(`${BASE_URL}/${chatId}/leave-group`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}/leave-group`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -240,7 +239,6 @@ export const leaveGroupChat = async ({ chatId }) => {
       },
     });
 
-    console.log(response);
     return response.json();
   } catch (error) {
     console.log(error);
@@ -250,14 +248,17 @@ export const leaveGroupChat = async ({ chatId }) => {
 
 export const editColorTheme = async ({ chatId, colorTheme }) => {
   try {
-    const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-colortheme`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
-      },
-      body: JSON.stringify({ colorTheme }),
-    });
+    const response = await fetch(
+      `${BASE_URL}chat/${chatId}/edit-chat-colortheme`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify({ colorTheme }),
+      }
+    );
 
     return response.json();
   } catch (error) {
@@ -268,7 +269,7 @@ export const editColorTheme = async ({ chatId, colorTheme }) => {
 
 export const editChatEmoji = async ({ chatId, newEmoji }) => {
   try {
-    const response = await fetch(`${BASE_URL}/${chatId}/edit-chat-emoji`, {
+    const response = await fetch(`${BASE_URL}chat/${chatId}/edit-chat-emoji`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

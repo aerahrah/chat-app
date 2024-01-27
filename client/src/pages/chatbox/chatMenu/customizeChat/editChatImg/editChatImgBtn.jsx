@@ -16,7 +16,6 @@ const EditChatImgBtn = ({
   const editChatImageMutation = useMutation(editChatImage);
   const [stateChatData, setStateChatData] = useState(() => chatData.chat);
 
-  console.log(stateChatData);
   const handleChangeChatImage = async () => {
     try {
       await editChatImageMutation.mutateAsync({

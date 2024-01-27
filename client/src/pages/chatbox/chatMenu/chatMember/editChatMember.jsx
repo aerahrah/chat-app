@@ -5,7 +5,7 @@ import AddChatMember from "./addChatMember";
 
 const EditChatMember = ({ chatData, isChatMembersOpen }) => {
   const [addChatMemberOpen, setAddChatMemberOpen] = useState(false);
-  console.log(chatData.chat._id);
+ 
   const toggleAddChatMember = () => {
     return setAddChatMemberOpen(!addChatMemberOpen);
   };
